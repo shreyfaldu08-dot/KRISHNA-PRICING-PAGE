@@ -31,14 +31,14 @@ export interface PricingData {
   customProducts: ProductRate[];
   note: string;
   terms: string;
-  templateId: "minimal-obsidian" | "porcelain-light" | "nordic-slate" | "custom-image";
+  templateId: "champagne-gold" | "sunrise-warmth" | "emerald-breeze" | "custom-image";
   customBgUrl?: string;
   customLogoUrl?: string;
 }
 
 export const INITIAL_PRICING_DATA: PricingData = {
   businessName: "K.O.M. EDIBLE OILS",
-  tagline: "Pure Edible Oils • Daily Wholesale Rates",
+  tagline: "Pure Quality Edible Oils • Daily Wholesale Rates",
   phone: "+91 98765 43210",
   city: "Rajkot, Gujarat",
   date: "2026-11-02",
@@ -53,7 +53,7 @@ export const INITIAL_PRICING_DATA: PricingData = {
     bottlePrice: "140",
   },
   customProducts: [],
-  note: "Rates valid for today only. Ex-mill / ready delivery.",
-  terms: "Payment within 48 hours • Taxes applicable as per GST norms",
-  templateId: "minimal-obsidian",
+  note: "Rates valid for today only. Ready stock / Ex-mill delivery.",
+  terms: "Payment within 48 hours • GST applicable as per norms",
+  templateId: "champagne-gold",
 };

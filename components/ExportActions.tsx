@@ -49,7 +49,7 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
       });
 
       const dateStr = data.date || new Date().toISOString().split("T")[0];
-      const fileName = `Oil_Rates_${dateStr}.png`;
+      const fileName = `Daily_Oil_Rates_${dateStr}.png`;
 
       const link = document.createElement("a");
       link.download = fileName;
@@ -57,8 +57,8 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
       link.click();
 
       confetti({
-        particleCount: 40,
-        spread: 50,
+        particleCount: 50,
+        spread: 60,
         origin: { y: 0.8 },
       });
     } catch (err) {
@@ -102,7 +102,6 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
     }
   };
 
-  // Build WhatsApp Broadcast text with 5L Can
   const generateBroadcastText = () => {
     let text = `📦 *${data.businessName || "K.O.M. EDIBLE OILS"}*\n`;
     if (data.tagline) text += `_${data.tagline}_\n`;
@@ -162,40 +161,41 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
   };
 
   return (
-    <div className="bg-[#121215] rounded-3xl p-6 shadow-xl border border-neutral-800 space-y-4">
+    <div className="bg-white rounded-3xl p-6 shadow-xl shadow-slate-200/50 border border-slate-200/80 space-y-4">
       <div className="flex items-center justify-between">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-            <span className="text-[10px] font-bold tracking-widest uppercase text-neutral-400">
-              Export Actions
+            <span className="w-2 h-2 rounded-full bg-emerald-500" />
+            <span className="text-[10px] font-bold tracking-widest uppercase text-slate-500">
+              Export & Share
             </span>
           </div>
-          <h3 className="text-base font-bold text-white tracking-tight">
-            Download & Broadcast
+          <h3 className="text-base font-black text-slate-900 tracking-tight">
+            Download Image Card
           </h3>
         </div>
-        <span className="text-[10px] font-bold tracking-wider uppercase px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+        <span className="text-[10px] font-bold tracking-wider uppercase px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
           Ready
         </span>
       </div>
 
-      {/* Main Download Button */}
+      {/* Main Download Buttons */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {/* Gradient Download Button */}
         <button
           type="button"
           onClick={handleDownloadImage}
           disabled={downloading}
-          className="w-full flex items-center justify-center gap-2 py-3 px-5 rounded-2xl bg-white hover:bg-neutral-100 text-neutral-950 font-bold text-xs tracking-wide uppercase transition active:scale-[0.98] disabled:opacity-70 cursor-pointer shadow-sm"
+          className="w-full flex items-center justify-center gap-2 py-3.5 px-5 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-yellow-500 hover:from-amber-600 hover:to-orange-600 text-white font-black text-xs tracking-wide uppercase transition shadow-lg shadow-orange-500/20 active:scale-[0.98] disabled:opacity-70 cursor-pointer"
         >
           {downloading ? (
             <>
-              <Loader2 className="w-4 h-4 animate-spin text-neutral-950" />
+              <Loader2 className="w-4 h-4 animate-spin text-white" />
               <span>Generating...</span>
             </>
           ) : (
             <>
-              <Download className="w-4 h-4 text-neutral-950" />
+              <Download className="w-4 h-4 text-white" />
               <span>Download Image (PNG)</span>
             </>
           )}
@@ -206,7 +206,7 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
           type="button"
           onClick={handleCopyImage}
           disabled={copyingImage}
-          className="w-full flex items-center justify-center gap-2 py-3 px-5 rounded-2xl bg-neutral-800 hover:bg-neutral-700 text-white font-bold text-xs tracking-wide uppercase transition active:scale-[0.98] disabled:opacity-70 cursor-pointer border border-neutral-700/60"
+          className="w-full flex items-center justify-center gap-2 py-3.5 px-5 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs tracking-wide uppercase transition active:scale-[0.98] disabled:opacity-70 cursor-pointer shadow-md shadow-slate-900/10"
         >
           {copyingImage ? (
             <>
@@ -216,11 +216,11 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
           ) : copiedImage ? (
             <>
               <Check className="w-4 h-4 text-emerald-400" />
-              <span>Copied to Clipboard!</span>
+              <span>Copied!</span>
             </>
           ) : (
             <>
-              <Copy className="w-4 h-4 text-neutral-400" />
+              <Copy className="w-4 h-4 text-slate-300" />
               <span>Copy Image</span>
             </>
           )}
@@ -228,29 +228,29 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
       </div>
 
       {/* WhatsApp & Text Broadcast Buttons */}
-      <div className="pt-2 border-t border-neutral-800/80 grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+      <div className="pt-2 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-3 gap-2.5">
         <button
           type="button"
           onClick={handleShareWhatsApp}
-          className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/30 font-semibold text-xs transition cursor-pointer"
+          className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 font-bold text-xs transition cursor-pointer"
         >
-          <MessageCircle className="w-4 h-4" />
-          <span>WhatsApp Share</span>
+          <MessageCircle className="w-4 h-4 text-emerald-600" />
+          <span>WhatsApp Text</span>
         </button>
 
         <button
           type="button"
           onClick={handleCopyText}
-          className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-neutral-800/80 hover:bg-neutral-800 text-neutral-300 font-semibold text-xs transition cursor-pointer border border-neutral-700/50"
+          className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition cursor-pointer"
         >
           {copiedText ? (
             <>
-              <Check className="w-4 h-4 text-emerald-400" />
+              <Check className="w-4 h-4 text-emerald-600" />
               <span>Text Copied!</span>
             </>
           ) : (
             <>
-              <FileCheck className="w-4 h-4 text-neutral-400" />
+              <FileCheck className="w-4 h-4 text-slate-500" />
               <span>Copy Text</span>
             </>
           )}
@@ -259,16 +259,16 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
         <button
           type="button"
           onClick={handleSaveToHistory}
-          className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-neutral-800/80 hover:bg-neutral-800 text-neutral-300 font-semibold text-xs transition cursor-pointer border border-neutral-700/50"
+          className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 font-bold text-xs transition cursor-pointer"
         >
           {savedHistory ? (
             <>
-              <Check className="w-4 h-4 text-amber-400" />
+              <Check className="w-4 h-4 text-amber-600" />
               <span>Saved!</span>
             </>
           ) : (
             <>
-              <BookmarkPlus className="w-4 h-4 text-amber-400" />
+              <BookmarkPlus className="w-4 h-4 text-amber-600" />
               <span>Save Log</span>
             </>
           )}

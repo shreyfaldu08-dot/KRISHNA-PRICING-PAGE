@@ -6,7 +6,7 @@ import { PricingForm } from "@/components/PricingForm";
 import { PriceCardPreview } from "@/components/PriceCardPreview";
 import { ExportActions } from "@/components/ExportActions";
 import { HistoryModal } from "@/components/HistoryModal";
-import { History } from "lucide-react";
+import { History, Sparkles, Droplets } from "lucide-react";
 
 export default function DailyPricingLandingPage() {
   const [data, setData] = useState<PricingData>(INITIAL_PRICING_DATA);
@@ -86,25 +86,25 @@ export default function DailyPricingLandingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#09090b] text-neutral-200 selection:bg-neutral-100 selection:text-black font-sans">
+    <div className="min-h-screen bg-gradient-to-br from-[#fafafa] via-[#f8fafc] to-[#f5f7fb] text-slate-900 font-sans selection:bg-amber-100 selection:text-amber-950">
       {/* Top Navbar */}
-      <header className="sticky top-0 z-40 bg-[#09090b]/85 backdrop-blur-md border-b border-neutral-800/80">
+      <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-slate-200/80 shadow-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-xl bg-neutral-100 text-black flex items-center justify-center font-black text-sm">
-              K
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-500 via-orange-500 to-yellow-400 text-white flex items-center justify-center font-black text-base shadow-md shadow-orange-500/20">
+              <Droplets className="w-5 h-5 fill-current" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-bold text-white text-sm sm:text-base tracking-tight">
-                  KOM PRICING
+                <span className="font-black text-slate-950 text-base sm:text-lg tracking-tight">
+                  KOM PRICING PORTAL
                 </span>
-                <span className="hidden sm:inline-flex px-2 py-0.5 text-[9px] font-bold uppercase tracking-widest rounded bg-neutral-800 text-neutral-400">
-                  Minimal Portal
+                <span className="hidden sm:inline-flex px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-full bg-gradient-to-r from-amber-50 to-orange-50 text-amber-900 border border-amber-200/80">
+                  Daily Rates
                 </span>
               </div>
-              <p className="text-[10px] text-neutral-500">
-                Groundnut & Cottonseed daily wholesale rates
+              <p className="text-[11px] text-slate-500">
+                Groundnut & Cottonseed daily wholesale price generator
               </p>
             </div>
           </div>
@@ -113,13 +113,13 @@ export default function DailyPricingLandingPage() {
           <div className="flex items-center gap-2 sm:gap-3">
             <button
               onClick={() => setIsHistoryOpen(true)}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-neutral-300 text-xs font-medium border border-neutral-800 transition cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold border border-slate-200 shadow-xs transition cursor-pointer"
               title="View saved price logs"
             >
-              <History className="w-3.5 h-3.5 text-neutral-400" />
+              <History className="w-3.5 h-3.5 text-amber-600" />
               <span>Rate History</span>
               {history.length > 0 && (
-                <span className="px-1.5 py-0.2 rounded-full bg-neutral-700 text-neutral-200 text-[10px] font-semibold">
+                <span className="px-1.5 py-0.2 rounded-full bg-amber-500 text-white text-[10px] font-bold">
                   {history.length}
                 </span>
               )}
@@ -128,59 +128,59 @@ export default function DailyPricingLandingPage() {
         </div>
       </header>
 
-      {/* Hero Banner */}
-      <section className="py-6 border-b border-neutral-800/80 bg-[#0d0d10]">
+      {/* Hero Banner with Soft Ambient Glow */}
+      <section className="py-7 border-b border-slate-200/70 bg-gradient-to-r from-white via-amber-50/20 to-orange-50/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-5">
             <div>
-              <div className="flex items-center gap-2 mb-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                <span className="text-[10px] font-bold tracking-widest uppercase text-neutral-400">
-                  Daily Pricing Engine
-                </span>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r from-amber-100/70 to-orange-100/70 text-amber-900 border border-amber-200/80 mb-2 shadow-xs">
+                <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                Live Daily Wholesale Bulletin
               </div>
-              <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-                Daily Edible Oil Rates
+              <h1 className="text-2xl sm:text-3xl font-black text-slate-950 tracking-tight">
+                Edible Oil Daily Rates Dashboard
               </h1>
-              <p className="text-xs text-neutral-400 mt-1 max-w-xl">
-                Enter today&apos;s Tin, 5L Can, and Bottle prices. Review the clean minimalist card and download high-resolution images for WhatsApp.
+              <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-xl">
+                Enter today&apos;s Tin, 5L Can, and Bottle rates. Check the instant live preview and download high-resolution images ready for WhatsApp dealer broadcasts.
               </p>
             </div>
 
             {/* Quick Rate Indicators */}
             <div className="flex items-center gap-3">
-              <div className="px-4 py-2.5 rounded-xl bg-neutral-900 border border-neutral-800 text-center">
-                <div className="text-[10px] text-neutral-400 uppercase tracking-wider font-semibold">Groundnut Tin</div>
-                <div className="text-base font-bold text-white mt-0.5">
-                  ₹{data.groundnutOil.tinPrice || "—"}
+              <div className="px-5 py-3 rounded-2xl bg-white border border-amber-200/80 shadow-sm text-center">
+                <div className="text-[10px] text-amber-800 uppercase tracking-wider font-bold">Groundnut Tin</div>
+                <div className="text-lg font-black text-slate-950 mt-0.5">
+                  <span className="text-xs text-amber-600 font-bold mr-0.5">₹</span>
+                  {data.groundnutOil.tinPrice || "—"}
                 </div>
               </div>
-              <div className="px-4 py-2.5 rounded-xl bg-neutral-900 border border-neutral-800 text-center">
-                <div className="text-[10px] text-neutral-400 uppercase tracking-wider font-semibold">Cottonseed Tin</div>
-                <div className="text-base font-bold text-white mt-0.5">
-                  ₹{data.cottonSeedOil.tinPrice || "—"}
+              <div className="px-5 py-3 rounded-2xl bg-white border border-emerald-200/80 shadow-sm text-center">
+                <div className="text-[10px] text-emerald-800 uppercase tracking-wider font-bold">Cottonseed Tin</div>
+                <div className="text-lg font-black text-slate-950 mt-0.5">
+                  <span className="text-xs text-emerald-600 font-bold mr-0.5">₹</span>
+                  {data.cottonSeedOil.tinPrice || "—"}
                 </div>
               </div>
             </div>
           </div>
 
           {/* Mobile View Toggle */}
-          <div className="mt-4 flex lg:hidden bg-neutral-900 p-1 rounded-xl border border-neutral-800">
+          <div className="mt-5 flex lg:hidden bg-slate-200/70 p-1 rounded-xl">
             <button
               onClick={() => setActiveTab("form")}
-              className={`flex-1 py-1.5 text-xs font-semibold rounded-lg transition cursor-pointer ${
-                activeTab === "form" ? "bg-white text-black" : "text-neutral-400 hover:text-white"
+              className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition cursor-pointer ${
+                activeTab === "form" ? "bg-white text-slate-950 shadow-xs" : "text-slate-600 hover:text-slate-950"
               }`}
             >
-              1. Edit Rates
+              1. Edit Pricing
             </button>
             <button
               onClick={() => setActiveTab("preview")}
-              className={`flex-1 py-1.5 text-xs font-semibold rounded-lg transition cursor-pointer ${
-                activeTab === "preview" ? "bg-white text-black" : "text-neutral-400 hover:text-white"
+              className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition cursor-pointer ${
+                activeTab === "preview" ? "bg-white text-slate-950 shadow-xs" : "text-slate-600 hover:text-slate-950"
               }`}
             >
-              2. Preview & Export
+              2. Preview & Download
             </button>
           </div>
         </div>
@@ -189,7 +189,7 @@ export default function DailyPricingLandingPage() {
       {/* Main Workspace */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Left Column: Form */}
+          {/* Left Column: Input Form */}
           <div
             className={`lg:col-span-6 space-y-6 ${
               activeTab === "preview" ? "hidden lg:block" : "block"
@@ -216,16 +216,16 @@ export default function DailyPricingLandingPage() {
             />
 
             {/* Live Preview Container */}
-            <div className="bg-[#121215] rounded-3xl p-4 sm:p-6 border border-neutral-800 shadow-xl">
+            <div className="bg-white rounded-3xl p-4 sm:p-6 border border-slate-200/80 shadow-xl shadow-slate-200/40">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 rounded-full bg-emerald-400" />
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-400">
-                    Live Minimalist Card Preview
+                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="text-xs font-bold uppercase tracking-wider text-slate-700">
+                    Live Image Preview
                   </span>
                 </div>
-                <span className="text-[10px] text-neutral-500">
-                  Exact Export Render
+                <span className="text-[11px] text-slate-500 font-medium">
+                  Exact Image Render on Download
                 </span>
               </div>
 
@@ -236,7 +236,7 @@ export default function DailyPricingLandingPage() {
                 </div>
               </div>
 
-              <p className="text-center text-[10px] text-neutral-500 mt-3">
+              <p className="text-center text-[11px] text-slate-500 mt-3 font-medium">
                 💡 High-resolution image generated at 2.5x retina clarity for crisp viewing on mobile & WhatsApp.
               </p>
             </div>
@@ -253,13 +253,13 @@ export default function DailyPricingLandingPage() {
         onClear={handleClearHistory}
       />
 
-      {/* Footer */}
-      <footer className="mt-20 border-t border-neutral-800 py-6 bg-[#070709]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500">
+      {/* Clean Light Footer */}
+      <footer className="mt-20 border-t border-slate-200/80 py-6 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 font-medium">
           <div>
-            © 2026 {data.businessName || "KOM Edible Oils"}. Clean Minimal Design.
+            © 2026 {data.businessName || "KOM Edible Oils"}. Light Theme with Warm Gradients.
           </div>
-          <div className="flex items-center gap-4 text-neutral-400">
+          <div className="flex items-center gap-4 text-slate-600">
             <span>Offline-Ready • Retina PNG Export • 5L Can Support</span>
           </div>
         </div>

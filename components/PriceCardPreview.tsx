@@ -2,7 +2,7 @@
 
 import React, { forwardRef } from "react";
 import { PricingData } from "@/types/pricing";
-import { Calendar, Phone, MapPin, ShieldCheck } from "lucide-react";
+import { Phone, MapPin, Sparkles, ShieldCheck } from "lucide-react";
 
 interface PriceCardPreviewProps {
   data: PricingData;
@@ -30,76 +30,72 @@ export const PriceCardPreview = forwardRef<HTMLDivElement, PriceCardPreviewProps
       return dateStr;
     };
 
-    // Clean & Premium Minimal Themes
+    // Light Theme Gradient Designs
     const themes = {
-      "minimal-obsidian": {
-        cardBg: "bg-[#0c0c0e]",
-        cardBorder: "border border-neutral-800 shadow-2xl",
-        textPrimary: "text-neutral-100",
-        textSecondary: "text-neutral-400",
-        textMuted: "text-neutral-500",
-        accent: "text-amber-400",
-        accentBadge: "bg-amber-400/10 text-amber-300 border-amber-400/20",
-        sectionBg: "bg-[#141418] border border-neutral-800/80",
-        itemBg: "bg-[#0f0f13] border border-neutral-800/60",
-        itemLabel: "text-neutral-400",
-        priceText: "text-white",
-        currencyText: "text-amber-400/80",
-        divider: "border-neutral-800",
-        footerBg: "bg-[#09090b] border-t border-neutral-800/80",
+      "champagne-gold": {
+        cardBg: "bg-white",
+        cardBorder: "border border-amber-200/80 shadow-2xl shadow-amber-950/10",
+        topBanner: "bg-gradient-to-r from-amber-500 via-yellow-400 to-orange-500",
+        badgeBg: "bg-gradient-to-r from-amber-50 to-yellow-50 text-amber-800 border-amber-200",
+        sectionBg: "bg-gradient-to-br from-amber-50/50 via-white to-amber-50/20 border-amber-200/70",
+        sectionHeaderBg: "bg-gradient-to-r from-amber-100/60 to-transparent",
+        itemCardBg: "bg-white border-amber-200/70 shadow-sm",
+        itemLabel: "text-amber-800/80 font-bold",
+        priceColor: "text-slate-900",
+        currencyColor: "text-amber-600 font-bold",
+        tagColor: "bg-amber-100/80 text-amber-900 border-amber-300/60",
+        footerBg: "bg-gradient-to-r from-amber-50/60 via-slate-50 to-amber-50/60 border-amber-200/60",
+        numberBadge: "bg-amber-500 text-white",
       },
-      "porcelain-light": {
-        cardBg: "bg-[#ffffff]",
-        cardBorder: "border border-neutral-200 shadow-xl",
-        textPrimary: "text-neutral-900",
-        textSecondary: "text-neutral-600",
-        textMuted: "text-neutral-400",
-        accent: "text-neutral-900",
-        accentBadge: "bg-neutral-100 text-neutral-800 border-neutral-300",
-        sectionBg: "bg-[#fafafa] border border-neutral-200",
-        itemBg: "bg-white border border-neutral-200/90 shadow-sm",
-        itemLabel: "text-neutral-500",
-        priceText: "text-neutral-950",
-        currencyText: "text-neutral-600",
-        divider: "border-neutral-200",
-        footerBg: "bg-[#f4f4f5] border-t border-neutral-200",
+      "sunrise-warmth": {
+        cardBg: "bg-white",
+        cardBorder: "border border-orange-200/80 shadow-2xl shadow-orange-950/10",
+        topBanner: "bg-gradient-to-r from-orange-500 via-rose-500 to-amber-500",
+        badgeBg: "bg-gradient-to-r from-orange-50 to-rose-50 text-orange-800 border-orange-200",
+        sectionBg: "bg-gradient-to-br from-orange-50/50 via-white to-rose-50/20 border-orange-200/70",
+        sectionHeaderBg: "bg-gradient-to-r from-orange-100/60 to-transparent",
+        itemCardBg: "bg-white border-orange-200/70 shadow-sm",
+        itemLabel: "text-orange-800/80 font-bold",
+        priceColor: "text-slate-900",
+        currencyColor: "text-orange-600 font-bold",
+        tagColor: "bg-orange-100/80 text-orange-900 border-orange-300/60",
+        footerBg: "bg-gradient-to-r from-orange-50/60 via-slate-50 to-orange-50/60 border-orange-200/60",
+        numberBadge: "bg-orange-500 text-white",
       },
-      "nordic-slate": {
-        cardBg: "bg-[#18181b]",
-        cardBorder: "border border-zinc-700/60 shadow-2xl",
-        textPrimary: "text-zinc-100",
-        textSecondary: "text-zinc-400",
-        textMuted: "text-zinc-500",
-        accent: "text-cyan-400",
-        accentBadge: "bg-cyan-500/10 text-cyan-300 border-cyan-400/20",
-        sectionBg: "bg-[#202025] border border-zinc-700/50",
-        itemBg: "bg-[#161619] border border-zinc-800",
-        itemLabel: "text-zinc-400",
-        priceText: "text-white",
-        currencyText: "text-cyan-400/70",
-        divider: "border-zinc-800",
-        footerBg: "bg-[#131316] border-t border-zinc-800",
+      "emerald-breeze": {
+        cardBg: "bg-white",
+        cardBorder: "border border-emerald-200/80 shadow-2xl shadow-emerald-950/10",
+        topBanner: "bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-400",
+        badgeBg: "bg-gradient-to-r from-emerald-50 to-teal-50 text-emerald-800 border-emerald-200",
+        sectionBg: "bg-gradient-to-br from-emerald-50/50 via-white to-teal-50/20 border-emerald-200/70",
+        sectionHeaderBg: "bg-gradient-to-r from-emerald-100/60 to-transparent",
+        itemCardBg: "bg-white border-emerald-200/70 shadow-sm",
+        itemLabel: "text-emerald-800/80 font-bold",
+        priceColor: "text-slate-900",
+        currencyColor: "text-emerald-600 font-bold",
+        tagColor: "bg-emerald-100/80 text-emerald-900 border-emerald-300/60",
+        footerBg: "bg-gradient-to-r from-emerald-50/60 via-slate-50 to-emerald-50/60 border-emerald-200/60",
+        numberBadge: "bg-emerald-600 text-white",
       },
       "custom-image": {
-        cardBg: "bg-[#0c0c0e]/90 backdrop-blur-md",
-        cardBorder: "border border-neutral-700 shadow-2xl",
-        textPrimary: "text-white",
-        textSecondary: "text-neutral-300",
-        textMuted: "text-neutral-400",
-        accent: "text-amber-400",
-        accentBadge: "bg-amber-400/20 text-amber-300 border-amber-400/30",
-        sectionBg: "bg-black/70 border border-white/10",
-        itemBg: "bg-black/80 border border-white/10",
-        itemLabel: "text-neutral-300",
-        priceText: "text-white",
-        currencyText: "text-amber-300",
-        divider: "border-white/10",
-        footerBg: "bg-black/80 border-t border-white/10",
+        cardBg: "bg-white/95 backdrop-blur-md",
+        cardBorder: "border border-slate-300 shadow-2xl",
+        topBanner: "bg-gradient-to-r from-amber-500 to-orange-500",
+        badgeBg: "bg-amber-100 text-amber-900 border-amber-300",
+        sectionBg: "bg-white/90 border-slate-300",
+        sectionHeaderBg: "bg-slate-100/80",
+        itemCardBg: "bg-white border-slate-200",
+        itemLabel: "text-slate-700 font-bold",
+        priceColor: "text-slate-900",
+        currencyColor: "text-amber-600 font-bold",
+        tagColor: "bg-slate-100 text-slate-800 border-slate-300",
+        footerBg: "bg-slate-100/90 border-slate-200",
+        numberBadge: "bg-slate-800 text-white",
       },
     };
 
-    const currentKey = data.templateId || "minimal-obsidian";
-    const t = themes[currentKey] || themes["minimal-obsidian"];
+    const currentKey = data.templateId || "champagne-gold";
+    const t = themes[currentKey] || themes["champagne-gold"];
 
     return (
       <div
@@ -114,221 +110,239 @@ export const PriceCardPreview = forwardRef<HTMLDivElement, PriceCardPreviewProps
         }}
         className={`mx-auto rounded-3xl overflow-hidden ${
           data.customBgUrl ? "relative" : t.cardBg
-        } ${t.cardBorder} font-sans transition-all`}
+        } ${t.cardBorder} text-slate-900 font-sans transition-all`}
       >
         {/* Custom background overlay */}
         {data.customBgUrl && (
-          <div className="absolute inset-0 bg-black/80 backdrop-blur-[2px] z-0" />
+          <div className="absolute inset-0 bg-white/90 backdrop-blur-[2px] z-0" />
         )}
 
-        <div className="relative z-10 p-7">
-          {/* Header Bar */}
-          <div className="flex items-start justify-between pb-5 border-b border-neutral-800/60">
-            <div>
-              <div className="flex items-center gap-2 mb-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-                <span className="text-[10px] font-bold tracking-widest uppercase text-neutral-400">
-                  Daily Wholesale Market Rates
-                </span>
+        <div className="relative z-10">
+          {/* Top Gradient Ribbon */}
+          <div className={`h-2.5 w-full ${t.topBanner}`} />
+
+          {/* Header Section */}
+          <div className="p-7 pb-4">
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex items-center gap-3">
+                {data.customLogoUrl && (
+                  <img
+                    src={data.customLogoUrl}
+                    alt="Logo"
+                    className="w-14 h-14 object-contain rounded-2xl bg-slate-50 p-1.5 border border-slate-200 shadow-sm"
+                  />
+                )}
+                <div>
+                  <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase border ${t.badgeBg} mb-2 shadow-sm`}>
+                    <Sparkles className="w-3 h-3 text-amber-500" />
+                    DAILY WHOLESALE MARKET RATES
+                  </div>
+                  <h1 className="text-2xl sm:text-3xl font-black tracking-tight uppercase text-slate-950">
+                    {data.businessName || "K.O.M. EDIBLE OILS"}
+                  </h1>
+                  {data.tagline && (
+                    <p className="text-xs text-slate-600 mt-0.5 font-medium">
+                      {data.tagline}
+                    </p>
+                  )}
+                </div>
               </div>
-              <h1 className={`text-2xl font-black tracking-tight uppercase ${t.textPrimary}`}>
-                {data.businessName || "K.O.M. EDIBLE OILS"}
-              </h1>
-              {data.tagline && (
-                <p className={`text-xs mt-0.5 font-medium ${t.textSecondary}`}>
-                  {data.tagline}
-                </p>
+
+              {/* Date Box */}
+              <div className="shrink-0 text-right">
+                <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">
+                  DATE
+                </div>
+                <div className={`px-3.5 py-1.5 rounded-xl border text-xs font-black shadow-sm ${t.badgeBg}`}>
+                  {formatDate(data.date)}
+                </div>
+              </div>
+            </div>
+
+            {/* City & Contact Pill Bar */}
+            <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-600">
+              {data.city && (
+                <div className="flex items-center gap-1.5 font-medium">
+                  <MapPin className="w-3.5 h-3.5 text-amber-600" />
+                  <span>{data.city}</span>
+                </div>
+              )}
+              {data.phone && (
+                <div className="flex items-center gap-1.5 font-bold text-slate-900">
+                  <Phone className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>Call / WhatsApp: {data.phone}</span>
+                </div>
               )}
             </div>
-
-            {/* Date Pill */}
-            <div className="text-right">
-              <div className="text-[10px] font-semibold tracking-wider uppercase text-neutral-400 mb-0.5">
-                Date
-              </div>
-              <div className={`px-3 py-1.5 rounded-xl border text-xs font-bold whitespace-nowrap ${t.accentBadge}`}>
-                {formatDate(data.date)}
-              </div>
-            </div>
           </div>
 
-          {/* Sub Header: City & Contact */}
-          <div className="py-3 flex items-center justify-between text-xs border-b border-neutral-800/40">
-            {data.city && (
-              <div className={`flex items-center gap-1.5 ${t.textSecondary}`}>
-                <MapPin className="w-3.5 h-3.5 opacity-70" />
-                <span>{data.city}</span>
-              </div>
-            )}
-            {data.phone && (
-              <div className={`flex items-center gap-1.5 font-semibold ${t.textPrimary}`}>
-                <Phone className="w-3.5 h-3.5 opacity-80" />
-                <span>{data.phone}</span>
-              </div>
-            )}
-          </div>
-
-          {/* Products Container */}
-          <div className="py-5 space-y-4">
+          {/* Pricing Products Container */}
+          <div className="px-7 py-3 space-y-4">
             {/* 1) GROUNDNUT OIL */}
-            <div className={`rounded-2xl p-4 ${t.sectionBg}`}>
-              <div className="flex items-center justify-between pb-3 mb-3 border-b border-neutral-800/40">
-                <div className="flex items-center gap-2">
-                  <span className="text-sm font-black text-amber-400">01</span>
+            <div className={`rounded-2xl border overflow-hidden ${t.sectionBg} shadow-sm`}>
+              <div className={`px-4 py-2.5 ${t.sectionHeaderBg} flex items-center justify-between border-b border-inherit`}>
+                <div className="flex items-center gap-2.5">
+                  <span className={`w-5 h-5 rounded-lg flex items-center justify-center text-[10px] font-black ${t.numberBadge}`}>
+                    1
+                  </span>
                   <div>
-                    <h2 className={`text-sm font-black uppercase tracking-wider ${t.textPrimary}`}>
+                    <h2 className="text-sm font-black uppercase tracking-wider text-slate-950">
                       Groundnut Oil
                     </h2>
-                    <span className="text-[10px] text-neutral-400 font-medium">સીંગતેલ / मूंगफली तेल</span>
+                    <span className="text-[10px] text-amber-800 font-semibold">સીંગતેલ / मूंगफली तेल</span>
                   </div>
                 </div>
-                <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-md bg-neutral-800/60 text-neutral-300">
-                  Standard Quality
+                <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${t.tagColor}`}>
+                  Premium Grade
                 </span>
               </div>
 
-              {/* 3 Price Columns: Tin, 5L Can, 1L Bottle */}
-              <div className="grid grid-cols-3 gap-2.5">
-                {/* 15 Kg / 15 L Tin */}
-                <div className={`p-3 rounded-xl ${t.itemBg} text-center flex flex-col justify-between`}>
-                  <div className={`text-[10px] font-bold uppercase tracking-wider ${t.itemLabel}`}>
+              {/* 3 Price Cards: Tin, 5L Can, 1L Bottle */}
+              <div className="p-3.5 grid grid-cols-3 gap-3">
+                {/* Tin */}
+                <div className={`p-3 rounded-xl border text-center flex flex-col justify-between ${t.itemCardBg}`}>
+                  <div className={`text-[10px] uppercase tracking-wider ${t.itemLabel}`}>
                     Tin (15 Kg/L)
                   </div>
-                  <div className="my-1.5">
-                    <span className={`text-xs font-bold mr-0.5 ${t.currencyText}`}>₹</span>
-                    <span className={`text-xl font-black tracking-tight ${t.priceText}`}>
+                  <div className="my-2">
+                    <span className={`text-xs mr-0.5 ${t.currencyColor}`}>₹</span>
+                    <span className={`text-2xl font-black tracking-tight ${t.priceColor}`}>
                       {data.groundnutOil.tinPrice || "—"}
                     </span>
                   </div>
-                  <div className="text-[9px] text-neutral-500 uppercase tracking-wider">Per Tin</div>
+                  <div className="text-[9px] text-slate-400 uppercase font-semibold">per tin</div>
                 </div>
 
-                {/* 5 Ltr Can (Changed from 15L to 5L!) */}
-                <div className={`p-3 rounded-xl ${t.itemBg} text-center flex flex-col justify-between`}>
-                  <div className={`text-[10px] font-bold uppercase tracking-wider ${t.itemLabel}`}>
+                {/* 5L Can */}
+                <div className={`p-3 rounded-xl border text-center flex flex-col justify-between ${t.itemCardBg}`}>
+                  <div className={`text-[10px] uppercase tracking-wider ${t.itemLabel}`}>
                     5 Ltr Can
                   </div>
-                  <div className="my-1.5">
-                    <span className={`text-xs font-bold mr-0.5 ${t.currencyText}`}>₹</span>
-                    <span className={`text-xl font-black tracking-tight ${t.priceText}`}>
+                  <div className="my-2">
+                    <span className={`text-xs mr-0.5 ${t.currencyColor}`}>₹</span>
+                    <span className={`text-2xl font-black tracking-tight ${t.priceColor}`}>
                       {data.groundnutOil.canPrice || "—"}
                     </span>
                   </div>
-                  <div className="text-[9px] text-neutral-500 uppercase tracking-wider">Per Can</div>
+                  <div className="text-[9px] text-slate-400 uppercase font-semibold">per can</div>
                 </div>
 
-                {/* 1 Ltr Bottle */}
-                <div className={`p-3 rounded-xl ${t.itemBg} text-center flex flex-col justify-between`}>
-                  <div className={`text-[10px] font-bold uppercase tracking-wider ${t.itemLabel}`}>
+                {/* Bottle */}
+                <div className={`p-3 rounded-xl border text-center flex flex-col justify-between ${t.itemCardBg}`}>
+                  <div className={`text-[10px] uppercase tracking-wider ${t.itemLabel}`}>
                     1 Ltr Bottle
                   </div>
-                  <div className="my-1.5">
-                    <span className={`text-xs font-bold mr-0.5 ${t.currencyText}`}>₹</span>
-                    <span className={`text-xl font-black tracking-tight ${t.priceText}`}>
+                  <div className="my-2">
+                    <span className={`text-xs mr-0.5 ${t.currencyColor}`}>₹</span>
+                    <span className={`text-2xl font-black tracking-tight ${t.priceColor}`}>
                       {data.groundnutOil.bottlePrice || "—"}
                     </span>
                   </div>
-                  <div className="text-[9px] text-neutral-500 uppercase tracking-wider">Per Bottle</div>
+                  <div className="text-[9px] text-slate-400 uppercase font-semibold">per bottle</div>
                 </div>
               </div>
             </div>
 
             {/* 2) COTTONSEED OIL */}
-            <div className={`rounded-2xl p-4 ${t.sectionBg}`}>
-              <div className="flex items-center justify-between pb-3 mb-3 border-b border-neutral-800/40">
-                <div className="flex items-center gap-2">
-                  <span className="text-sm font-black text-emerald-400">02</span>
+            <div className={`rounded-2xl border overflow-hidden ${t.sectionBg} shadow-sm`}>
+              <div className={`px-4 py-2.5 ${t.sectionHeaderBg} flex items-center justify-between border-b border-inherit`}>
+                <div className="flex items-center gap-2.5">
+                  <span className={`w-5 h-5 rounded-lg flex items-center justify-center text-[10px] font-black ${t.numberBadge}`}>
+                    2
+                  </span>
                   <div>
-                    <h2 className={`text-sm font-black uppercase tracking-wider ${t.textPrimary}`}>
+                    <h2 className="text-sm font-black uppercase tracking-wider text-slate-950">
                       Cottonseed Oil
                     </h2>
-                    <span className="text-[10px] text-neutral-400 font-medium">કપાસિયા તેલ / कपासिया</span>
+                    <span className="text-[10px] text-emerald-800 font-semibold">કપાસિયા તેલ / कपासिया</span>
                   </div>
                 </div>
-                <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-md bg-neutral-800/60 text-neutral-300">
+                <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full border ${t.tagColor}`}>
                   Refined Grade
                 </span>
               </div>
 
-              {/* 3 Price Columns: Tin, 5L Can, 1L Bottle */}
-              <div className="grid grid-cols-3 gap-2.5">
-                {/* 15 Kg / 15 L Tin */}
-                <div className={`p-3 rounded-xl ${t.itemBg} text-center flex flex-col justify-between`}>
-                  <div className={`text-[10px] font-bold uppercase tracking-wider ${t.itemLabel}`}>
+              {/* 3 Price Cards: Tin, 5L Can, 1L Bottle */}
+              <div className="p-3.5 grid grid-cols-3 gap-3">
+                {/* Tin */}
+                <div className={`p-3 rounded-xl border text-center flex flex-col justify-between ${t.itemCardBg}`}>
+                  <div className={`text-[10px] uppercase tracking-wider ${t.itemLabel}`}>
                     Tin (15 Kg/L)
                   </div>
-                  <div className="my-1.5">
-                    <span className={`text-xs font-bold mr-0.5 ${t.currencyText}`}>₹</span>
-                    <span className={`text-xl font-black tracking-tight ${t.priceText}`}>
+                  <div className="my-2">
+                    <span className={`text-xs mr-0.5 ${t.currencyColor}`}>₹</span>
+                    <span className={`text-2xl font-black tracking-tight ${t.priceColor}`}>
                       {data.cottonSeedOil.tinPrice || "—"}
                     </span>
                   </div>
-                  <div className="text-[9px] text-neutral-500 uppercase tracking-wider">Per Tin</div>
+                  <div className="text-[9px] text-slate-400 uppercase font-semibold">per tin</div>
                 </div>
 
-                {/* 5 Ltr Can (Changed from 15L to 5L!) */}
-                <div className={`p-3 rounded-xl ${t.itemBg} text-center flex flex-col justify-between`}>
-                  <div className={`text-[10px] font-bold uppercase tracking-wider ${t.itemLabel}`}>
+                {/* 5L Can */}
+                <div className={`p-3 rounded-xl border text-center flex flex-col justify-between ${t.itemCardBg}`}>
+                  <div className={`text-[10px] uppercase tracking-wider ${t.itemLabel}`}>
                     5 Ltr Can
                   </div>
-                  <div className="my-1.5">
-                    <span className={`text-xs font-bold mr-0.5 ${t.currencyText}`}>₹</span>
-                    <span className={`text-xl font-black tracking-tight ${t.priceText}`}>
+                  <div className="my-2">
+                    <span className={`text-xs mr-0.5 ${t.currencyColor}`}>₹</span>
+                    <span className={`text-2xl font-black tracking-tight ${t.priceColor}`}>
                       {data.cottonSeedOil.canPrice || "—"}
                     </span>
                   </div>
-                  <div className="text-[9px] text-neutral-500 uppercase tracking-wider">Per Can</div>
+                  <div className="text-[9px] text-slate-400 uppercase font-semibold">per can</div>
                 </div>
 
-                {/* 1 Ltr Bottle */}
-                <div className={`p-3 rounded-xl ${t.itemBg} text-center flex flex-col justify-between`}>
-                  <div className={`text-[10px] font-bold uppercase tracking-wider ${t.itemLabel}`}>
+                {/* Bottle */}
+                <div className={`p-3 rounded-xl border text-center flex flex-col justify-between ${t.itemCardBg}`}>
+                  <div className={`text-[10px] uppercase tracking-wider ${t.itemLabel}`}>
                     1 Ltr Bottle
                   </div>
-                  <div className="my-1.5">
-                    <span className={`text-xs font-bold mr-0.5 ${t.currencyText}`}>₹</span>
-                    <span className={`text-xl font-black tracking-tight ${t.priceText}`}>
+                  <div className="my-2">
+                    <span className={`text-xs mr-0.5 ${t.currencyColor}`}>₹</span>
+                    <span className={`text-2xl font-black tracking-tight ${t.priceColor}`}>
                       {data.cottonSeedOil.bottlePrice || "—"}
                     </span>
                   </div>
-                  <div className="text-[9px] text-neutral-500 uppercase tracking-wider">Per Bottle</div>
+                  <div className="text-[9px] text-slate-400 uppercase font-semibold">per bottle</div>
                 </div>
               </div>
             </div>
 
-            {/* Additional Custom Products */}
+            {/* Custom Products if added */}
             {data.customProducts && data.customProducts.length > 0 && (
               data.customProducts.map((p, idx) => (
-                <div key={p.id} className={`rounded-2xl p-4 ${t.sectionBg}`}>
-                  <div className="flex items-center justify-between pb-3 mb-3 border-b border-neutral-800/40">
+                <div key={p.id} className={`rounded-2xl border overflow-hidden ${t.sectionBg} shadow-sm`}>
+                  <div className={`px-4 py-2.5 ${t.sectionHeaderBg} flex items-center justify-between border-b border-inherit`}>
                     <div className="flex items-center gap-2">
-                      <span className="text-sm font-black text-neutral-400">0{idx + 3}</span>
-                      <h2 className={`text-sm font-black uppercase tracking-wider ${t.textPrimary}`}>
+                      <span className={`w-5 h-5 rounded-lg flex items-center justify-center text-[10px] font-black ${t.numberBadge}`}>
+                        {idx + 3}
+                      </span>
+                      <h2 className="text-sm font-black uppercase tracking-wider text-slate-950">
                         {p.name}
                       </h2>
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-3 gap-2.5">
-                    <div className={`p-3 rounded-xl ${t.itemBg} text-center`}>
-                      <div className={`text-[10px] font-bold uppercase tracking-wider ${t.itemLabel}`}>Tin</div>
-                      <div className="my-1.5">
-                        <span className={`text-xs font-bold mr-0.5 ${t.currencyText}`}>₹</span>
-                        <span className={`text-xl font-black ${t.priceText}`}>{p.tinPrice || "—"}</span>
+                  <div className="p-3.5 grid grid-cols-3 gap-3">
+                    <div className={`p-3 rounded-xl border text-center ${t.itemCardBg}`}>
+                      <div className={`text-[10px] uppercase tracking-wider ${t.itemLabel}`}>Tin</div>
+                      <div className="my-1.5 font-black text-xl text-slate-900">
+                        <span className={`text-xs mr-0.5 ${t.currencyColor}`}>₹</span>
+                        {p.tinPrice || "—"}
                       </div>
                     </div>
-                    <div className={`p-3 rounded-xl ${t.itemBg} text-center`}>
-                      <div className={`text-[10px] font-bold uppercase tracking-wider ${t.itemLabel}`}>5 Ltr Can</div>
-                      <div className="my-1.5">
-                        <span className={`text-xs font-bold mr-0.5 ${t.currencyText}`}>₹</span>
-                        <span className={`text-xl font-black ${t.priceText}`}>{p.canPrice || "—"}</span>
+                    <div className={`p-3 rounded-xl border text-center ${t.itemCardBg}`}>
+                      <div className={`text-[10px] uppercase tracking-wider ${t.itemLabel}`}>5L Can</div>
+                      <div className="my-1.5 font-black text-xl text-slate-900">
+                        <span className={`text-xs mr-0.5 ${t.currencyColor}`}>₹</span>
+                        {p.canPrice || "—"}
                       </div>
                     </div>
-                    <div className={`p-3 rounded-xl ${t.itemBg} text-center`}>
-                      <div className={`text-[10px] font-bold uppercase tracking-wider ${t.itemLabel}`}>Bottle</div>
-                      <div className="my-1.5">
-                        <span className={`text-xs font-bold mr-0.5 ${t.currencyText}`}>₹</span>
-                        <span className={`text-xl font-black ${t.priceText}`}>{p.bottlePrice || "—"}</span>
+                    <div className={`p-3 rounded-xl border text-center ${t.itemCardBg}`}>
+                      <div className={`text-[10px] uppercase tracking-wider ${t.itemLabel}`}>Bottle</div>
+                      <div className="my-1.5 font-black text-xl text-slate-900">
+                        <span className={`text-xs mr-0.5 ${t.currencyColor}`}>₹</span>
+                        {p.bottlePrice || "—"}
                       </div>
                     </div>
                   </div>
@@ -338,22 +352,23 @@ export const PriceCardPreview = forwardRef<HTMLDivElement, PriceCardPreviewProps
 
             {/* Note / Terms Box */}
             {data.note && (
-              <div className="px-4 py-3 rounded-xl bg-neutral-800/30 border border-neutral-800/60 flex items-start gap-2">
-                <span className="text-neutral-400 text-xs mt-0.5">•</span>
-                <p className="text-xs text-neutral-300 font-medium leading-relaxed">
+              <div className="px-4 py-3 rounded-xl bg-gradient-to-r from-amber-50 via-orange-50/50 to-amber-50 border border-amber-200/80 flex items-start gap-2 shadow-sm">
+                <span className="text-amber-600 text-xs mt-0.5 font-bold">📢</span>
+                <p className="text-xs text-amber-950 font-semibold leading-relaxed">
                   {data.note}
                 </p>
               </div>
             )}
           </div>
 
-          {/* Minimalist Footer */}
-          <div className="pt-4 border-t border-neutral-800/60 flex items-center justify-between text-[10px] text-neutral-400">
-            <div>
-              {data.terms || "Subject to daily market fluctuations • Standard commercial quality"}
+          {/* Footer Bar */}
+          <div className={`mt-2 px-7 py-4 border-t ${t.footerBg} flex items-center justify-between text-[11px] text-slate-600`}>
+            <div className="flex items-center gap-1.5 font-medium">
+              <ShieldCheck className="w-3.5 h-3.5 text-amber-600" />
+              <span>{data.terms || "Standard commercial quality • Payment within 48h"}</span>
             </div>
-            <div className="font-semibold text-neutral-300">
-              Verified Rates
+            <div className="font-bold text-slate-900">
+              Rates Valid for Today
             </div>
           </div>
         </div>

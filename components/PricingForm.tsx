@@ -5,8 +5,6 @@ import { PricingData } from "@/types/pricing";
 import {
   Calendar,
   Building2,
-  Phone,
-  MapPin,
   FileText,
   Palette,
   RotateCcw,
@@ -32,7 +30,6 @@ export const PricingForm: React.FC<PricingFormProps> = ({
   const [showBusinessConfig, setShowBusinessConfig] = useState(false);
   const [showTemplateUploader, setShowTemplateUploader] = useState(false);
 
-  // Field updater
   const updateField = (field: keyof PricingData, value: any) => {
     onChange({
       ...data,
@@ -102,7 +99,6 @@ export const PricingForm: React.FC<PricingFormProps> = ({
     });
   };
 
-  // Handle uploading custom background template image
   const handleBgUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -118,7 +114,6 @@ export const PricingForm: React.FC<PricingFormProps> = ({
     }
   };
 
-  // Handle uploading logo
   const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -136,7 +131,7 @@ export const PricingForm: React.FC<PricingFormProps> = ({
   const clearCustomBg = () => {
     onChange({
       ...data,
-      templateId: "minimal-obsidian",
+      templateId: "champagne-gold",
       customBgUrl: undefined,
     });
   };
@@ -149,17 +144,17 @@ export const PricingForm: React.FC<PricingFormProps> = ({
   };
 
   return (
-    <div className="bg-[#121215] rounded-3xl p-6 sm:p-8 shadow-xl border border-neutral-800 space-y-6">
+    <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-xl shadow-slate-200/50 border border-slate-200/80 space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between pb-4 border-b border-neutral-800">
+      <div className="flex items-center justify-between pb-4 border-b border-slate-100">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-            <span className="text-[10px] font-bold tracking-widest uppercase text-neutral-400">
+            <span className="w-2 h-2 rounded-full bg-gradient-to-r from-amber-500 to-orange-500" />
+            <span className="text-[10px] font-bold tracking-widest uppercase text-slate-500">
               Pricing Entry
             </span>
           </div>
-          <h2 className="text-lg font-bold text-white tracking-tight">
+          <h2 className="text-xl font-black text-slate-900 tracking-tight">
             Daily Market Rates
           </h2>
         </div>
@@ -167,7 +162,7 @@ export const PricingForm: React.FC<PricingFormProps> = ({
         <button
           onClick={onReset}
           type="button"
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-neutral-400 hover:text-white bg-neutral-800/80 hover:bg-neutral-800 rounded-xl transition cursor-pointer border border-neutral-700/60"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-500 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 rounded-xl transition cursor-pointer"
           title="Reset to sample values"
         >
           <RotateCcw className="w-3.5 h-3.5" />
@@ -176,22 +171,22 @@ export const PricingForm: React.FC<PricingFormProps> = ({
       </div>
 
       {/* Date Picker Row */}
-      <div className="p-4 rounded-2xl bg-neutral-900/60 border border-neutral-800 space-y-2">
-        <label className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest flex items-center gap-1.5">
-          <Calendar className="w-3.5 h-3.5 text-amber-400" />
-          Effective Date
+      <div className="p-4 rounded-2xl bg-gradient-to-r from-amber-50/70 via-orange-50/40 to-yellow-50/70 border border-amber-200/60 space-y-2">
+        <label className="text-[10px] font-bold text-amber-900 uppercase tracking-widest flex items-center gap-1.5">
+          <Calendar className="w-3.5 h-3.5 text-amber-600" />
+          Effective Rate Date
         </label>
         <div className="flex items-center gap-2">
           <input
             type="date"
             value={data.date}
             onChange={(e) => updateField("date", e.target.value)}
-            className="flex-1 px-4 py-2.5 rounded-xl border border-neutral-800 bg-[#0d0d10] text-white font-medium focus:outline-none focus:border-amber-400 text-sm"
+            className="flex-1 px-4 py-2.5 rounded-xl border border-amber-200 bg-white text-slate-900 font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm shadow-sm"
           />
           <button
             type="button"
             onClick={setTodayDate}
-            className="px-4 py-2.5 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-white font-semibold text-xs transition border border-neutral-700 cursor-pointer"
+            className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold text-xs transition shadow-sm cursor-pointer whitespace-nowrap"
           >
             Today
           </button>
@@ -199,70 +194,72 @@ export const PricingForm: React.FC<PricingFormProps> = ({
       </div>
 
       {/* 1) GROUNDNUT OIL SECTION */}
-      <div className="p-5 rounded-2xl bg-neutral-900/50 border border-neutral-800 space-y-4">
+      <div className="p-5 rounded-2xl bg-slate-50/70 border border-slate-200/80 space-y-4">
         <div className="flex items-center justify-between">
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-black text-amber-400">01</span>
-              <h3 className="font-bold text-white text-sm tracking-wide uppercase">
+          <div className="flex items-center gap-2.5">
+            <span className="w-6 h-6 rounded-lg bg-gradient-to-tr from-amber-500 to-yellow-400 text-white flex items-center justify-center text-xs font-black shadow-sm">
+              1
+            </span>
+            <div>
+              <h3 className="font-black text-slate-900 text-sm tracking-wide uppercase">
                 Groundnut Oil (સીંગતેલ)
               </h3>
+              <p className="text-[11px] text-slate-500">Pure Groundnut Oil</p>
             </div>
-            <p className="text-[11px] text-neutral-500 mt-0.5">Primary commodity oil</p>
           </div>
-          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-neutral-800 text-neutral-300">
-            Groundnut
+          <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 border border-amber-200">
+            Primary Oil
           </span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {/* Tin Price */}
-          <div className="bg-[#0b0b0e] p-3.5 rounded-xl border border-neutral-800/80 focus-within:border-amber-400/80">
-            <label className="text-[11px] font-medium text-neutral-400 block mb-1">
+          <div className="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm focus-within:ring-2 focus-within:ring-amber-500">
+            <label className="text-[11px] font-bold text-slate-600 block mb-1">
               Tin (15 Kg/L)
             </label>
             <div className="relative">
-              <span className="absolute left-3 top-2 text-neutral-500 font-bold text-sm">₹</span>
+              <span className="absolute left-3 top-2 text-amber-600 font-bold text-sm">₹</span>
               <input
                 type="number"
                 placeholder="2450"
                 value={data.groundnutOil.tinPrice}
                 onChange={(e) => updateGroundnut("tinPrice", e.target.value)}
-                className="w-full pl-7 pr-2 py-1.5 text-base font-bold text-white bg-transparent focus:outline-none"
+                className="w-full pl-7 pr-2 py-1 text-base font-black text-slate-900 bg-transparent focus:outline-none"
               />
             </div>
           </div>
 
           {/* 5L Can Price */}
-          <div className="bg-[#0b0b0e] p-3.5 rounded-xl border border-neutral-800/80 focus-within:border-amber-400/80">
-            <label className="text-[11px] font-medium text-neutral-400 block mb-1">
+          <div className="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm focus-within:ring-2 focus-within:ring-amber-500">
+            <label className="text-[11px] font-bold text-slate-600 block mb-1">
               5 Ltr Can
             </label>
             <div className="relative">
-              <span className="absolute left-3 top-2 text-neutral-500 font-bold text-sm">₹</span>
+              <span className="absolute left-3 top-2 text-amber-600 font-bold text-sm">₹</span>
               <input
                 type="number"
                 placeholder="850"
                 value={data.groundnutOil.canPrice}
                 onChange={(e) => updateGroundnut("canPrice", e.target.value)}
-                className="w-full pl-7 pr-2 py-1.5 text-base font-bold text-white bg-transparent focus:outline-none"
+                className="w-full pl-7 pr-2 py-1 text-base font-black text-slate-900 bg-transparent focus:outline-none"
               />
             </div>
           </div>
 
           {/* Bottle Price */}
-          <div className="bg-[#0b0b0e] p-3.5 rounded-xl border border-neutral-800/80 focus-within:border-amber-400/80">
-            <label className="text-[11px] font-medium text-neutral-400 block mb-1">
+          <div className="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm focus-within:ring-2 focus-within:ring-amber-500">
+            <label className="text-[11px] font-bold text-slate-600 block mb-1">
               1 Ltr Bottle
             </label>
             <div className="relative">
-              <span className="absolute left-3 top-2 text-neutral-500 font-bold text-sm">₹</span>
+              <span className="absolute left-3 top-2 text-amber-600 font-bold text-sm">₹</span>
               <input
                 type="number"
                 placeholder="165"
                 value={data.groundnutOil.bottlePrice}
                 onChange={(e) => updateGroundnut("bottlePrice", e.target.value)}
-                className="w-full pl-7 pr-2 py-1.5 text-base font-bold text-white bg-transparent focus:outline-none"
+                className="w-full pl-7 pr-2 py-1 text-base font-black text-slate-900 bg-transparent focus:outline-none"
               />
             </div>
           </div>
@@ -270,70 +267,72 @@ export const PricingForm: React.FC<PricingFormProps> = ({
       </div>
 
       {/* 2) COTTONSEED OIL SECTION */}
-      <div className="p-5 rounded-2xl bg-neutral-900/50 border border-neutral-800 space-y-4">
+      <div className="p-5 rounded-2xl bg-slate-50/70 border border-slate-200/80 space-y-4">
         <div className="flex items-center justify-between">
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-black text-emerald-400">02</span>
-              <h3 className="font-bold text-white text-sm tracking-wide uppercase">
+          <div className="flex items-center gap-2.5">
+            <span className="w-6 h-6 rounded-lg bg-gradient-to-tr from-emerald-600 to-teal-400 text-white flex items-center justify-center text-xs font-black shadow-sm">
+              2
+            </span>
+            <div>
+              <h3 className="font-black text-slate-900 text-sm tracking-wide uppercase">
                 Cottonseed Oil (કપાસિયા)
               </h3>
+              <p className="text-[11px] text-slate-500">Refined Cottonseed Oil</p>
             </div>
-            <p className="text-[11px] text-neutral-500 mt-0.5">Refined commodity oil</p>
           </div>
-          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-neutral-800 text-neutral-300">
-            Cottonseed
+          <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-200">
+            Refined Oil
           </span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {/* Tin Price */}
-          <div className="bg-[#0b0b0e] p-3.5 rounded-xl border border-neutral-800/80 focus-within:border-emerald-400/80">
-            <label className="text-[11px] font-medium text-neutral-400 block mb-1">
+          <div className="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm focus-within:ring-2 focus-within:ring-emerald-500">
+            <label className="text-[11px] font-bold text-slate-600 block mb-1">
               Tin (15 Kg/L)
             </label>
             <div className="relative">
-              <span className="absolute left-3 top-2 text-neutral-500 font-bold text-sm">₹</span>
+              <span className="absolute left-3 top-2 text-emerald-600 font-bold text-sm">₹</span>
               <input
                 type="number"
                 placeholder="2050"
                 value={data.cottonSeedOil.tinPrice}
                 onChange={(e) => updateCottonseed("tinPrice", e.target.value)}
-                className="w-full pl-7 pr-2 py-1.5 text-base font-bold text-white bg-transparent focus:outline-none"
+                className="w-full pl-7 pr-2 py-1 text-base font-black text-slate-900 bg-transparent focus:outline-none"
               />
             </div>
           </div>
 
           {/* 5L Can Price */}
-          <div className="bg-[#0b0b0e] p-3.5 rounded-xl border border-neutral-800/80 focus-within:border-emerald-400/80">
-            <label className="text-[11px] font-medium text-neutral-400 block mb-1">
+          <div className="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm focus-within:ring-2 focus-within:ring-emerald-500">
+            <label className="text-[11px] font-bold text-slate-600 block mb-1">
               5 Ltr Can
             </label>
             <div className="relative">
-              <span className="absolute left-3 top-2 text-neutral-500 font-bold text-sm">₹</span>
+              <span className="absolute left-3 top-2 text-emerald-600 font-bold text-sm">₹</span>
               <input
                 type="number"
                 placeholder="710"
                 value={data.cottonSeedOil.canPrice}
                 onChange={(e) => updateCottonseed("canPrice", e.target.value)}
-                className="w-full pl-7 pr-2 py-1.5 text-base font-bold text-white bg-transparent focus:outline-none"
+                className="w-full pl-7 pr-2 py-1 text-base font-black text-slate-900 bg-transparent focus:outline-none"
               />
             </div>
           </div>
 
           {/* Bottle Price */}
-          <div className="bg-[#0b0b0e] p-3.5 rounded-xl border border-neutral-800/80 focus-within:border-emerald-400/80">
-            <label className="text-[11px] font-medium text-neutral-400 block mb-1">
+          <div className="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm focus-within:ring-2 focus-within:ring-emerald-500">
+            <label className="text-[11px] font-bold text-slate-600 block mb-1">
               1 Ltr Bottle
             </label>
             <div className="relative">
-              <span className="absolute left-3 top-2 text-neutral-500 font-bold text-sm">₹</span>
+              <span className="absolute left-3 top-2 text-emerald-600 font-bold text-sm">₹</span>
               <input
                 type="number"
                 placeholder="140"
                 value={data.cottonSeedOil.bottlePrice}
                 onChange={(e) => updateCottonseed("bottlePrice", e.target.value)}
-                className="w-full pl-7 pr-2 py-1.5 text-base font-bold text-white bg-transparent focus:outline-none"
+                className="w-full pl-7 pr-2 py-1 text-base font-black text-slate-900 bg-transparent focus:outline-none"
               />
             </div>
           </div>
@@ -346,20 +345,20 @@ export const PricingForm: React.FC<PricingFormProps> = ({
           {data.customProducts.map((p) => (
             <div
               key={p.id}
-              className="p-4 rounded-2xl bg-neutral-900/50 border border-neutral-800 space-y-3"
+              className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3"
             >
               <div className="flex items-center justify-between">
                 <input
                   type="text"
                   value={p.name}
                   onChange={(e) => updateCustomProduct(p.id, "name", e.target.value)}
-                  className="font-bold text-white text-sm bg-transparent border-b border-neutral-700 focus:outline-none focus:border-amber-400"
+                  className="font-bold text-slate-900 text-sm bg-transparent border-b border-slate-300 focus:outline-none focus:border-amber-500"
                   placeholder="Oil Name (e.g. Sunflower Oil)"
                 />
                 <button
                   type="button"
                   onClick={() => removeCustomProduct(p.id)}
-                  className="text-red-400 hover:text-red-300 p-1 rounded-lg cursor-pointer"
+                  className="text-red-500 hover:text-red-700 p-1 rounded-lg cursor-pointer"
                   title="Remove product"
                 >
                   <Trash2 className="w-4 h-4" />
@@ -372,21 +371,21 @@ export const PricingForm: React.FC<PricingFormProps> = ({
                   placeholder="Tin ₹"
                   value={p.tinPrice}
                   onChange={(e) => updateCustomProduct(p.id, "tinPrice", e.target.value)}
-                  className="px-3 py-2 rounded-lg bg-[#0b0b0e] border border-neutral-800 text-sm font-bold text-white"
+                  className="px-3 py-2 rounded-lg bg-white border border-slate-200 text-sm font-bold text-slate-900"
                 />
                 <input
                   type="number"
                   placeholder="5L Can ₹"
                   value={p.canPrice}
                   onChange={(e) => updateCustomProduct(p.id, "canPrice", e.target.value)}
-                  className="px-3 py-2 rounded-lg bg-[#0b0b0e] border border-neutral-800 text-sm font-bold text-white"
+                  className="px-3 py-2 rounded-lg bg-white border border-slate-200 text-sm font-bold text-slate-900"
                 />
                 <input
                   type="number"
                   placeholder="Bottle ₹"
                   value={p.bottlePrice}
                   onChange={(e) => updateCustomProduct(p.id, "bottlePrice", e.target.value)}
-                  className="px-3 py-2 rounded-lg bg-[#0b0b0e] border border-neutral-800 text-sm font-bold text-white"
+                  className="px-3 py-2 rounded-lg bg-white border border-slate-200 text-sm font-bold text-slate-900"
                 />
               </div>
             </div>
@@ -398,7 +397,7 @@ export const PricingForm: React.FC<PricingFormProps> = ({
       <button
         type="button"
         onClick={addCustomProduct}
-        className="w-full py-2.5 px-4 rounded-xl border border-dashed border-neutral-800 hover:border-neutral-700 text-neutral-400 hover:text-white font-medium text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
+        className="w-full py-2.5 px-4 rounded-xl border border-dashed border-slate-300 hover:border-amber-400 text-slate-600 hover:text-amber-700 font-semibold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer bg-slate-50/50"
       >
         <Plus className="w-3.5 h-3.5" />
         <span>Add Another Product (Sunflower, Mustard, etc.)</span>
@@ -407,8 +406,8 @@ export const PricingForm: React.FC<PricingFormProps> = ({
       {/* Market Note & Terms */}
       <div className="space-y-3">
         <div>
-          <label className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest flex items-center gap-1.5 mb-1.5">
-            <FileText className="w-3.5 h-3.5 text-neutral-500" />
+          <label className="text-[10px] font-bold text-slate-600 uppercase tracking-widest flex items-center gap-1.5 mb-1.5">
+            <FileText className="w-3.5 h-3.5 text-slate-400" />
             Market Note / Remark
           </label>
           <input
@@ -416,12 +415,12 @@ export const PricingForm: React.FC<PricingFormProps> = ({
             value={data.note}
             onChange={(e) => updateField("note", e.target.value)}
             placeholder="e.g. Rates valid for today only. Ex-mill / ready delivery."
-            className="w-full px-4 py-2.5 rounded-xl border border-neutral-800 bg-[#0d0d10] text-white text-xs focus:outline-none focus:border-amber-400 font-medium"
+            className="w-full px-4 py-2.5 rounded-xl border border-slate-200 bg-white text-slate-900 text-xs focus:outline-none focus:ring-2 focus:ring-amber-500 font-medium"
           />
         </div>
 
         <div>
-          <label className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest block mb-1">
+          <label className="text-[10px] font-bold text-slate-600 uppercase tracking-widest block mb-1">
             Payment Terms / Terms of Trade
           </label>
           <input
@@ -429,7 +428,7 @@ export const PricingForm: React.FC<PricingFormProps> = ({
             value={data.terms}
             onChange={(e) => updateField("terms", e.target.value)}
             placeholder="e.g. Payment within 48 hours • GST extra as applicable"
-            className="w-full px-4 py-2 rounded-xl border border-neutral-800 bg-[#0d0d10] text-neutral-300 text-xs focus:outline-none focus:border-amber-400"
+            className="w-full px-4 py-2 rounded-xl border border-slate-200 bg-white text-slate-700 text-xs focus:outline-none focus:ring-2 focus:ring-amber-500"
           />
         </div>
       </div>
@@ -437,104 +436,104 @@ export const PricingForm: React.FC<PricingFormProps> = ({
       {/* Visual Template Selector */}
       <div className="pt-2">
         <div className="flex items-center justify-between mb-2.5">
-          <label className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest flex items-center gap-1.5">
-            <Palette className="w-3.5 h-3.5 text-amber-400" />
-            Clean & Minimal Style
+          <label className="text-[10px] font-bold text-slate-600 uppercase tracking-widest flex items-center gap-1.5">
+            <Palette className="w-3.5 h-3.5 text-amber-500" />
+            Light Theme Style
           </label>
           <button
             type="button"
             onClick={() => setShowTemplateUploader(!showTemplateUploader)}
-            className="text-xs text-amber-400 hover:text-amber-300 font-semibold flex items-center gap-1 cursor-pointer"
+            className="text-xs text-amber-600 hover:text-amber-700 font-bold flex items-center gap-1 cursor-pointer"
           >
             <Upload className="w-3.5 h-3.5" />
-            <span>{showTemplateUploader ? "Hide Upload" : "Upload Custom Image"}</span>
+            <span>{showTemplateUploader ? "Hide Upload" : "Upload Custom Template"}</span>
           </button>
         </div>
 
         <div className="grid grid-cols-3 gap-2.5">
           <button
             type="button"
-            onClick={() => updateField("templateId", "minimal-obsidian")}
+            onClick={() => updateField("templateId", "champagne-gold")}
             className={`p-3 rounded-2xl border text-left transition cursor-pointer ${
-              data.templateId === "minimal-obsidian"
-                ? "border-amber-400 bg-amber-400/5 ring-1 ring-amber-400/40"
-                : "border-neutral-800 hover:border-neutral-700 bg-neutral-900/60"
+              data.templateId === "champagne-gold"
+                ? "border-amber-400 bg-amber-50/60 ring-2 ring-amber-400/40"
+                : "border-slate-200 hover:border-slate-300 bg-slate-50/50"
             }`}
           >
-            <div className="w-full h-3.5 rounded bg-[#0b0b0e] border border-neutral-700 mb-1.5" />
-            <div className="font-bold text-xs text-white">Obsidian</div>
-            <div className="text-[10px] text-neutral-400">Dark Minimal</div>
+            <div className="w-full h-3.5 rounded bg-gradient-to-r from-amber-500 via-yellow-400 to-orange-400 mb-1.5 shadow-sm" />
+            <div className="font-bold text-xs text-slate-900">Champagne Gold</div>
+            <div className="text-[10px] text-slate-500">Warm Amber</div>
           </button>
 
           <button
             type="button"
-            onClick={() => updateField("templateId", "porcelain-light")}
+            onClick={() => updateField("templateId", "sunrise-warmth")}
             className={`p-3 rounded-2xl border text-left transition cursor-pointer ${
-              data.templateId === "porcelain-light"
-                ? "border-neutral-300 bg-white/10 ring-1 ring-white/40"
-                : "border-neutral-800 hover:border-neutral-700 bg-neutral-900/60"
+              data.templateId === "sunrise-warmth"
+                ? "border-orange-400 bg-orange-50/60 ring-2 ring-orange-400/40"
+                : "border-slate-200 hover:border-slate-300 bg-slate-50/50"
             }`}
           >
-            <div className="w-full h-3.5 rounded bg-white border border-neutral-300 mb-1.5" />
-            <div className="font-bold text-xs text-white">Porcelain</div>
-            <div className="text-[10px] text-neutral-400">Light Minimal</div>
+            <div className="w-full h-3.5 rounded bg-gradient-to-r from-orange-500 via-rose-500 to-amber-500 mb-1.5 shadow-sm" />
+            <div className="font-bold text-xs text-slate-900">Sunrise Warmth</div>
+            <div className="text-[10px] text-slate-500">Orange Sunset</div>
           </button>
 
           <button
             type="button"
-            onClick={() => updateField("templateId", "nordic-slate")}
+            onClick={() => updateField("templateId", "emerald-breeze")}
             className={`p-3 rounded-2xl border text-left transition cursor-pointer ${
-              data.templateId === "nordic-slate"
-                ? "border-cyan-400 bg-cyan-400/5 ring-1 ring-cyan-400/40"
-                : "border-neutral-800 hover:border-neutral-700 bg-neutral-900/60"
+              data.templateId === "emerald-breeze"
+                ? "border-emerald-400 bg-emerald-50/60 ring-2 ring-emerald-400/40"
+                : "border-slate-200 hover:border-slate-300 bg-slate-50/50"
             }`}
           >
-            <div className="w-full h-3.5 rounded bg-zinc-800 border border-zinc-700 mb-1.5" />
-            <div className="font-bold text-xs text-white">Nordic Slate</div>
-            <div className="text-[10px] text-neutral-400">Zinc Minimal</div>
+            <div className="w-full h-3.5 rounded bg-gradient-to-r from-emerald-600 via-teal-500 to-emerald-400 mb-1.5 shadow-sm" />
+            <div className="font-bold text-xs text-slate-900">Emerald Breeze</div>
+            <div className="text-[10px] text-slate-500">Fresh Teal</div>
           </button>
         </div>
 
         {/* Upload Custom Template Section */}
         {showTemplateUploader && (
-          <div className="mt-3 p-4 rounded-2xl bg-neutral-900/60 border border-neutral-800 space-y-3">
+          <div className="mt-3 p-4 rounded-2xl bg-amber-50/60 border border-amber-200 space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-neutral-300 flex items-center gap-1.5">
-                <ImageIcon className="w-4 h-4 text-amber-400" />
+              <span className="text-xs font-bold text-amber-900 flex items-center gap-1.5">
+                <ImageIcon className="w-4 h-4 text-amber-600" />
                 Custom Background Graphic
               </span>
               {data.customBgUrl && (
                 <button
                   type="button"
                   onClick={clearCustomBg}
-                  className="text-xs text-red-400 hover:text-red-300 font-semibold cursor-pointer"
+                  className="text-xs text-red-600 hover:text-red-700 font-bold cursor-pointer"
                 >
                   Remove Custom Image
                 </button>
               )}
             </div>
-            <p className="text-[11px] text-neutral-400">
+            <p className="text-[11px] text-slate-600">
               Upload your own pre-designed background template. Rates will overlay cleanly on it.
             </p>
             <input
               type="file"
               accept="image/*"
               onChange={handleBgUpload}
-              className="text-xs text-neutral-400 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-neutral-800 file:text-white hover:file:bg-neutral-700 cursor-pointer"
+              className="text-xs text-slate-600 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-amber-500 file:text-white hover:file:bg-amber-600 cursor-pointer"
             />
           </div>
         )}
       </div>
 
       {/* Business Header & Contact Customization */}
-      <div className="pt-2 border-t border-neutral-800">
+      <div className="pt-2 border-t border-slate-100">
         <button
           type="button"
           onClick={() => setShowBusinessConfig(!showBusinessConfig)}
-          className="w-full flex items-center justify-between text-xs font-semibold text-neutral-400 py-1 hover:text-white transition cursor-pointer"
+          className="w-full flex items-center justify-between text-xs font-bold text-slate-600 py-1 hover:text-slate-900 transition cursor-pointer"
         >
           <span className="flex items-center gap-1.5">
-            <Building2 className="w-3.5 h-3.5 text-neutral-500" />
+            <Building2 className="w-3.5 h-3.5 text-slate-400" />
             Customize Business Name & Contact Details
           </span>
           {showBusinessConfig ? (
@@ -545,9 +544,9 @@ export const PricingForm: React.FC<PricingFormProps> = ({
         </button>
 
         {showBusinessConfig && (
-          <div className="mt-4 p-4 rounded-2xl bg-neutral-900/50 border border-neutral-800 space-y-3">
+          <div className="mt-4 p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
             <div>
-              <label className="text-[11px] font-medium text-neutral-400 block mb-1">
+              <label className="text-[11px] font-bold text-slate-600 block mb-1">
                 Firm / Mill Name
               </label>
               <input
@@ -555,26 +554,26 @@ export const PricingForm: React.FC<PricingFormProps> = ({
                 value={data.businessName}
                 onChange={(e) => updateField("businessName", e.target.value)}
                 placeholder="e.g. K.O.M. EDIBLE OILS"
-                className="w-full px-3 py-2 rounded-lg bg-[#0d0d10] border border-neutral-800 text-sm font-semibold text-white focus:outline-none focus:border-amber-400"
+                className="w-full px-3 py-2 rounded-lg bg-white border border-slate-200 text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-500"
               />
             </div>
 
             <div>
-              <label className="text-[11px] font-medium text-neutral-400 block mb-1">
+              <label className="text-[11px] font-bold text-slate-600 block mb-1">
                 Tagline / Subtitle
               </label>
               <input
                 type="text"
                 value={data.tagline}
                 onChange={(e) => updateField("tagline", e.target.value)}
-                placeholder="e.g. Pure Edible Oils • Daily Wholesale Rates"
-                className="w-full px-3 py-2 rounded-lg bg-[#0d0d10] border border-neutral-800 text-xs text-white focus:outline-none focus:border-amber-400"
+                placeholder="e.g. Pure Quality Edible Oils • Daily Wholesale Rates"
+                className="w-full px-3 py-2 rounded-lg bg-white border border-slate-200 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-500"
               />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
-                <label className="text-[11px] font-medium text-neutral-400 block mb-1">
+                <label className="text-[11px] font-bold text-slate-600 block mb-1">
                   Phone / WhatsApp
                 </label>
                 <input
@@ -582,12 +581,12 @@ export const PricingForm: React.FC<PricingFormProps> = ({
                   value={data.phone}
                   onChange={(e) => updateField("phone", e.target.value)}
                   placeholder="+91 98765 43210"
-                  className="w-full px-3 py-2 rounded-lg bg-[#0d0d10] border border-neutral-800 text-xs text-white focus:outline-none focus:border-amber-400"
+                  className="w-full px-3 py-2 rounded-lg bg-white border border-slate-200 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-500"
                 />
               </div>
 
               <div>
-                <label className="text-[11px] font-medium text-neutral-400 block mb-1">
+                <label className="text-[11px] font-bold text-slate-600 block mb-1">
                   Location / City
                 </label>
                 <input
@@ -595,22 +594,22 @@ export const PricingForm: React.FC<PricingFormProps> = ({
                   value={data.city}
                   onChange={(e) => updateField("city", e.target.value)}
                   placeholder="e.g. Rajkot, Gujarat"
-                  className="w-full px-3 py-2 rounded-lg bg-[#0d0d10] border border-neutral-800 text-xs text-white focus:outline-none focus:border-amber-400"
+                  className="w-full px-3 py-2 rounded-lg bg-white border border-slate-200 text-xs text-slate-900 focus:outline-none focus:ring-2 focus:ring-amber-500"
                 />
               </div>
             </div>
 
             {/* Logo Upload Option */}
-            <div className="pt-2 border-t border-neutral-800">
+            <div className="pt-2 border-t border-slate-200">
               <div className="flex items-center justify-between mb-1">
-                <label className="text-[11px] font-medium text-neutral-400">
+                <label className="text-[11px] font-bold text-slate-600">
                   Business Logo (Optional)
                 </label>
                 {data.customLogoUrl && (
                   <button
                     type="button"
                     onClick={clearLogo}
-                    className="text-[10px] text-red-400 hover:text-red-300 font-bold cursor-pointer"
+                    className="text-[10px] text-red-600 hover:text-red-700 font-bold cursor-pointer"
                   >
                     Remove Logo
                   </button>
@@ -620,7 +619,7 @@ export const PricingForm: React.FC<PricingFormProps> = ({
                 type="file"
                 accept="image/*"
                 onChange={handleLogoUpload}
-                className="text-xs text-neutral-400 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-semibold file:bg-neutral-800 file:text-neutral-200 hover:file:bg-neutral-700 cursor-pointer"
+                className="text-xs text-slate-600 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-semibold file:bg-slate-200 file:text-slate-800 hover:file:bg-slate-300 cursor-pointer"
               />
             </div>
           </div>
