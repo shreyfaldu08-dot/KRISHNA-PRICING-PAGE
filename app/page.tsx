@@ -5,7 +5,7 @@ import { PricingData, INITIAL_PRICING_DATA } from "@/types/pricing";
 import { PricingForm } from "@/components/PricingForm";
 import { PriceCardPreview } from "@/components/PriceCardPreview";
 import { ExportActions } from "@/components/ExportActions";
-import { Droplets, Sparkles, Eye, Edit3 } from "lucide-react";
+import { Sparkles, Eye, Edit3 } from "lucide-react";
 
 export default function DailyPricingLandingPage() {
   const [data, setData] = useState<PricingData>(INITIAL_PRICING_DATA);
@@ -56,25 +56,25 @@ export default function DailyPricingLandingPage() {
   };
 
   return (
-    <div className="min-h-screen text-slate-900 font-sans pb-16 selection:bg-sky-200 selection:text-sky-950 overflow-x-hidden">
+    <div className="min-h-screen text-slate-900 font-sans pb-16 selection:bg-amber-100 selection:text-amber-950 overflow-x-hidden">
       {/* Top Navbar */}
       <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-sky-100 shadow-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2.5 sm:gap-3">
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-gradient-to-tr from-sky-500 to-blue-600 text-white flex items-center justify-center font-black text-base sm:text-lg shadow-md shadow-sky-500/20">
-              <Droplets className="w-4 h-4 sm:w-5 sm:h-5 fill-current" />
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-gradient-to-tr from-amber-600 to-orange-500 text-white flex items-center justify-center font-black text-sm shadow-md shadow-amber-600/20">
+              K
             </div>
             <div>
               <div className="flex items-center gap-2">
                 <span className="font-black text-slate-950 text-sm sm:text-lg tracking-tight">
-                  KOM PRICING
+                  KRISHNA EXPORT
                 </span>
-                <span className="px-2 py-0.5 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider rounded-full bg-sky-100 text-sky-800 border border-sky-200">
+                <span className="px-2 py-0.5 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider rounded-full bg-amber-100 text-amber-900 border border-amber-200">
                   Daily Rates
                 </span>
               </div>
               <p className="text-[10px] sm:text-[11px] text-slate-500 font-medium">
-                Simple daily oil price generator
+                Wholesale Price Poster Generator
               </p>
             </div>
           </div>
@@ -88,27 +88,27 @@ export default function DailyPricingLandingPage() {
       </header>
 
       {/* Hero Headline */}
-      <section className="py-4 sm:py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-4 sm:py-7 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto space-y-1.5 sm:space-y-2">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold bg-white/85 text-sky-800 border border-sky-200 shadow-xs">
-            <Sparkles className="w-3 h-3 text-sky-600" />
-            Daily Price Card Generator
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold bg-white/90 text-amber-900 border border-amber-200/80 shadow-xs">
+            <Sparkles className="w-3 h-3 text-amber-600" />
+            Official Wholesale Poster Generator
           </div>
           <h1 className="text-xl sm:text-3xl font-black text-slate-950 tracking-tight">
-            Generate Today&apos;s Oil Price Card
+            Daily Wholesale Price Poster
           </h1>
           <p className="text-xs sm:text-sm text-slate-600 font-medium">
-            Enter Groundnut and Cottonseed oil prices, check preview, and download.
+            Enter today&apos;s rates for Trupti Cottonseed and Krishna Groundnut oil, review the poster, and download.
           </p>
         </div>
 
-        {/* Mobile Tab Switcher (Visible only on screens below lg) */}
+        {/* Mobile Tab Switcher */}
         <div className="mt-4 flex lg:hidden bg-white/90 backdrop-blur-md p-1 rounded-2xl border border-sky-200 max-w-xs mx-auto shadow-sm">
           <button
             onClick={() => setActiveTab("form")}
             className={`flex-1 py-2 text-xs font-black rounded-xl transition cursor-pointer flex items-center justify-center gap-1.5 ${
               activeTab === "form"
-                ? "bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-xs"
+                ? "bg-gradient-to-r from-amber-600 to-orange-600 text-white shadow-xs"
                 : "text-slate-600 hover:text-slate-900"
             }`}
           >
@@ -119,12 +119,12 @@ export default function DailyPricingLandingPage() {
             onClick={() => setActiveTab("preview")}
             className={`flex-1 py-2 text-xs font-black rounded-xl transition cursor-pointer flex items-center justify-center gap-1.5 ${
               activeTab === "preview"
-                ? "bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-xs"
+                ? "bg-gradient-to-r from-amber-600 to-orange-600 text-white shadow-xs"
                 : "text-slate-600 hover:text-slate-900"
             }`}
           >
             <Eye className="w-3.5 h-3.5" />
-            <span>2. Preview & Save</span>
+            <span>2. Poster Preview</span>
           </button>
         </div>
       </section>
@@ -132,7 +132,7 @@ export default function DailyPricingLandingPage() {
       {/* Main Form & Preview Workspace */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
-          {/* Left: Input Form (Hidden on mobile if user switched to preview tab) */}
+          {/* Left: Input Form */}
           <div
             className={`lg:col-span-6 space-y-4 sm:space-y-6 ${
               activeTab === "preview" ? "hidden lg:block" : "block"
@@ -149,37 +149,37 @@ export default function DailyPricingLandingPage() {
               <button
                 type="button"
                 onClick={() => setActiveTab("preview")}
-                className="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-sky-500 to-blue-600 text-white font-black text-xs uppercase tracking-wide shadow-md shadow-sky-500/20 flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-amber-600 to-orange-600 text-white font-black text-xs uppercase tracking-wide shadow-md shadow-amber-600/20 flex items-center justify-center gap-2 cursor-pointer"
               >
                 <Eye className="w-4 h-4" />
-                <span>View Card & Download &gt;</span>
+                <span>View Poster & Download &gt;</span>
               </button>
             </div>
           </div>
 
-          {/* Right: Export Actions & Live Preview (Hidden on mobile if user is on form tab) */}
+          {/* Right: Export Actions & Live Preview */}
           <div
             className={`lg:col-span-6 space-y-4 sm:space-y-5 ${
               activeTab === "form" ? "hidden lg:block" : "block"
             }`}
           >
-            {/* Action Bar (Download & WhatsApp buttons) */}
+            {/* Top Action Bar */}
             <ExportActions
               cardRef={cardRef}
               data={data}
             />
 
-            {/* Live Card Preview Box — No overflow-x scrollbar, perfectly centered and stable */}
+            {/* Live Card Preview Box */}
             <div className="bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl p-3 sm:p-6 border border-white shadow-xl shadow-sky-950/5">
               <div className="flex items-center justify-between mb-3 sm:mb-4 px-1">
                 <div className="flex items-center gap-2">
                   <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
                   <span className="text-[11px] sm:text-xs font-black uppercase tracking-wider text-slate-800">
-                    Live Preview (Card to Download)
+                    Live Official Poster Preview
                   </span>
                 </div>
                 <span className="text-[10px] sm:text-[11px] text-slate-500 font-semibold">
-                  2.5x Retina Quality
+                  Full HD Quality
                 </span>
               </div>
 
@@ -189,7 +189,7 @@ export default function DailyPricingLandingPage() {
               </div>
 
               <p className="text-center text-[10px] sm:text-[11px] text-slate-500 mt-3 font-medium">
-                💡 High-resolution image generated at 2.5x retina clarity for crisp viewing on mobile & WhatsApp.
+                💡 High-resolution image generated at 3x retina clarity for crisp viewing on mobile & WhatsApp.
               </p>
             </div>
 
@@ -210,7 +210,7 @@ export default function DailyPricingLandingPage() {
 
       {/* Clean Footer */}
       <footer className="mt-12 sm:mt-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-slate-500 font-medium">
-        © 2026 {data.businessName || "KOM Edible Oils"} • Simple & Fast Daily Pricing Engine
+        © 2026 {data.businessName || "KRISHNA EXPORT. INDUSTRIES"} • All Rates Plus GST • Ex-Factory | Junagadh
       </footer>
     </div>
   );

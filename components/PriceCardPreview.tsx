@@ -2,7 +2,6 @@
 
 import React, { forwardRef } from "react";
 import { PricingData } from "@/types/pricing";
-import { Phone, MapPin, ShieldCheck, Sparkles } from "lucide-react";
 
 interface PriceCardPreviewProps {
   data: PricingData;
@@ -10,18 +9,17 @@ interface PriceCardPreviewProps {
 
 export const PriceCardPreview = forwardRef<HTMLDivElement, PriceCardPreviewProps>(
   ({ data }, ref) => {
-    const formatDate = (dateStr: string) => {
+    // Format date as DD-MM-YYYY exactly as in user's image (30-10-2026)
+    const formatDisplayDate = (dateStr: string) => {
       if (!dateStr) return "";
       try {
         const parts = dateStr.split("-");
         if (parts.length === 3) {
-          const d = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
-          return d.toLocaleDateString("en-IN", {
-            weekday: "short",
-            day: "2-digit",
-            month: "short",
-            year: "numeric",
-          });
+          // If YYYY-MM-DD
+          if (parts[0].length === 4) {
+            return `${parts[2]}-${parts[1]}-${parts[0]}`;
+          }
+          return dateStr;
         }
       } catch {
         return dateStr;
@@ -29,195 +27,76 @@ export const PriceCardPreview = forwardRef<HTMLDivElement, PriceCardPreviewProps
       return dateStr;
     };
 
+    const bgImage = data.customBgUrl || "/templates/krishna-clean-template.jpg";
+
     return (
       <div
         ref={ref}
         id="price-card-canvas"
         style={{
-          backgroundImage: data.customBgUrl ? `url(${data.customBgUrl})` : undefined,
-          backgroundSize: "cover",
+          backgroundImage: `url(${bgImage})`,
+          backgroundSize: "100% 100%",
+          backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
         }}
-        className="w-full max-w-[540px] mx-auto rounded-2xl sm:rounded-3xl bg-white border border-sky-200/90 shadow-xl text-slate-900 font-sans overflow-hidden select-none"
+        className="relative w-full max-w-[540px] aspect-[819/1024] mx-auto rounded-3xl overflow-hidden shadow-2xl border border-amber-900/15 select-none font-serif"
       >
-        {/* Minimal Sky-Blue Gradient Ribbon */}
-        <div className="h-2 sm:h-2.5 w-full bg-gradient-to-r from-sky-400 via-blue-500 to-sky-400" />
+        {/* 1. Dynamic Date (Centered between the two divider lines) */}
+        <div
+          style={{ top: "21.3%", left: "50%" }}
+          className="absolute -translate-x-1/2 -translate-y-1/2 font-bold tracking-widest text-[#241c14] text-[12px] sm:text-[15px] whitespace-nowrap"
+        >
+          {formatDisplayDate(data.date)}
+        </div>
 
-        <div className="p-4 sm:p-6 md:p-7">
-          {/* Header */}
-          <div className="flex items-start justify-between pb-3 sm:pb-4 border-b border-slate-200 gap-2">
-            <div>
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] font-black uppercase tracking-wider bg-gradient-to-r from-sky-50 to-blue-50 text-sky-800 border border-sky-200/80 mb-1.5 shadow-xs">
-                <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-sky-500" />
-                DAILY WHOLESALE RATES
-              </div>
-              <h1 className="text-xl sm:text-2xl md:text-3xl font-black uppercase tracking-tight text-slate-950 leading-tight">
-                {data.businessName || "K.O.M. EDIBLE OILS"}
-              </h1>
-              {data.tagline && (
-                <p className="text-[11px] sm:text-xs text-slate-500 font-medium mt-0.5">
-                  {data.tagline}
-                </p>
-              )}
-            </div>
+        {/* 2. Left Product: TRUPTI COTTON SEED OIL */}
+        {/* Tin Price Pill */}
+        <div
+          style={{ top: "79.8%", left: "26.9%" }}
+          className="absolute -translate-x-1/2 -translate-y-1/2 font-black text-[#8a3c18] text-[11px] sm:text-[14px] md:text-[15px] whitespace-nowrap tracking-wide"
+        >
+          ₹ {data.cottonSeedOil.tinPrice || "—"} + NEW TIN
+        </div>
 
-            {/* Date Box */}
-            <div className="text-right shrink-0">
-              <div className="text-[9px] sm:text-[10px] font-bold uppercase text-slate-400 mb-0.5">Date</div>
-              <div className="px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-xl bg-gradient-to-r from-sky-50 to-blue-50 border border-sky-200 text-[11px] sm:text-xs font-black text-sky-900 shadow-xs whitespace-nowrap">
-                {formatDate(data.date)}
-              </div>
-            </div>
-          </div>
+        {/* 5 LTR Price Box */}
+        <div
+          style={{ top: "88.6%", left: "17.2%" }}
+          className="absolute -translate-x-1/2 -translate-y-1/2 font-black text-[#15110d] text-[16px] sm:text-[22px] md:text-[24px] tracking-tight whitespace-nowrap"
+        >
+          ₹{data.cottonSeedOil.canPrice || "—"}
+        </div>
 
-          {/* Contact & City Bar */}
-          <div className="py-2 sm:py-2.5 flex items-center justify-between text-[11px] sm:text-xs text-slate-600 border-b border-slate-100 mb-3 sm:mb-4">
-            {data.city && (
-              <div className="flex items-center gap-1 font-medium truncate">
-                <MapPin className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-sky-600 shrink-0" />
-                <span className="truncate">{data.city}</span>
-              </div>
-            )}
-            {data.phone && (
-              <div className="flex items-center gap-1 font-bold text-slate-900 shrink-0">
-                <Phone className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-blue-600 shrink-0" />
-                <span>Call/WA: {data.phone}</span>
-              </div>
-            )}
-          </div>
+        {/* 1 LTR Price Box */}
+        <div
+          style={{ top: "88.6%", left: "38.0%" }}
+          className="absolute -translate-x-1/2 -translate-y-1/2 font-black text-[#15110d] text-[16px] sm:text-[22px] md:text-[24px] tracking-tight whitespace-nowrap"
+        >
+          ₹{data.cottonSeedOil.bottlePrice || "—"}
+        </div>
 
-          {/* Products List */}
-          <div className="space-y-3 sm:space-y-4">
-            {/* 1) GROUNDNUT OIL */}
-            <div className="rounded-xl sm:rounded-2xl border border-sky-100 bg-gradient-to-br from-white via-sky-50/20 to-blue-50/30 p-3 sm:p-4 shadow-xs">
-              <div className="flex items-center justify-between pb-2 mb-2 sm:mb-3 border-b border-slate-200/80">
-                <div className="flex items-center gap-2">
-                  <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-lg bg-gradient-to-r from-sky-500 to-blue-600 text-white flex items-center justify-center text-[10px] sm:text-xs font-black shadow-xs">
-                    1
-                  </span>
-                  <div>
-                    <h2 className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-950">
-                      Groundnut Oil
-                    </h2>
-                    <span className="text-[9px] sm:text-[10px] text-slate-500 font-semibold">સીંગતેલ / मूंगफली</span>
-                  </div>
-                </div>
-                <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-white border border-sky-200 text-sky-800 shadow-xs">
-                  Standard Quality
-                </span>
-              </div>
+        {/* 3. Right Product: KRISHNA GROUNDNUT OIL */}
+        {/* Tin Price Pill */}
+        <div
+          style={{ top: "79.8%", left: "72.9%" }}
+          className="absolute -translate-x-1/2 -translate-y-1/2 font-black text-[#8a3c18] text-[11px] sm:text-[14px] md:text-[15px] whitespace-nowrap tracking-wide"
+        >
+          ₹ {data.groundnutOil.tinPrice || "—"} + NEW TIN
+        </div>
 
-              {/* 3 Price Columns */}
-              <div className="grid grid-cols-3 gap-1.5 sm:gap-2.5">
-                <div className="bg-white p-2 sm:p-3 rounded-lg sm:rounded-xl border border-slate-200 text-center shadow-xs">
-                  <div className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-500">Tin (15 Kg/L)</div>
-                  <div className="my-1 sm:my-1.5">
-                    <span className="text-[10px] sm:text-xs font-bold text-sky-600 mr-0.5">₹</span>
-                    <span className="text-base sm:text-2xl font-black text-slate-950 tracking-tight">
-                      {data.groundnutOil.tinPrice || "—"}
-                    </span>
-                  </div>
-                  <div className="text-[8px] sm:text-[9px] text-slate-400 uppercase font-medium">per tin</div>
-                </div>
+        {/* 5 LTR Price Box */}
+        <div
+          style={{ top: "88.6%", left: "62.9%" }}
+          className="absolute -translate-x-1/2 -translate-y-1/2 font-black text-[#15110d] text-[16px] sm:text-[22px] md:text-[24px] tracking-tight whitespace-nowrap"
+        >
+          ₹{data.groundnutOil.canPrice || "—"}
+        </div>
 
-                <div className="bg-white p-2 sm:p-3 rounded-lg sm:rounded-xl border border-slate-200 text-center shadow-xs">
-                  <div className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-500">5 Ltr Can</div>
-                  <div className="my-1 sm:my-1.5">
-                    <span className="text-[10px] sm:text-xs font-bold text-sky-600 mr-0.5">₹</span>
-                    <span className="text-base sm:text-2xl font-black text-slate-950 tracking-tight">
-                      {data.groundnutOil.canPrice || "—"}
-                    </span>
-                  </div>
-                  <div className="text-[8px] sm:text-[9px] text-slate-400 uppercase font-medium">per can</div>
-                </div>
-
-                <div className="bg-white p-2 sm:p-3 rounded-lg sm:rounded-xl border border-slate-200 text-center shadow-xs">
-                  <div className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-500">1 Ltr Bottle</div>
-                  <div className="my-1 sm:my-1.5">
-                    <span className="text-[10px] sm:text-xs font-bold text-sky-600 mr-0.5">₹</span>
-                    <span className="text-base sm:text-2xl font-black text-slate-950 tracking-tight">
-                      {data.groundnutOil.bottlePrice || "—"}
-                    </span>
-                  </div>
-                  <div className="text-[8px] sm:text-[9px] text-slate-400 uppercase font-medium">per bottle</div>
-                </div>
-              </div>
-            </div>
-
-            {/* 2) COTTONSEED OIL */}
-            <div className="rounded-xl sm:rounded-2xl border border-sky-100 bg-gradient-to-br from-white via-sky-50/20 to-blue-50/30 p-3 sm:p-4 shadow-xs">
-              <div className="flex items-center justify-between pb-2 mb-2 sm:mb-3 border-b border-slate-200/80">
-                <div className="flex items-center gap-2">
-                  <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-lg bg-gradient-to-r from-sky-500 to-blue-600 text-white flex items-center justify-center text-[10px] sm:text-xs font-black shadow-xs">
-                    2
-                  </span>
-                  <div>
-                    <h2 className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-950">
-                      Cottonseed Oil
-                    </h2>
-                    <span className="text-[9px] sm:text-[10px] text-slate-500 font-semibold">કપાસિયા તેલ / कपासिया</span>
-                  </div>
-                </div>
-                <span className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-white border border-sky-200 text-sky-800 shadow-xs">
-                  Refined Grade
-                </span>
-              </div>
-
-              {/* 3 Price Columns */}
-              <div className="grid grid-cols-3 gap-1.5 sm:gap-2.5">
-                <div className="bg-white p-2 sm:p-3 rounded-lg sm:rounded-xl border border-slate-200 text-center shadow-xs">
-                  <div className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-500">Tin (15 Kg/L)</div>
-                  <div className="my-1 sm:my-1.5">
-                    <span className="text-[10px] sm:text-xs font-bold text-sky-600 mr-0.5">₹</span>
-                    <span className="text-base sm:text-2xl font-black text-slate-950 tracking-tight">
-                      {data.cottonSeedOil.tinPrice || "—"}
-                    </span>
-                  </div>
-                  <div className="text-[8px] sm:text-[9px] text-slate-400 uppercase font-medium">per tin</div>
-                </div>
-
-                <div className="bg-white p-2 sm:p-3 rounded-lg sm:rounded-xl border border-slate-200 text-center shadow-xs">
-                  <div className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-500">5 Ltr Can</div>
-                  <div className="my-1 sm:my-1.5">
-                    <span className="text-[10px] sm:text-xs font-bold text-sky-600 mr-0.5">₹</span>
-                    <span className="text-base sm:text-2xl font-black text-slate-950 tracking-tight">
-                      {data.cottonSeedOil.canPrice || "—"}
-                    </span>
-                  </div>
-                  <div className="text-[8px] sm:text-[9px] text-slate-400 uppercase font-medium">per can</div>
-                </div>
-
-                <div className="bg-white p-2 sm:p-3 rounded-lg sm:rounded-xl border border-slate-200 text-center shadow-xs">
-                  <div className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-500">1 Ltr Bottle</div>
-                  <div className="my-1 sm:my-1.5">
-                    <span className="text-[10px] sm:text-xs font-bold text-sky-600 mr-0.5">₹</span>
-                    <span className="text-base sm:text-2xl font-black text-slate-950 tracking-tight">
-                      {data.cottonSeedOil.bottlePrice || "—"}
-                    </span>
-                  </div>
-                  <div className="text-[8px] sm:text-[9px] text-slate-400 uppercase font-medium">per bottle</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Note if entered */}
-            {data.note && (
-              <div className="px-3 py-2 rounded-xl bg-gradient-to-r from-sky-50 to-blue-50 border border-sky-200/80 text-[11px] sm:text-xs text-sky-950 font-medium">
-                📢 {data.note}
-              </div>
-            )}
-          </div>
-
-          {/* Footer */}
-          <div className="mt-3 sm:mt-4 pt-2.5 sm:pt-3 border-t border-slate-200 flex items-center justify-between text-[10px] sm:text-[11px] text-slate-500">
-            <div className="flex items-center gap-1 font-medium truncate">
-              <ShieldCheck className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-sky-600 shrink-0" />
-              <span className="truncate">{data.terms || "Rates subject to daily market fluctuations"}</span>
-            </div>
-            <div className="font-bold text-sky-900 shrink-0 ml-2">
-              Verified Rates
-            </div>
-          </div>
+        {/* 1 LTR Price Box */}
+        <div
+          style={{ top: "88.6%", left: "83.9%" }}
+          className="absolute -translate-x-1/2 -translate-y-1/2 font-black text-[#15110d] text-[16px] sm:text-[22px] md:text-[24px] tracking-tight whitespace-nowrap"
+        >
+          ₹{data.groundnutOil.bottlePrice || "—"}
         </div>
       </div>
     );

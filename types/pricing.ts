@@ -1,17 +1,3 @@
-export interface ProductRate {
-  id: string;
-  name: string;
-  tinPrice: string;
-  canPrice: string;
-  bottlePrice: string;
-  unitNotes?: {
-    tin?: string;
-    can?: string;
-    bottle?: string;
-  };
-  trend?: "up" | "down" | "stable";
-}
-
 export interface PricingData {
   businessName: string;
   tagline: string;
@@ -28,32 +14,29 @@ export interface PricingData {
     canPrice: string;
     bottlePrice: string;
   };
-  customProducts: ProductRate[];
   note: string;
   terms: string;
-  templateId: "champagne-gold" | "sunrise-warmth" | "emerald-breeze" | "custom-image";
+  templateId: "krishna-official" | "custom-image";
   customBgUrl?: string;
-  customLogoUrl?: string;
 }
 
 export const INITIAL_PRICING_DATA: PricingData = {
-  businessName: "K.O.M. EDIBLE OILS",
-  tagline: "Pure Quality Edible Oils • Daily Wholesale Rates",
+  businessName: "KRISHNA EXPORT. INDUSTRIES",
+  tagline: "PRODUCT COLLECTION & WHOLESALE PRICE LIST",
   phone: "+91 98765 43210",
-  city: "Rajkot, Gujarat",
-  date: "2026-11-02",
+  city: "JUNAGADH",
+  date: "2026-10-30",
   groundnutOil: {
-    tinPrice: "2450",
-    canPrice: "850",
-    bottlePrice: "165",
+    tinPrice: "2850",
+    canPrice: "882",
+    bottlePrice: "177",
   },
   cottonSeedOil: {
-    tinPrice: "2050",
-    canPrice: "710",
-    bottlePrice: "140",
+    tinPrice: "2445-2455",
+    canPrice: "758",
+    bottlePrice: "151",
   },
-  customProducts: [],
-  note: "Rates valid for today only. Ready stock / Ex-mill delivery.",
-  terms: "Payment within 48 hours • GST applicable as per norms",
-  templateId: "champagne-gold",
+  note: "ALL RATES PLUS GST • EX-FACTORY | JUNAGADH",
+  terms: "Payment within 48 hours • Loading free",
+  templateId: "krishna-official",
 };
