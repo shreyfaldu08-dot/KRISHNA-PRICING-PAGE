@@ -6,12 +6,7 @@ import { PricingForm } from "@/components/PricingForm";
 import { PriceCardPreview } from "@/components/PriceCardPreview";
 import { ExportActions } from "@/components/ExportActions";
 import { HistoryModal } from "@/components/HistoryModal";
-import {
-  History,
-  HelpCircle,
-  CheckCircle2,
-  Zap,
-} from "lucide-react";
+import { History } from "lucide-react";
 
 export default function DailyPricingLandingPage() {
   const [data, setData] = useState<PricingData>(INITIAL_PRICING_DATA);
@@ -122,21 +117,13 @@ export default function DailyPricingLandingPage() {
               title="View saved price logs"
             >
               <History className="w-3.5 h-3.5 text-neutral-400" />
-              <span className="hidden sm:inline">History Log</span>
+              <span>Rate History</span>
               {history.length > 0 && (
                 <span className="px-1.5 py-0.2 rounded-full bg-neutral-700 text-neutral-200 text-[10px] font-semibold">
                   {history.length}
                 </span>
               )}
             </button>
-
-            <a
-              href="#instructions"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-neutral-300 text-xs font-medium border border-neutral-800 transition"
-            >
-              <HelpCircle className="w-3.5 h-3.5 text-neutral-400" />
-              <span className="hidden sm:inline">Guide</span>
-            </a>
           </div>
         </div>
       </header>
@@ -255,56 +242,6 @@ export default function DailyPricingLandingPage() {
             </div>
           </div>
         </div>
-
-        {/* Business Guide & Connections Section */}
-        <section id="instructions" className="mt-16 pt-12 border-t border-neutral-800/80 space-y-8">
-          <div>
-            <div className="flex items-center gap-2 mb-1.5">
-              <Zap className="w-3.5 h-3.5 text-amber-400" />
-              <span className="text-[10px] font-bold tracking-widest uppercase text-neutral-400">
-                Setup & Extensibility
-              </span>
-            </div>
-            <h2 className="text-xl font-bold text-white tracking-tight">
-              Business Connections & Integrations
-            </h2>
-            <p className="text-xs text-neutral-400 mt-1 max-w-2xl">
-              Options ready to connect into your Next.js application:
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-5 rounded-2xl bg-[#121215] border border-neutral-800 space-y-2.5">
-              <span className="text-xs font-black text-amber-400">01</span>
-              <h3 className="font-bold text-white text-sm">
-                Custom Brand Template
-              </h3>
-              <p className="text-xs text-neutral-400 leading-relaxed">
-                Upload your firm&apos;s custom background template image directly to display your genuine branding, watermark, and GSTIN.
-              </p>
-            </div>
-
-            <div className="p-5 rounded-2xl bg-[#121215] border border-neutral-800 space-y-2.5">
-              <span className="text-xs font-black text-emerald-400">02</span>
-              <h3 className="font-bold text-white text-sm">
-                WhatsApp Cloud API
-              </h3>
-              <p className="text-xs text-neutral-400 leading-relaxed">
-                Connect the official WhatsApp Business Cloud API to dispatch daily rates to all your dealers automatically every morning.
-              </p>
-            </div>
-
-            <div className="p-5 rounded-2xl bg-[#121215] border border-neutral-800 space-y-2.5">
-              <span className="text-xs font-black text-cyan-400">03</span>
-              <h3 className="font-bold text-white text-sm">
-                Vercel Live Hosting
-              </h3>
-              <p className="text-xs text-neutral-400 leading-relaxed">
-                Deploy to Vercel in 2 minutes for a permanent URL accessible by your sales team and staff from anywhere on their smartphones.
-              </p>
-            </div>
-          </div>
-        </section>
       </main>
 
       {/* History Modal */}

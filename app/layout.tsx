@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "KOM Edible Oils - Daily Rate Generator & Image Template",
+  title: "KOM Edible Oils - Daily Rate Generator",
   description: "Generate and download daily wholesale price cards for Groundnut Oil & Cottonseed Oil for dealers and buyers.",
 };
 
@@ -23,9 +23,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-neutral-900 text-neutral-100 min-h-screen`}
+        suppressHydrationWarning
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#09090b] text-neutral-200 min-h-screen`}
       >
         {children}
       </body>
