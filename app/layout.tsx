@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "KOM Edible Oils - Daily Rate Generator",
-  description: "Generate and download daily wholesale price cards for Groundnut Oil & Cottonseed Oil for dealers and buyers.",
+  description: "Simple, user-friendly daily rate generator for Groundnut and Cottonseed oil.",
 };
 
 export default function RootLayout({
@@ -26,7 +26,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         suppressHydrationWarning
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#f8fafc] text-slate-900 min-h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen text-slate-900`}
       >
         {children}
       </body>

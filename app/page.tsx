@@ -5,13 +5,10 @@ import { PricingData, INITIAL_PRICING_DATA } from "@/types/pricing";
 import { PricingForm } from "@/components/PricingForm";
 import { PriceCardPreview } from "@/components/PriceCardPreview";
 import { ExportActions } from "@/components/ExportActions";
-import { HistoryModal } from "@/components/HistoryModal";
-import { History, Sparkles, Droplets } from "lucide-react";
+import { Droplets, Sparkles } from "lucide-react";
 
 export default function DailyPricingLandingPage() {
   const [data, setData] = useState<PricingData>(INITIAL_PRICING_DATA);
-  const [history, setHistory] = useState<Array<{ id: string; timestamp: string; data: PricingData }>>([]);
-  const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<"both" | "form" | "preview">("both");
   const [mounted, setMounted] = useState(false);
 
@@ -33,11 +30,6 @@ export default function DailyPricingLandingPage() {
           ...prev,
           date: today,
         }));
-      }
-
-      const savedHistory = localStorage.getItem("kom_pricing_history");
-      if (savedHistory) {
-        setHistory(JSON.parse(savedHistory));
       }
     } catch (e) {
       console.warn("Could not load from localStorage:", e);
@@ -63,35 +55,13 @@ export default function DailyPricingLandingPage() {
     }
   };
 
-  const handleSaveHistory = () => {
-    const newEntry = {
-      id: Date.now().toString(),
-      timestamp: new Date().toISOString(),
-      data: { ...data },
-    };
-    const updated = [newEntry, ...history.slice(0, 29)];
-    setHistory(updated);
-    try {
-      localStorage.setItem("kom_pricing_history", JSON.stringify(updated));
-    } catch (e) {
-      console.warn("Could not save history:", e);
-    }
-  };
-
-  const handleClearHistory = () => {
-    if (confirm("Are you sure you want to clear all saved rate history?")) {
-      setHistory([]);
-      localStorage.removeItem("kom_pricing_history");
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#fafafa] via-[#f8fafc] to-[#f5f7fb] text-slate-900 font-sans selection:bg-amber-100 selection:text-amber-950">
+    <div className="min-h-screen text-slate-900 font-sans pb-16 selection:bg-sky-200 selection:text-sky-950">
       {/* Top Navbar */}
-      <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-slate-200/80 shadow-xs">
+      <header className="sticky top-0 z-40 bg-white/75 backdrop-blur-md border-b border-sky-100 shadow-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-500 via-orange-500 to-yellow-400 text-white flex items-center justify-center font-black text-base shadow-md shadow-orange-500/20">
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-sky-500 to-blue-600 text-white flex items-center justify-center font-black text-lg shadow-md shadow-sky-500/20">
               <Droplets className="w-5 h-5 fill-current" />
             </div>
             <div>
@@ -99,97 +69,64 @@ export default function DailyPricingLandingPage() {
                 <span className="font-black text-slate-950 text-base sm:text-lg tracking-tight">
                   KOM PRICING PORTAL
                 </span>
-                <span className="hidden sm:inline-flex px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-full bg-gradient-to-r from-amber-50 to-orange-50 text-amber-900 border border-amber-200/80">
+                <span className="hidden sm:inline-flex px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider rounded-full bg-sky-100 text-sky-800 border border-sky-200">
                   Daily Rates
                 </span>
               </div>
-              <p className="text-[11px] text-slate-500">
-                Groundnut & Cottonseed daily wholesale price generator
+              <p className="text-[11px] text-slate-500 font-medium">
+                Simple & fast daily oil price generator
               </p>
             </div>
           </div>
 
-          {/* Quick Action buttons */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            <button
-              onClick={() => setIsHistoryOpen(true)}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold border border-slate-200 shadow-xs transition cursor-pointer"
-              title="View saved price logs"
-            >
-              <History className="w-3.5 h-3.5 text-amber-600" />
-              <span>Rate History</span>
-              {history.length > 0 && (
-                <span className="px-1.5 py-0.2 rounded-full bg-amber-500 text-white text-[10px] font-bold">
-                  {history.length}
-                </span>
-              )}
-            </button>
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-bold text-slate-600 bg-white/80 px-3 py-1.5 rounded-xl border border-sky-200 shadow-xs">
+              📅 {data.date}
+            </span>
           </div>
         </div>
       </header>
 
-      {/* Hero Banner with Soft Ambient Glow */}
-      <section className="py-7 border-b border-slate-200/70 bg-gradient-to-r from-white via-amber-50/20 to-orange-50/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-5">
-            <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-gradient-to-r from-amber-100/70 to-orange-100/70 text-amber-900 border border-amber-200/80 mb-2 shadow-xs">
-                <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-                Live Daily Wholesale Bulletin
-              </div>
-              <h1 className="text-2xl sm:text-3xl font-black text-slate-950 tracking-tight">
-                Edible Oil Daily Rates Dashboard
-              </h1>
-              <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-xl">
-                Enter today&apos;s Tin, 5L Can, and Bottle rates. Check the instant live preview and download high-resolution images ready for WhatsApp dealer broadcasts.
-              </p>
-            </div>
-
-            {/* Quick Rate Indicators */}
-            <div className="flex items-center gap-3">
-              <div className="px-5 py-3 rounded-2xl bg-white border border-amber-200/80 shadow-sm text-center">
-                <div className="text-[10px] text-amber-800 uppercase tracking-wider font-bold">Groundnut Tin</div>
-                <div className="text-lg font-black text-slate-950 mt-0.5">
-                  <span className="text-xs text-amber-600 font-bold mr-0.5">₹</span>
-                  {data.groundnutOil.tinPrice || "—"}
-                </div>
-              </div>
-              <div className="px-5 py-3 rounded-2xl bg-white border border-emerald-200/80 shadow-sm text-center">
-                <div className="text-[10px] text-emerald-800 uppercase tracking-wider font-bold">Cottonseed Tin</div>
-                <div className="text-lg font-black text-slate-950 mt-0.5">
-                  <span className="text-xs text-emerald-600 font-bold mr-0.5">₹</span>
-                  {data.cottonSeedOil.tinPrice || "—"}
-                </div>
-              </div>
-            </div>
+      {/* Hero Headline */}
+      <section className="py-6 sm:py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-2xl mx-auto space-y-2">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-white/80 text-sky-800 border border-sky-200 shadow-xs">
+            <Sparkles className="w-3.5 h-3.5 text-sky-600" />
+            Daily Price Card Generator
           </div>
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-950 tracking-tight">
+            Generate Today&apos;s Oil Price Card
+          </h1>
+          <p className="text-xs sm:text-sm text-slate-600 font-medium">
+            Type today&apos;s Groundnut and Cottonseed oil rates on the left, check the preview, and click download.
+          </p>
+        </div>
 
-          {/* Mobile View Toggle */}
-          <div className="mt-5 flex lg:hidden bg-slate-200/70 p-1 rounded-xl">
-            <button
-              onClick={() => setActiveTab("form")}
-              className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition cursor-pointer ${
-                activeTab === "form" ? "bg-white text-slate-950 shadow-xs" : "text-slate-600 hover:text-slate-950"
-              }`}
-            >
-              1. Edit Pricing
-            </button>
-            <button
-              onClick={() => setActiveTab("preview")}
-              className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition cursor-pointer ${
-                activeTab === "preview" ? "bg-white text-slate-950 shadow-xs" : "text-slate-600 hover:text-slate-950"
-              }`}
-            >
-              2. Preview & Download
-            </button>
-          </div>
+        {/* Mobile Tab Toggle */}
+        <div className="mt-5 flex lg:hidden bg-white/80 backdrop-blur-md p-1 rounded-2xl border border-sky-200 max-w-sm mx-auto shadow-xs">
+          <button
+            onClick={() => setActiveTab("form")}
+            className={`flex-1 py-2 text-xs font-bold rounded-xl transition cursor-pointer ${
+              activeTab === "form" ? "bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-xs" : "text-slate-600 hover:text-slate-900"
+            }`}
+          >
+            1. Enter Rates
+          </button>
+          <button
+            onClick={() => setActiveTab("preview")}
+            className={`flex-1 py-2 text-xs font-bold rounded-xl transition cursor-pointer ${
+              activeTab === "preview" ? "bg-gradient-to-r from-sky-500 to-blue-600 text-white shadow-xs" : "text-slate-600 hover:text-slate-900"
+            }`}
+          >
+            2. Preview & Download
+          </button>
         </div>
       </section>
 
-      {/* Main Workspace */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Main Form & Preview Workspace */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Left Column: Input Form */}
+          {/* Left: Input Form */}
           <div
             className={`lg:col-span-6 space-y-6 ${
               activeTab === "preview" ? "hidden lg:block" : "block"
@@ -202,67 +139,50 @@ export default function DailyPricingLandingPage() {
             />
           </div>
 
-          {/* Right Column: Preview & Actions */}
+          {/* Right: Export Actions & Live Preview */}
           <div
-            className={`lg:col-span-6 space-y-6 ${
+            className={`lg:col-span-6 space-y-5 ${
               activeTab === "form" ? "hidden lg:block" : "block"
             }`}
           >
-            {/* Export Actions Panel */}
+            {/* Top Action Bar (Download & Share) */}
             <ExportActions
               cardRef={cardRef}
               data={data}
-              onSaveHistory={handleSaveHistory}
             />
 
-            {/* Live Preview Container */}
-            <div className="bg-white rounded-3xl p-4 sm:p-6 border border-slate-200/80 shadow-xl shadow-slate-200/40">
+            {/* Live Card Preview Box */}
+            <div className="bg-white/95 backdrop-blur-md rounded-3xl p-4 sm:p-6 border border-white shadow-xl shadow-sky-950/5">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
                   <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-700">
-                    Live Image Preview
+                  <span className="text-xs font-black uppercase tracking-wider text-slate-800">
+                    Live Preview (Card to Download)
                   </span>
                 </div>
-                <span className="text-[11px] text-slate-500 font-medium">
-                  Exact Image Render on Download
+                <span className="text-[11px] text-slate-500 font-semibold">
+                  2.5x Retina Quality
                 </span>
               </div>
 
-              {/* Scaled Preview */}
+              {/* Card Container */}
               <div className="overflow-x-auto pb-2 flex justify-center">
-                <div className="min-w-[600px] py-1">
+                <div className="min-w-[580px] py-1">
                   <PriceCardPreview ref={cardRef} data={data} />
                 </div>
               </div>
 
               <p className="text-center text-[11px] text-slate-500 mt-3 font-medium">
-                💡 High-resolution image generated at 2.5x retina clarity for crisp viewing on mobile & WhatsApp.
+                💡 Template customization will be designed afterwards as requested.
               </p>
             </div>
           </div>
         </div>
       </main>
 
-      {/* History Modal */}
-      <HistoryModal
-        isOpen={isHistoryOpen}
-        onClose={() => setIsHistoryOpen(false)}
-        history={history}
-        onSelect={(loadedData) => handleDataChange(loadedData)}
-        onClear={handleClearHistory}
-      />
-
-      {/* Clean Light Footer */}
-      <footer className="mt-20 border-t border-slate-200/80 py-6 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 font-medium">
-          <div>
-            © 2026 {data.businessName || "KOM Edible Oils"}. Light Theme with Warm Gradients.
-          </div>
-          <div className="flex items-center gap-4 text-slate-600">
-            <span>Offline-Ready • Retina PNG Export • 5L Can Support</span>
-          </div>
-        </div>
+      {/* Clean Footer */}
+      <footer className="mt-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-slate-500 font-medium">
+        © 2026 {data.businessName || "KOM Edible Oils"} • Simple & Fast Daily Pricing Engine
       </footer>
     </div>
   );

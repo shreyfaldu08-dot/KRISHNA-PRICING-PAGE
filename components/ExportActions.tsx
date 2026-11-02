@@ -11,32 +11,26 @@ import {
   Loader2,
   MessageCircle,
   FileCheck,
-  BookmarkPlus,
 } from "lucide-react";
 
 interface ExportActionsProps {
   cardRef: React.RefObject<HTMLDivElement | null>;
   data: PricingData;
-  onSaveHistory?: () => void;
 }
 
 export const ExportActions: React.FC<ExportActionsProps> = ({
   cardRef,
   data,
-  onSaveHistory,
 }) => {
   const [downloading, setDownloading] = useState(false);
   const [copyingImage, setCopyingImage] = useState(false);
   const [copiedImage, setCopiedImage] = useState(false);
   const [copiedText, setCopiedText] = useState(false);
-  const [savedHistory, setSavedHistory] = useState(false);
 
-  // Trigger high quality image download
   const handleDownloadImage = async () => {
     if (!cardRef.current) return;
     try {
       setDownloading(true);
-
       await new Promise((res) => setTimeout(res, 100));
 
       const dataUrl = await toPng(cardRef.current, {
@@ -49,7 +43,7 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
       });
 
       const dateStr = data.date || new Date().toISOString().split("T")[0];
-      const fileName = `Daily_Oil_Rates_${dateStr}.png`;
+      const fileName = `Oil_Rates_${dateStr}.png`;
 
       const link = document.createElement("a");
       link.download = fileName;
@@ -57,8 +51,8 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
       link.click();
 
       confetti({
-        particleCount: 50,
-        spread: 60,
+        particleCount: 40,
+        spread: 50,
         origin: { y: 0.8 },
       });
     } catch (err) {
@@ -69,7 +63,6 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
     }
   };
 
-  // Copy Image to Clipboard
   const handleCopyImage = async () => {
     if (!cardRef.current) return;
     try {
@@ -92,11 +85,11 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
         setCopiedImage(true);
         setTimeout(() => setCopiedImage(false), 2500);
       } else {
-        alert("Clipboard Image copy is not supported in this browser. Please use 'Download Image'.");
+        alert("Clipboard Image copy is not supported in this browser. Please use 'Download Price Card'.");
       }
     } catch (err) {
-      console.error("Failed to copy image to clipboard:", err);
-      alert("Could not copy image. You can use 'Download Image' instead.");
+      console.error("Failed to copy image:", err);
+      alert("Could not copy image. You can click 'Download Price Card' instead.");
     } finally {
       setCopyingImage(false);
     }
@@ -118,15 +111,6 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
     text += `• Tin (15 Kg/L): ₹${data.cottonSeedOil.tinPrice || "—"}\n`;
     text += `• 5 Ltr Can: ₹${data.cottonSeedOil.canPrice || "—"}\n`;
     text += `• 1 Ltr Bottle: ₹${data.cottonSeedOil.bottlePrice || "—"}\n`;
-
-    if (data.customProducts && data.customProducts.length > 0) {
-      data.customProducts.forEach((p, idx) => {
-        text += `\n💧 *${idx + 3}. ${p.name.toUpperCase()}*\n`;
-        text += `• Tin: ₹${p.tinPrice || "—"}\n`;
-        text += `• 5 Ltr Can: ₹${p.canPrice || "—"}\n`;
-        text += `• Bottle: ₹${p.bottlePrice || "—"}\n`;
-      });
-    }
 
     text += `──────────────────────\n`;
     if (data.note) text += `📢 *Note:* ${data.note}\n`;
@@ -152,96 +136,43 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
     window.open(`https://api.whatsapp.com/send?text=${text}`, "_blank");
   };
 
-  const handleSaveToHistory = () => {
-    if (onSaveHistory) {
-      onSaveHistory();
-      setSavedHistory(true);
-      setTimeout(() => setSavedHistory(false), 2500);
-    }
-  };
-
   return (
-    <div className="bg-white rounded-3xl p-6 shadow-xl shadow-slate-200/50 border border-slate-200/80 space-y-4">
-      <div className="flex items-center justify-between">
-        <div>
-          <div className="flex items-center gap-2 mb-1">
-            <span className="w-2 h-2 rounded-full bg-emerald-500" />
-            <span className="text-[10px] font-bold tracking-widest uppercase text-slate-500">
-              Export & Share
-            </span>
-          </div>
-          <h3 className="text-base font-black text-slate-900 tracking-tight">
-            Download Image Card
-          </h3>
-        </div>
-        <span className="text-[10px] font-bold tracking-wider uppercase px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
-          Ready
-        </span>
-      </div>
+    <div className="bg-white/95 backdrop-blur-md rounded-3xl p-5 shadow-xl shadow-sky-950/5 border border-white space-y-3">
+      {/* Primary Big Download Button */}
+      <button
+        type="button"
+        onClick={handleDownloadImage}
+        disabled={downloading}
+        className="w-full flex items-center justify-center gap-2.5 py-4 px-6 rounded-2xl bg-gradient-to-r from-sky-500 via-blue-600 to-indigo-600 hover:from-sky-600 hover:to-indigo-700 text-white font-black text-sm tracking-wide uppercase transition shadow-lg shadow-sky-500/25 active:scale-[0.98] disabled:opacity-70 cursor-pointer"
+      >
+        {downloading ? (
+          <>
+            <Loader2 className="w-5 h-5 animate-spin" />
+            <span>Generating High-Res Image...</span>
+          </>
+        ) : (
+          <>
+            <Download className="w-5 h-5" />
+            <span>Download Price Card (PNG)</span>
+          </>
+        )}
+      </button>
 
-      {/* Main Download Buttons */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {/* Gradient Download Button */}
-        <button
-          type="button"
-          onClick={handleDownloadImage}
-          disabled={downloading}
-          className="w-full flex items-center justify-center gap-2 py-3.5 px-5 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-yellow-500 hover:from-amber-600 hover:to-orange-600 text-white font-black text-xs tracking-wide uppercase transition shadow-lg shadow-orange-500/20 active:scale-[0.98] disabled:opacity-70 cursor-pointer"
-        >
-          {downloading ? (
-            <>
-              <Loader2 className="w-4 h-4 animate-spin text-white" />
-              <span>Generating...</span>
-            </>
-          ) : (
-            <>
-              <Download className="w-4 h-4 text-white" />
-              <span>Download Image (PNG)</span>
-            </>
-          )}
-        </button>
-
-        {/* Copy Image to Clipboard */}
-        <button
-          type="button"
-          onClick={handleCopyImage}
-          disabled={copyingImage}
-          className="w-full flex items-center justify-center gap-2 py-3.5 px-5 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs tracking-wide uppercase transition active:scale-[0.98] disabled:opacity-70 cursor-pointer shadow-md shadow-slate-900/10"
-        >
-          {copyingImage ? (
-            <>
-              <Loader2 className="w-4 h-4 animate-spin" />
-              <span>Copying...</span>
-            </>
-          ) : copiedImage ? (
-            <>
-              <Check className="w-4 h-4 text-emerald-400" />
-              <span>Copied!</span>
-            </>
-          ) : (
-            <>
-              <Copy className="w-4 h-4 text-slate-300" />
-              <span>Copy Image</span>
-            </>
-          )}
-        </button>
-      </div>
-
-      {/* WhatsApp & Text Broadcast Buttons */}
-      <div className="pt-2 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+      {/* Secondary Actions */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
         <button
           type="button"
           onClick={handleShareWhatsApp}
-          className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 font-bold text-xs transition cursor-pointer"
+          className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs shadow-xs transition cursor-pointer"
         >
-          <MessageCircle className="w-4 h-4 text-emerald-600" />
-          <span>WhatsApp Text</span>
+          <MessageCircle className="w-4 h-4" />
+          <span>WhatsApp Share</span>
         </button>
 
         <button
           type="button"
           onClick={handleCopyText}
-          className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition cursor-pointer"
+          className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs transition cursor-pointer"
         >
           {copiedText ? (
             <>
@@ -258,18 +189,24 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
 
         <button
           type="button"
-          onClick={handleSaveToHistory}
-          className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 font-bold text-xs transition cursor-pointer"
+          onClick={handleCopyImage}
+          disabled={copyingImage}
+          className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs shadow-xs transition cursor-pointer disabled:opacity-60"
         >
-          {savedHistory ? (
+          {copyingImage ? (
             <>
-              <Check className="w-4 h-4 text-amber-600" />
-              <span>Saved!</span>
+              <Loader2 className="w-4 h-4 animate-spin" />
+              <span>Copying...</span>
+            </>
+          ) : copiedImage ? (
+            <>
+              <Check className="w-4 h-4 text-emerald-400" />
+              <span>Copied Image!</span>
             </>
           ) : (
             <>
-              <BookmarkPlus className="w-4 h-4 text-amber-600" />
-              <span>Save Log</span>
+              <Copy className="w-4 h-4 text-slate-300" />
+              <span>Copy Image</span>
             </>
           )}
         </button>
