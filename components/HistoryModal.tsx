@@ -28,27 +28,27 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-white rounded-3xl max-w-xl w-full p-6 shadow-2xl border border-neutral-100 max-h-[85vh] flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-in fade-in duration-200">
+      <div className="bg-[#121215] rounded-3xl max-w-xl w-full p-6 shadow-2xl border border-neutral-800 max-h-[85vh] flex flex-col">
         {/* Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-neutral-100">
+        <div className="flex items-center justify-between pb-4 border-b border-neutral-800">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600">
-              <History className="w-5 h-5" />
+            <div className="w-8 h-8 rounded-xl bg-neutral-800 flex items-center justify-center text-amber-400">
+              <History className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="font-bold text-neutral-900 text-lg">
-                Daily Price History
+              <h3 className="font-bold text-white text-base">
+                Rate Log History
               </h3>
-              <p className="text-xs text-neutral-500">
-                Previously saved rates ({history.length} records)
+              <p className="text-[11px] text-neutral-400">
+                Previously saved records ({history.length})
               </p>
             </div>
           </div>
 
           <button
             onClick={onClose}
-            className="p-2 rounded-xl text-neutral-400 hover:text-neutral-700 hover:bg-neutral-100 transition"
+            className="p-1.5 rounded-xl text-neutral-400 hover:text-white hover:bg-neutral-800 transition cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -57,37 +57,37 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
         {/* List of records */}
         <div className="py-4 overflow-y-auto flex-1 space-y-3">
           {history.length === 0 ? (
-            <div className="text-center py-12 text-neutral-400 text-sm">
-              <Calendar className="w-10 h-10 mx-auto text-neutral-300 mb-2 stroke-[1.5]" />
+            <div className="text-center py-12 text-neutral-500 text-xs">
+              <Calendar className="w-8 h-8 mx-auto text-neutral-600 mb-2 stroke-[1.5]" />
               No saved price records yet.
-              <p className="text-xs text-neutral-400 mt-1">
-                Click &quot;Save to History&quot; on the main page to keep a daily log!
+              <p className="text-[11px] text-neutral-500 mt-1">
+                Click &quot;Save Log&quot; on the main page to keep a daily record!
               </p>
             </div>
           ) : (
             history.map((record) => (
               <div
                 key={record.id}
-                className="p-4 rounded-2xl border border-neutral-200 hover:border-amber-400 hover:bg-amber-50/30 transition group flex items-center justify-between"
+                className="p-3.5 rounded-2xl border border-neutral-800/80 hover:border-neutral-700 bg-neutral-900/40 transition flex items-center justify-between"
               >
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="font-bold text-neutral-900 text-sm">
-                      Date: {record.data.date}
+                    <span className="font-bold text-white text-xs">
+                      {record.data.date}
                     </span>
-                    <span className="text-[10px] text-neutral-400">
+                    <span className="text-[10px] text-neutral-500">
                       Saved {new Date(record.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                     </span>
                   </div>
 
-                  <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs text-neutral-600">
+                  <div className="mt-1.5 flex flex-wrap gap-x-4 gap-y-1 text-xs text-neutral-400">
                     <div>
-                      <span className="font-semibold text-neutral-800">Groundnut:</span>{" "}
-                      Tin ₹{record.data.groundnutOil.tinPrice || "—"} • Can ₹{record.data.groundnutOil.canPrice || "—"}
+                      <span className="text-neutral-300 font-medium">Groundnut:</span>{" "}
+                      Tin ₹{record.data.groundnutOil.tinPrice || "—"} • 5L ₹{record.data.groundnutOil.canPrice || "—"}
                     </div>
                     <div>
-                      <span className="font-semibold text-neutral-800">Cottonseed:</span>{" "}
-                      Tin ₹{record.data.cottonSeedOil.tinPrice || "—"} • Can ₹{record.data.cottonSeedOil.canPrice || "—"}
+                      <span className="text-neutral-300 font-medium">Cottonseed:</span>{" "}
+                      Tin ₹{record.data.cottonSeedOil.tinPrice || "—"} • 5L ₹{record.data.cottonSeedOil.canPrice || "—"}
                     </div>
                   </div>
                 </div>
@@ -98,7 +98,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
                     onSelect(record.data);
                     onClose();
                   }}
-                  className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-amber-500 text-white font-semibold text-xs hover:bg-amber-600 shadow-sm transition"
+                  className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-white font-semibold text-xs border border-neutral-700 transition cursor-pointer"
                 >
                   <span>Load</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
@@ -110,17 +110,17 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
 
         {/* Footer */}
         {history.length > 0 && (
-          <div className="pt-4 border-t border-neutral-100 flex justify-between items-center">
+          <div className="pt-4 border-t border-neutral-800 flex justify-between items-center">
             <button
               onClick={onClear}
-              className="inline-flex items-center gap-1.5 text-xs text-red-600 hover:text-red-700 font-semibold transition"
+              className="inline-flex items-center gap-1.5 text-xs text-red-400 hover:text-red-300 font-medium transition cursor-pointer"
             >
               <Trash2 className="w-3.5 h-3.5" />
-              <span>Clear All History</span>
+              <span>Clear History</span>
             </button>
             <button
               onClick={onClose}
-              className="px-4 py-2 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-700 text-xs font-semibold"
+              className="px-4 py-2 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-neutral-300 text-xs font-semibold cursor-pointer"
             >
               Close
             </button>
@@ -130,4 +130,3 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
     </div>
   );
 };
-

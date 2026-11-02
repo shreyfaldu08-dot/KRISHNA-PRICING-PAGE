@@ -31,29 +31,29 @@ export interface PricingData {
   customProducts: ProductRate[];
   note: string;
   terms: string;
-  templateId: "royal-amber" | "modern-emerald" | "classic-navy" | "custom-image";
+  templateId: "minimal-obsidian" | "porcelain-light" | "nordic-slate" | "custom-image";
   customBgUrl?: string;
   customLogoUrl?: string;
 }
 
 export const INITIAL_PRICING_DATA: PricingData = {
   businessName: "K.O.M. EDIBLE OILS",
-  tagline: "Pure Quality • Best Market Rates",
+  tagline: "Pure Edible Oils • Daily Wholesale Rates",
   phone: "+91 98765 43210",
-  city: "Rajkot / Market Yard",
+  city: "Rajkot, Gujarat",
   date: "2026-11-02",
   groundnutOil: {
     tinPrice: "2450",
-    canPrice: "2350",
+    canPrice: "850",
     bottlePrice: "165",
   },
   cottonSeedOil: {
     tinPrice: "2050",
-    canPrice: "1950",
+    canPrice: "710",
     bottlePrice: "140",
   },
   customProducts: [],
-  note: "Rates are valid for today only. Ex-Mill / Ready Delivery.",
-  terms: "Payment within 48 hours • Taxes as applicable • Loading free",
-  templateId: "royal-amber",
+  note: "Rates valid for today only. Ex-mill / ready delivery.",
+  terms: "Payment within 48 hours • Taxes applicable as per GST norms",
+  templateId: "minimal-obsidian",
 };
