@@ -1,15 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import { CatalogueData } from "@/types/pricing";
+import { CatalogueData, TemplateStyle } from "@/types/pricing";
 import {
   Calendar,
   RotateCcw,
-  Sparkles,
   ChevronDown,
   ChevronUp,
   Tag,
-  Package,
+  Palette,
 } from "lucide-react";
 
 interface PricingFormProps {
@@ -70,8 +69,29 @@ export const PricingForm: React.FC<PricingFormProps> = ({
     updateField("date", formatted);
   };
 
+  const templates: { id: TemplateStyle; name: string; desc: string; icon: string }[] = [
+    {
+      id: "minimal",
+      name: "Minimal Editorial",
+      desc: "Warm ivory, clean serif, natural breathing room",
+      icon: "🌿",
+    },
+    {
+      id: "contemporary",
+      name: "Studio Clean",
+      desc: "Fresh white, high contrast, modern FMCG brochure",
+      icon: "✨",
+    },
+    {
+      id: "heritage",
+      name: "Heritage Prestige",
+      desc: "Saurashtra Mill gold framing & royal terracotta",
+      icon: "🏛️",
+    },
+  ];
+
   return (
-    <div className="bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-xl shadow-sky-900/5 border border-sky-100/80 space-y-5">
+    <div className="bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-xl shadow-sky-900/5 border border-sky-100/80 space-y-4 sm:space-y-5">
       {/* Top Header with Reset */}
       <div className="flex items-center justify-between pb-3 border-b border-slate-100">
         <div>
@@ -97,6 +117,41 @@ export const PricingForm: React.FC<PricingFormProps> = ({
         </button>
       </div>
 
+      {/* Template Design Selector */}
+      <div className="space-y-2">
+        <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+          <Palette className="w-3.5 h-3.5 text-amber-600" />
+          <span>Choose Poster Template Style</span>
+        </label>
+        <div className="grid grid-cols-3 gap-2">
+          {templates.map((t) => {
+            const isSelected = (data.templateStyle || "minimal") === t.id;
+            return (
+              <button
+                key={t.id}
+                type="button"
+                onClick={() => updateField("templateStyle", t.id)}
+                className={`p-2.5 rounded-xl border text-left transition cursor-pointer flex flex-col justify-between ${
+                  isSelected
+                    ? "border-amber-500 bg-amber-50/70 shadow-xs ring-1 ring-amber-500/20"
+                    : "border-slate-200 hover:border-slate-300 bg-white"
+                }`}
+              >
+                <div className="flex items-center gap-1.5">
+                  <span className="text-sm">{t.icon}</span>
+                  <span className="text-xs font-black text-slate-900 leading-tight">
+                    {t.name}
+                  </span>
+                </div>
+                <span className="text-[10px] text-slate-500 mt-1 line-clamp-1">
+                  {t.desc}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       {/* Date Field */}
       <div className="bg-sky-50/50 p-3.5 rounded-2xl border border-sky-100 space-y-1.5">
         <div className="flex items-center justify-between">
@@ -116,7 +171,7 @@ export const PricingForm: React.FC<PricingFormProps> = ({
           type="text"
           value={data.date}
           onChange={(e) => updateField("date", e.target.value)}
-          placeholder="e.g. 30-10-2026"
+          placeholder="e.g. 02-11-2026"
           className="w-full px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-900 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500 shadow-2xs"
         />
       </div>
@@ -138,7 +193,7 @@ export const PricingForm: React.FC<PricingFormProps> = ({
             </div>
           </div>
           <span className="text-[10px] font-bold uppercase tracking-wider text-amber-800 bg-amber-100/80 px-2 py-0.5 rounded-md">
-            Left Product
+            Cottonseed
           </span>
         </div>
 
@@ -218,7 +273,7 @@ export const PricingForm: React.FC<PricingFormProps> = ({
             </div>
           </div>
           <span className="text-[10px] font-bold uppercase tracking-wider text-orange-800 bg-orange-100/80 px-2 py-0.5 rounded-md">
-            Right Product
+            Groundnut
           </span>
         </div>
 

@@ -185,17 +185,51 @@ export default function DailyPricingLandingPage() {
             />
 
             {/* Live Card Preview Box */}
-            <div className="bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl p-3 sm:p-6 border border-white shadow-xl shadow-sky-950/5">
-              <div className="flex items-center justify-between mb-3 sm:mb-4 px-1">
+            <div className="bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl p-3 sm:p-5 border border-white shadow-xl shadow-sky-950/5">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 mb-3 sm:mb-4 px-1">
                 <div className="flex items-center gap-2">
                   <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
                   <span className="text-[11px] sm:text-xs font-black uppercase tracking-wider text-slate-800">
-                    Live Official Poster Preview
+                    Live Poster Preview
                   </span>
                 </div>
-                <span className="text-[10px] sm:text-[11px] text-slate-500 font-semibold">
-                  Full HD Quality
-                </span>
+
+                {/* Template Quick Switcher */}
+                <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl self-start sm:self-auto">
+                  <button
+                    type="button"
+                    onClick={() => handleDataChange({ ...data, templateStyle: "minimal" })}
+                    className={`px-2.5 py-1 text-[11px] font-bold rounded-lg transition cursor-pointer ${
+                      data.templateStyle === "minimal" || !data.templateStyle
+                        ? "bg-white text-slate-900 shadow-2xs"
+                        : "text-slate-500 hover:text-slate-900"
+                    }`}
+                  >
+                    🌿 Minimal
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleDataChange({ ...data, templateStyle: "contemporary" })}
+                    className={`px-2.5 py-1 text-[11px] font-bold rounded-lg transition cursor-pointer ${
+                      data.templateStyle === "contemporary"
+                        ? "bg-white text-slate-900 shadow-2xs"
+                        : "text-slate-500 hover:text-slate-900"
+                    }`}
+                  >
+                    ✨ Studio Clean
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleDataChange({ ...data, templateStyle: "heritage" })}
+                    className={`px-2.5 py-1 text-[11px] font-bold rounded-lg transition cursor-pointer ${
+                      data.templateStyle === "heritage"
+                        ? "bg-white text-slate-900 shadow-2xs"
+                        : "text-slate-500 hover:text-slate-900"
+                    }`}
+                  >
+                    🏛️ Heritage
+                  </button>
+                </div>
               </div>
 
               {/* Responsive Container — Zero horizontal shift or scrollbar */}

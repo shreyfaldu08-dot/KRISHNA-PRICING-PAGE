@@ -14,11 +14,14 @@ export interface ProductItem {
   bottlePrice: string;
 }
 
+export type TemplateStyle = "minimal" | "contemporary" | "heritage";
+
 export interface CatalogueData {
   religiousHeading: string;
   brandName: string;
   subtitle: string;
   date: string;
+  templateStyle?: TemplateStyle;
   trupti: ProductItem;
   krishna: ProductItem;
   footerNotice: string;
@@ -32,7 +35,8 @@ export const INITIAL_CATALOGUE_DATA: CatalogueData = {
   religiousHeading: "जय श्री कृष्णा",
   brandName: "KRISHNA EXPORT. INDUSTRIES",
   subtitle: "PRODUCT COLLECTION & WHOLESALE PRICE LIST",
-  date: "30-10-2026",
+  date: "02-11-2026",
+  templateStyle: "minimal",
   trupti: {
     id: "trupti",
     brandName: "TRUPTI",
