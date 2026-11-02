@@ -1,14 +1,14 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { PricingData, INITIAL_PRICING_DATA } from "@/types/pricing";
+import { CatalogueData, INITIAL_CATALOGUE_DATA } from "@/types/pricing";
 import { PricingForm } from "@/components/PricingForm";
 import { PriceCardPreview } from "@/components/PriceCardPreview";
 import { ExportActions } from "@/components/ExportActions";
 import { Sparkles, Eye, Edit3 } from "lucide-react";
 
 export default function DailyPricingLandingPage() {
-  const [data, setData] = useState<PricingData>(INITIAL_PRICING_DATA);
+  const [data, setData] = useState<CatalogueData>(INITIAL_CATALOGUE_DATA);
   const [activeTab, setActiveTab] = useState<"form" | "preview">("form");
   const [mounted, setMounted] = useState(false);
 
@@ -17,18 +17,23 @@ export default function DailyPricingLandingPage() {
   useEffect(() => {
     setMounted(true);
     try {
-      const today = new Date().toISOString().split("T")[0];
-      const savedData = localStorage.getItem("kom_pricing_data");
+      const today = new Date();
+      const dd = String(today.getDate()).padStart(2, "0");
+      const mm = String(today.getMonth() + 1).padStart(2, "0");
+      const yyyy = today.getFullYear();
+      const formattedDate = `${dd}-${mm}-${yyyy}`;
+
+      const savedData = localStorage.getItem("krishna_catalogue_data");
       if (savedData) {
         const parsed = JSON.parse(savedData);
         setData({
           ...parsed,
-          date: today,
+          date: parsed.date || formattedDate,
         });
       } else {
         setData((prev) => ({
           ...prev,
-          date: today,
+          date: formattedDate,
         }));
       }
     } catch (e) {
@@ -36,22 +41,32 @@ export default function DailyPricingLandingPage() {
     }
   }, []);
 
-  const handleDataChange = (newData: PricingData) => {
+  const handleDataChange = (newData: CatalogueData) => {
     setData(newData);
     try {
-      localStorage.setItem("kom_pricing_data", JSON.stringify(newData));
+      localStorage.setItem("krishna_catalogue_data", JSON.stringify(newData));
     } catch (e) {
       console.warn("Could not save to localStorage:", e);
     }
   };
 
   const handleReset = () => {
-    if (confirm("Reset rates to default sample values?")) {
-      const today = new Date().toISOString().split("T")[0];
+    if (confirm("Reset rates to reference sample values?")) {
+      const today = new Date();
+      const dd = String(today.getDate()).padStart(2, "0");
+      const mm = String(today.getMonth() + 1).padStart(2, "0");
+      const yyyy = today.getFullYear();
+      const formattedDate = `${dd}-${mm}-${yyyy}`;
+
       setData({
-        ...INITIAL_PRICING_DATA,
-        date: today,
+        ...INITIAL_CATALOGUE_DATA,
+        date: formattedDate,
       });
+      try {
+        localStorage.removeItem("krishna_catalogue_data");
+      } catch (e) {
+        console.warn("Could not clear localStorage:", e);
+      }
     }
   };
 
@@ -88,17 +103,17 @@ export default function DailyPricingLandingPage() {
       </header>
 
       {/* Hero Headline */}
-      <section className="py-4 sm:py-7 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto space-y-1.5 sm:space-y-2">
+      <section className="py-4 sm:py-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-2xl mx-auto space-y-1.5">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold bg-white/90 text-amber-900 border border-amber-200/80 shadow-xs">
             <Sparkles className="w-3 h-3 text-amber-600" />
             Official Wholesale Poster Generator
           </div>
           <h1 className="text-xl sm:text-3xl font-black text-slate-950 tracking-tight">
-            Daily Wholesale Price Poster
+            Krishna Export Industries Price List
           </h1>
           <p className="text-xs sm:text-sm text-slate-600 font-medium">
-            Enter today&apos;s rates for Trupti Cottonseed and Krishna Groundnut oil, review the poster, and download.
+            Update today&apos;s rates for Trupti Cottonseed and Krishna Groundnut oil, review the poster, and download.
           </p>
         </div>
 
@@ -113,7 +128,7 @@ export default function DailyPricingLandingPage() {
             }`}
           >
             <Edit3 className="w-3.5 h-3.5" />
-            <span>1. Enter Rates</span>
+            <span>1. Update Rates</span>
           </button>
           <button
             onClick={() => setActiveTab("preview")}
@@ -183,13 +198,13 @@ export default function DailyPricingLandingPage() {
                 </span>
               </div>
 
-              {/* Perfectly Responsive Container — No horizontal scrollbar! */}
-              <div className="w-full flex justify-center">
+              {/* Responsive Container — Zero horizontal shift or scrollbar */}
+              <div className="w-full flex justify-center overflow-x-hidden">
                 <PriceCardPreview ref={cardRef} data={data} />
               </div>
 
               <p className="text-center text-[10px] sm:text-[11px] text-slate-500 mt-3 font-medium">
-                💡 High-resolution image generated at 3x retina clarity for crisp viewing on mobile & WhatsApp.
+                💡 High-resolution image rendered at 3x retina clarity for crisp viewing on mobile & WhatsApp.
               </p>
             </div>
 
@@ -208,9 +223,9 @@ export default function DailyPricingLandingPage() {
         </div>
       </main>
 
-      {/* Clean Footer */}
+      {/* Clean Light Footer */}
       <footer className="mt-12 sm:mt-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-slate-500 font-medium">
-        © 2026 {data.businessName || "KRISHNA EXPORT. INDUSTRIES"} • All Rates Plus GST • Ex-Factory | Junagadh
+        © 2026 {data.brandName || "KRISHNA EXPORT. INDUSTRIES"} • All Rates Plus GST • Ex-Factory | Junagadh
       </footer>
     </div>
   );

@@ -1,20 +1,20 @@
 "use client";
 
 import React from "react";
-import { PricingData } from "@/types/pricing";
+import { CatalogueData } from "@/types/pricing";
 import { History, X, Trash2, ArrowUpRight, Calendar } from "lucide-react";
 
 interface HistoryRecord {
   id: string;
   timestamp: string;
-  data: PricingData;
+  data: CatalogueData;
 }
 
 interface HistoryModalProps {
   isOpen: boolean;
   onClose: () => void;
   history: HistoryRecord[];
-  onSelect: (record: PricingData) => void;
+  onSelect: (record: CatalogueData) => void;
   onClear: () => void;
 }
 
@@ -60,15 +60,12 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
             <div className="text-center py-12 text-slate-400 text-xs">
               <Calendar className="w-8 h-8 mx-auto text-slate-300 mb-2 stroke-[1.5]" />
               No saved price records yet.
-              <p className="text-[11px] text-slate-400 mt-1">
-                Click &quot;Save Log&quot; on the main page to store your daily rates!
-              </p>
             </div>
           ) : (
             history.map((record) => (
               <div
                 key={record.id}
-                className="p-3.5 rounded-2xl border border-slate-200 hover:border-amber-400 bg-slate-50/50 hover:bg-amber-50/20 transition flex items-center justify-between shadow-sm"
+                className="p-3.5 rounded-2xl border border-slate-200 hover:border-amber-400 bg-slate-50/50 hover:bg-amber-50/20 transition flex items-center justify-between shadow-xs"
               >
                 <div>
                   <div className="flex items-center gap-2">
@@ -82,12 +79,12 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
 
                   <div className="mt-1.5 flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-600">
                     <div>
-                      <span className="text-slate-900 font-semibold">Groundnut:</span>{" "}
-                      Tin ₹{record.data.groundnutOil.tinPrice || "—"} • 5L ₹{record.data.groundnutOil.canPrice || "—"}
+                      <span className="text-slate-900 font-semibold">Trupti (Cottonseed):</span>{" "}
+                      Tin ₹{record.data.trupti?.tinPrice || "—"} • 5L ₹{record.data.trupti?.canPrice || "—"}
                     </div>
                     <div>
-                      <span className="text-slate-900 font-semibold">Cottonseed:</span>{" "}
-                      Tin ₹{record.data.cottonSeedOil.tinPrice || "—"} • 5L ₹{record.data.cottonSeedOil.canPrice || "—"}
+                      <span className="text-slate-900 font-semibold">Krishna (Groundnut):</span>{" "}
+                      Tin ₹{record.data.krishna?.tinPrice || "—"} • 5L ₹{record.data.krishna?.canPrice || "—"}
                     </div>
                   </div>
                 </div>
@@ -98,7 +95,7 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
                     onSelect(record.data);
                     onClose();
                   }}
-                  className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold text-xs transition cursor-pointer shadow-sm"
+                  className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-bold text-xs transition cursor-pointer shadow-xs"
                 >
                   <span>Load</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />
@@ -108,19 +105,21 @@ export const HistoryModal: React.FC<HistoryModalProps> = ({
           )}
         </div>
 
-        {/* Footer */}
+        {/* Footer actions */}
         {history.length > 0 && (
-          <div className="pt-4 border-t border-slate-100 flex justify-between items-center">
+          <div className="pt-3 border-t border-slate-100 flex justify-between items-center">
             <button
+              type="button"
               onClick={onClear}
-              className="inline-flex items-center gap-1.5 text-xs text-red-600 hover:text-red-700 font-semibold transition cursor-pointer"
+              className="text-xs text-rose-500 hover:text-rose-700 font-bold flex items-center gap-1 px-2 py-1 rounded-lg hover:bg-rose-50 transition cursor-pointer"
             >
               <Trash2 className="w-3.5 h-3.5" />
               <span>Clear History</span>
             </button>
             <button
+              type="button"
               onClick={onClose}
-              className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold cursor-pointer"
+              className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition cursor-pointer"
             >
               Close
             </button>
