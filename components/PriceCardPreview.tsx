@@ -38,16 +38,16 @@ export const PriceCardPreview = forwardRef<HTMLDivElement, PriceCardPreviewProps
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
-        className="w-full max-w-[560px] mx-auto rounded-2xl sm:rounded-3xl bg-white border border-sky-200/90 shadow-xl text-slate-900 font-sans overflow-hidden transition-none"
+        className="w-full max-w-[540px] mx-auto rounded-2xl sm:rounded-3xl bg-white border border-sky-200/90 shadow-xl text-slate-900 font-sans overflow-hidden select-none"
       >
         {/* Minimal Sky-Blue Gradient Ribbon */}
         <div className="h-2 sm:h-2.5 w-full bg-gradient-to-r from-sky-400 via-blue-500 to-sky-400" />
 
-        <div className="p-4 sm:p-7">
+        <div className="p-4 sm:p-6 md:p-7">
           {/* Header */}
           <div className="flex items-start justify-between pb-3 sm:pb-4 border-b border-slate-200 gap-2">
             <div>
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] font-black uppercase tracking-wider sm:tracking-widest bg-gradient-to-r from-sky-50 to-blue-50 text-sky-800 border border-sky-200/80 mb-1.5 shadow-xs">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] font-black uppercase tracking-wider bg-gradient-to-r from-sky-50 to-blue-50 text-sky-800 border border-sky-200/80 mb-1.5 shadow-xs">
                 <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-sky-500" />
                 DAILY WHOLESALE RATES
               </div>
@@ -113,7 +113,7 @@ export const PriceCardPreview = forwardRef<HTMLDivElement, PriceCardPreviewProps
                   <div className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-500">Tin (15 Kg/L)</div>
                   <div className="my-1 sm:my-1.5">
                     <span className="text-[10px] sm:text-xs font-bold text-sky-600 mr-0.5">₹</span>
-                    <span className="text-lg sm:text-2xl font-black text-slate-950 tracking-tight">
+                    <span className="text-base sm:text-2xl font-black text-slate-950 tracking-tight">
                       {data.groundnutOil.tinPrice || "—"}
                     </span>
                   </div>
@@ -124,7 +124,7 @@ export const PriceCardPreview = forwardRef<HTMLDivElement, PriceCardPreviewProps
                   <div className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-500">5 Ltr Can</div>
                   <div className="my-1 sm:my-1.5">
                     <span className="text-[10px] sm:text-xs font-bold text-sky-600 mr-0.5">₹</span>
-                    <span className="text-lg sm:text-2xl font-black text-slate-950 tracking-tight">
+                    <span className="text-base sm:text-2xl font-black text-slate-950 tracking-tight">
                       {data.groundnutOil.canPrice || "—"}
                     </span>
                   </div>
@@ -135,7 +135,7 @@ export const PriceCardPreview = forwardRef<HTMLDivElement, PriceCardPreviewProps
                   <div className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-500">1 Ltr Bottle</div>
                   <div className="my-1 sm:my-1.5">
                     <span className="text-[10px] sm:text-xs font-bold text-sky-600 mr-0.5">₹</span>
-                    <span className="text-lg sm:text-2xl font-black text-slate-950 tracking-tight">
+                    <span className="text-base sm:text-2xl font-black text-slate-950 tracking-tight">
                       {data.groundnutOil.bottlePrice || "—"}
                     </span>
                   </div>
@@ -169,7 +169,7 @@ export const PriceCardPreview = forwardRef<HTMLDivElement, PriceCardPreviewProps
                   <div className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-500">Tin (15 Kg/L)</div>
                   <div className="my-1 sm:my-1.5">
                     <span className="text-[10px] sm:text-xs font-bold text-sky-600 mr-0.5">₹</span>
-                    <span className="text-lg sm:text-2xl font-black text-slate-950 tracking-tight">
+                    <span className="text-base sm:text-2xl font-black text-slate-950 tracking-tight">
                       {data.cottonSeedOil.tinPrice || "—"}
                     </span>
                   </div>
@@ -180,7 +180,7 @@ export const PriceCardPreview = forwardRef<HTMLDivElement, PriceCardPreviewProps
                   <div className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-500">5 Ltr Can</div>
                   <div className="my-1 sm:my-1.5">
                     <span className="text-[10px] sm:text-xs font-bold text-sky-600 mr-0.5">₹</span>
-                    <span className="text-lg sm:text-2xl font-black text-slate-950 tracking-tight">
+                    <span className="text-base sm:text-2xl font-black text-slate-950 tracking-tight">
                       {data.cottonSeedOil.canPrice || "—"}
                     </span>
                   </div>
@@ -191,7 +191,7 @@ export const PriceCardPreview = forwardRef<HTMLDivElement, PriceCardPreviewProps
                   <div className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-500">1 Ltr Bottle</div>
                   <div className="my-1 sm:my-1.5">
                     <span className="text-[10px] sm:text-xs font-bold text-sky-600 mr-0.5">₹</span>
-                    <span className="text-lg sm:text-2xl font-black text-slate-950 tracking-tight">
+                    <span className="text-base sm:text-2xl font-black text-slate-950 tracking-tight">
                       {data.cottonSeedOil.bottlePrice || "—"}
                     </span>
                   </div>
