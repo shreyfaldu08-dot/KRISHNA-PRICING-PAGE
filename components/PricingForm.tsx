@@ -71,13 +71,13 @@ export const PricingForm: React.FC<PricingFormProps> = ({
   };
 
   return (
-    <div className="bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-xl shadow-sky-900/5 border border-sky-100/80 space-y-5">
+    <div className="bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-xl shadow-blue-950/5 border border-blue-100/80 space-y-5">
       {/* Top Header with Reset */}
       <div className="flex items-center justify-between pb-3 border-b border-slate-100">
         <div>
           <h2 className="text-lg sm:text-xl font-black text-slate-900 tracking-tight flex items-center gap-2">
             <span>Daily Price Updates</span>
-            <span className="px-2 py-0.5 text-[10px] font-bold rounded-full bg-amber-100 text-amber-900 border border-amber-200">
+            <span className="px-2 py-0.5 text-[10px] font-bold rounded-full bg-blue-100 text-blue-900 border border-blue-200">
               Live Sync
             </span>
           </h2>
@@ -98,16 +98,16 @@ export const PricingForm: React.FC<PricingFormProps> = ({
       </div>
 
       {/* Date Field */}
-      <div className="bg-sky-50/50 p-3.5 rounded-2xl border border-sky-100 space-y-1.5">
+      <div className="bg-blue-50/50 p-3.5 rounded-2xl border border-blue-100 space-y-1.5">
         <div className="flex items-center justify-between">
           <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-            <Calendar className="w-3.5 h-3.5 text-sky-600" />
+            <Calendar className="w-3.5 h-3.5 text-blue-600" />
             <span>Poster Date</span>
           </label>
           <button
             type="button"
             onClick={setTodayDate}
-            className="text-[11px] font-bold text-sky-700 hover:text-sky-900 cursor-pointer underline underline-offset-2"
+            className="text-[11px] font-bold text-blue-700 hover:text-blue-900 cursor-pointer underline underline-offset-2"
           >
             Set Today&apos;s Date
           </button>
@@ -117,15 +117,15 @@ export const PricingForm: React.FC<PricingFormProps> = ({
           value={data.date}
           onChange={(e) => updateField("date", e.target.value)}
           placeholder="e.g. 30-10-2026"
-          className="w-full px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-900 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500 shadow-2xs"
+          className="w-full px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-900 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-2xs"
         />
       </div>
 
       {/* Product 1: TRUPTI COTTON SEED REFINED OIL */}
-      <div className="p-4 rounded-2xl bg-amber-50/40 border border-amber-200/70 space-y-3.5">
+      <div className="p-4 rounded-2xl bg-blue-50/50 border border-blue-200/80 space-y-3.5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-amber-600 text-white flex items-center justify-center font-black text-xs shadow-xs">
+            <div className="w-7 h-7 rounded-lg bg-blue-700 text-white flex items-center justify-center font-black text-xs shadow-xs">
               T
             </div>
             <div>
@@ -137,8 +137,8 @@ export const PricingForm: React.FC<PricingFormProps> = ({
               </p>
             </div>
           </div>
-          <span className="text-[10px] font-bold uppercase tracking-wider text-amber-800 bg-amber-100/80 px-2 py-0.5 rounded-md">
-            Left Product
+          <span className="text-[10px] font-bold uppercase tracking-wider text-blue-800 bg-blue-100/90 px-2 py-0.5 rounded-md">
+            Cottonseed
           </span>
         </div>
 
@@ -156,7 +156,7 @@ export const PricingForm: React.FC<PricingFormProps> = ({
               value={data.trupti.tinPrice}
               onChange={(e) => updateTruptiPrice("tinPrice", e.target.value)}
               placeholder="e.g. 2445–2455"
-              className="w-full pl-7 pr-3 py-2 rounded-xl bg-white border border-amber-200 text-slate-900 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 shadow-2xs"
+              className="w-full pl-7 pr-3 py-2 rounded-xl bg-white border border-blue-200 text-slate-900 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-2xs"
             />
           </div>
         </div>
@@ -176,7 +176,7 @@ export const PricingForm: React.FC<PricingFormProps> = ({
                 value={data.trupti.canPrice}
                 onChange={(e) => updateTruptiPrice("canPrice", e.target.value)}
                 placeholder="758"
-                className="w-full pl-7 pr-3 py-2 rounded-xl bg-white border border-slate-200 text-slate-900 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 shadow-2xs"
+                className="w-full pl-7 pr-3 py-2 rounded-xl bg-white border border-slate-200 text-slate-900 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-2xs"
               />
             </div>
           </div>
@@ -194,7 +194,7 @@ export const PricingForm: React.FC<PricingFormProps> = ({
                 value={data.trupti.bottlePrice}
                 onChange={(e) => updateTruptiPrice("bottlePrice", e.target.value)}
                 placeholder="151"
-                className="w-full pl-7 pr-3 py-2 rounded-xl bg-white border border-slate-200 text-slate-900 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 shadow-2xs"
+                className="w-full pl-7 pr-3 py-2 rounded-xl bg-white border border-slate-200 text-slate-900 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-2xs"
               />
             </div>
           </div>
@@ -202,10 +202,10 @@ export const PricingForm: React.FC<PricingFormProps> = ({
       </div>
 
       {/* Product 2: KRISHNA GROUNDNUT OIL */}
-      <div className="p-4 rounded-2xl bg-orange-50/40 border border-orange-200/70 space-y-3.5">
+      <div className="p-4 rounded-2xl bg-indigo-50/50 border border-indigo-200/80 space-y-3.5">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-orange-600 text-white flex items-center justify-center font-black text-xs shadow-xs">
+            <div className="w-7 h-7 rounded-lg bg-indigo-700 text-white flex items-center justify-center font-black text-xs shadow-xs">
               K
             </div>
             <div>
@@ -217,8 +217,8 @@ export const PricingForm: React.FC<PricingFormProps> = ({
               </p>
             </div>
           </div>
-          <span className="text-[10px] font-bold uppercase tracking-wider text-orange-800 bg-orange-100/80 px-2 py-0.5 rounded-md">
-            Right Product
+          <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-800 bg-indigo-100/90 px-2 py-0.5 rounded-md">
+            Groundnut
           </span>
         </div>
 
@@ -236,7 +236,7 @@ export const PricingForm: React.FC<PricingFormProps> = ({
               value={data.krishna.tinPrice}
               onChange={(e) => updateKrishnaPrice("tinPrice", e.target.value)}
               placeholder="e.g. 2850"
-              className="w-full pl-7 pr-3 py-2 rounded-xl bg-white border border-orange-200 text-slate-900 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 shadow-2xs"
+              className="w-full pl-7 pr-3 py-2 rounded-xl bg-white border border-indigo-200 text-slate-900 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-2xs"
             />
           </div>
         </div>
@@ -256,7 +256,7 @@ export const PricingForm: React.FC<PricingFormProps> = ({
                 value={data.krishna.canPrice}
                 onChange={(e) => updateKrishnaPrice("canPrice", e.target.value)}
                 placeholder="882"
-                className="w-full pl-7 pr-3 py-2 rounded-xl bg-white border border-slate-200 text-slate-900 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 shadow-2xs"
+                className="w-full pl-7 pr-3 py-2 rounded-xl bg-white border border-slate-200 text-slate-900 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-2xs"
               />
             </div>
           </div>
@@ -274,7 +274,7 @@ export const PricingForm: React.FC<PricingFormProps> = ({
                 value={data.krishna.bottlePrice}
                 onChange={(e) => updateKrishnaPrice("bottlePrice", e.target.value)}
                 placeholder="177"
-                className="w-full pl-7 pr-3 py-2 rounded-xl bg-white border border-slate-200 text-slate-900 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-orange-500 shadow-2xs"
+                className="w-full pl-7 pr-3 py-2 rounded-xl bg-white border border-slate-200 text-slate-900 font-bold text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-2xs"
               />
             </div>
           </div>

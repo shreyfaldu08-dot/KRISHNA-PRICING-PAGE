@@ -18,17 +18,17 @@ export const PriceCardPreview = forwardRef<HTMLDivElement, PriceCardPreviewProps
       <div
         ref={ref}
         id="price-card-canvas"
-        className="relative w-full max-w-[540px] aspect-[4/5] mx-auto rounded-3xl poster-canvas border border-[#E6D7C5] shadow-2xl overflow-hidden p-3.5 sm:p-5 md:p-6 flex flex-col justify-between select-text"
+        className="relative w-full max-w-[540px] aspect-[4/5] mx-auto rounded-3xl poster-canvas border border-[#BFDBFE] shadow-2xl overflow-hidden p-3.5 sm:p-5 md:p-6 flex flex-col justify-between select-text"
         style={{
-          boxShadow: "0 25px 50px -12px rgba(100, 70, 40, 0.16)",
+          boxShadow: "0 25px 50px -12px rgba(15, 41, 74, 0.16)",
         }}
       >
-        {/* SECTION 05 — Decorative Botanical Illustrations */}
+        {/* SECTION 05 — Decorative Botanical Illustrations in Blue Shade */}
         <BotanicalDecoration />
 
         {/* Top Header Region (Religious Heading + Brand Heading + Date) */}
         <div className="relative z-10 space-y-0.5 sm:space-y-1">
-          {/* SECTION 02 — Top Religious Heading */}
+          {/* SECTION 02 — Top Religious Heading in Deep Navy Blue */}
           <ReligiousHeading heading={data.religiousHeading} />
 
           {/* SECTION 03 & 04 — Main Brand Heading, Subtitle & Date */}

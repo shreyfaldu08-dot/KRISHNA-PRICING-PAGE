@@ -135,14 +135,14 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
   };
 
   return (
-    <div className="bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl p-3 sm:p-5 shadow-xl shadow-sky-950/5 border border-sky-100/80">
+    <div className="bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl p-3 sm:p-5 shadow-xl shadow-blue-950/5 border border-blue-100/80">
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
         {/* Main High-Resolution Download Button */}
         <button
           onClick={handleDownloadImage}
           disabled={downloading}
           type="button"
-          className="flex-1 py-3 px-4 rounded-xl sm:rounded-2xl bg-gradient-to-r from-amber-600 via-orange-600 to-amber-700 hover:from-amber-500 hover:to-orange-500 text-white font-black text-xs sm:text-sm uppercase tracking-wider shadow-md shadow-amber-600/25 flex items-center justify-center gap-2 transition cursor-pointer disabled:opacity-50"
+          className="flex-1 py-3 px-4 rounded-xl sm:rounded-2xl bg-gradient-to-r from-blue-700 via-indigo-600 to-blue-800 hover:from-blue-600 hover:to-indigo-500 text-white font-black text-xs sm:text-sm uppercase tracking-wider shadow-md shadow-blue-700/25 flex items-center justify-center gap-2 transition cursor-pointer disabled:opacity-50"
         >
           {downloading ? (
             <>
@@ -164,19 +164,19 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
             onClick={handleCopyImage}
             disabled={copyingImage}
             type="button"
-            className="flex-1 sm:flex-none py-3 px-3 rounded-xl sm:rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
+            className="flex-1 sm:flex-none py-3 px-3 rounded-xl sm:rounded-2xl bg-blue-50/80 hover:bg-blue-100 text-blue-900 border border-blue-100 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
             title="Copy image directly to clipboard"
           >
             {copyingImage ? (
-              <Loader2 className="w-3.5 h-3.5 animate-spin text-slate-500" />
+              <Loader2 className="w-3.5 h-3.5 animate-spin text-blue-500" />
             ) : copiedImage ? (
               <>
-                <Check className="w-3.5 h-3.5 text-emerald-600" />
-                <span className="text-emerald-700">Copied Image</span>
+                <Check className="w-3.5 h-3.5 text-blue-600" />
+                <span className="text-blue-700">Copied Image</span>
               </>
             ) : (
               <>
-                <Copy className="w-3.5 h-3.5" />
+                <Copy className="w-3.5 h-3.5 text-blue-700" />
                 <span className="hidden sm:inline">Copy Image</span>
               </>
             )}
@@ -186,17 +186,17 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
           <button
             onClick={handleCopyBroadcast}
             type="button"
-            className="flex-1 sm:flex-none py-3 px-3 rounded-xl sm:rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
+            className="flex-1 sm:flex-none py-3 px-3 rounded-xl sm:rounded-2xl bg-blue-50/80 hover:bg-blue-100 text-blue-900 border border-blue-100 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
             title="Copy WhatsApp formatted message text"
           >
             {copiedText ? (
               <>
-                <Check className="w-3.5 h-3.5 text-emerald-600" />
-                <span className="text-emerald-700">Copied Text</span>
+                <Check className="w-3.5 h-3.5 text-blue-600" />
+                <span className="text-blue-700">Copied Text</span>
               </>
             ) : (
               <>
-                <FileText className="w-3.5 h-3.5" />
+                <FileText className="w-3.5 h-3.5 text-blue-700" />
                 <span className="hidden sm:inline">Copy Text</span>
               </>
             )}
@@ -206,7 +206,7 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
           <button
             onClick={handleShareWhatsApp}
             type="button"
-            className="flex-1 sm:flex-none py-3 px-3.5 rounded-xl sm:rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer shadow-xs"
+            className="flex-1 sm:flex-none py-3 px-3.5 rounded-xl sm:rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer shadow-xs"
             title="Open WhatsApp with rates prefilled"
           >
             <Share2 className="w-3.5 h-3.5" />
