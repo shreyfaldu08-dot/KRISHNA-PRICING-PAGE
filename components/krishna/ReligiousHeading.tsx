@@ -24,7 +24,7 @@ export const ReligiousHeading: React.FC<ReligiousHeadingProps> = ({
           src="/assets/ornament.png"
           alt=""
           aria-hidden="true"
-          className="h-3 sm:h-3.5 md:h-4 w-auto object-contain mix-blend-multiply select-none"
+          className="h-3 sm:h-3.5 md:h-4 w-auto object-contain select-none opacity-90"
         />
 
         {/* Right Thin Divider */}

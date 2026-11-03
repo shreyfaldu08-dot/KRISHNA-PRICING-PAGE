@@ -20,6 +20,7 @@ export const PriceCardPreview = forwardRef<HTMLDivElement, PriceCardPreviewProps
         id="price-card-canvas"
         className="relative w-full max-w-[560px] aspect-[1122/1402] mx-auto rounded-3xl bg-[#FAF5EF] border border-[#E5DACD] shadow-2xl overflow-hidden p-4 sm:p-6 md:p-7 flex flex-col justify-between select-text"
         style={{
+          background: "radial-gradient(circle at 50% 25%, #FDFBF7 0%, #FAF5EF 65%, #F5EDE1 100%)",
           boxShadow: "0 25px 50px -12px rgba(120, 80, 40, 0.15)",
         }}
       >

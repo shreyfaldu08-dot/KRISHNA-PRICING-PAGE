@@ -26,9 +26,37 @@ export default function DailyPricingLandingPage() {
       const savedData = localStorage.getItem("krishna_catalogue_data");
       if (savedData) {
         const parsed = JSON.parse(savedData);
+        // Clean out any legacy or corrupted template properties
+        delete parsed.customBgUrl;
+        delete parsed.templateId;
+        delete parsed.cottonSeedOil;
+        delete parsed.groundnutOil;
+
         setData({
+          ...INITIAL_CATALOGUE_DATA,
           ...parsed,
+          religiousHeading: parsed.religiousHeading || INITIAL_CATALOGUE_DATA.religiousHeading,
+          brandName: parsed.brandName || INITIAL_CATALOGUE_DATA.brandName,
+          subtitle: parsed.subtitle || INITIAL_CATALOGUE_DATA.subtitle,
+          footerNotice: parsed.footerNotice || INITIAL_CATALOGUE_DATA.footerNotice,
+          footerLocation: parsed.footerLocation || INITIAL_CATALOGUE_DATA.footerLocation,
           date: parsed.date || formattedDate,
+          trupti: {
+            ...INITIAL_CATALOGUE_DATA.trupti,
+            ...(parsed.trupti || {}),
+            brandName: parsed.trupti?.brandName || INITIAL_CATALOGUE_DATA.trupti.brandName,
+            subtitle: parsed.trupti?.subtitle || INITIAL_CATALOGUE_DATA.trupti.subtitle,
+            imageSrc: "/assets/trupti-product.png",
+            imageAlt: INITIAL_CATALOGUE_DATA.trupti.imageAlt,
+          },
+          krishna: {
+            ...INITIAL_CATALOGUE_DATA.krishna,
+            ...(parsed.krishna || {}),
+            brandName: parsed.krishna?.brandName || INITIAL_CATALOGUE_DATA.krishna.brandName,
+            subtitle: parsed.krishna?.subtitle || INITIAL_CATALOGUE_DATA.krishna.subtitle,
+            imageSrc: "/assets/krishna-product.png",
+            imageAlt: INITIAL_CATALOGUE_DATA.krishna.imageAlt,
+          },
         });
       } else {
         setData((prev) => ({
