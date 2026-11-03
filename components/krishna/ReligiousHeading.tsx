@@ -14,9 +14,9 @@ export const ReligiousHeading: React.FC<ReligiousHeadingProps> = ({
 
   return (
     <div className="text-center pt-0.5">
-      {/* Sacred Inscription with Prominent Contrast & Theme Color */}
+      {/* Sacred Inscription with Canonical Editorial Typography */}
       <h2
-        className="font-devanagari font-bold text-xs sm:text-sm md:text-[15px] tracking-[0.16em] uppercase leading-tight transition-colors duration-200"
+        className="font-devanagari font-bold text-[15px] tracking-[0.16em] uppercase leading-tight transition-colors duration-200"
         style={{ color: accentPrimary }}
       >
         {heading}

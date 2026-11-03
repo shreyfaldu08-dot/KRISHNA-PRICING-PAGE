@@ -14,59 +14,58 @@ export const Header: React.FC<HeaderProps> = ({
   leftCompanyName = "KRISHNA EXPORT. INDUSTRIES",
   rightCompanyName = "SHREE KRISHNA OIL MILL",
   brandName,
-  subtitle = "PRODUCT COLLECTION & WHOLESALE PRICE LIST",
-  date = "30-10-2026",
+  date = "03-11-2026",
   palette,
 }) => {
   const leftName = leftCompanyName || brandName || "KRISHNA EXPORT. INDUSTRIES";
   const rightName = rightCompanyName || "SHREE KRISHNA OIL MILL";
-  const accentPrimary = palette?.accentPrimary || "#B83B20";
-  const accentSecondary = palette?.accentSecondary || "#BD8665";
-  const textCharcoal = palette?.textCharcoal || "#18181B";
+  const accentPrimary = palette?.accentPrimary || "#1D4ED8";
+  const accentSecondary = palette?.accentSecondary || "#3B82F6";
+  const textCharcoal = palette?.textCharcoal || "#0F172A";
 
   return (
-    <div className="px-0.5 sm:px-1">
-      {/* SECOND LINE — Prominent Date with Flanking Architectural Lines */}
-      <div className="flex items-center justify-center gap-2 sm:gap-3 my-1.5 sm:my-2">
-        <span
-          className="w-1.5 h-1.5 rotate-45 opacity-75 shrink-0 transition-colors duration-200"
-          style={{ backgroundColor: accentSecondary }}
-        ></span>
-        <span
-          className="w-8 sm:w-14 md:w-18 h-[1px] opacity-75 transition-colors duration-200"
-          style={{ backgroundColor: accentSecondary }}
-        ></span>
-        <span
-          className="text-sm sm:text-lg md:text-[22px] font-extrabold tracking-[0.14em] whitespace-nowrap transition-colors duration-200"
-          style={{ color: accentPrimary }}
-        >
-          {date}
-        </span>
-        <span
-          className="w-8 sm:w-14 md:w-18 h-[1px] opacity-75 transition-colors duration-200"
-          style={{ backgroundColor: accentSecondary }}
-        ></span>
-        <span
-          className="w-1.5 h-1.5 rotate-45 opacity-75 shrink-0 transition-colors duration-200"
-          style={{ backgroundColor: accentSecondary }}
-        ></span>
-      </div>
+      <div className="px-1">
+        {/* SECOND LINE — Prominent Date with Flanking Architectural Lines */}
+          <div className="flex items-center justify-center gap-3 my-2">
+            <span
+              className="w-1.5 h-1.5 rotate-45 opacity-75 shrink-0 transition-colors duration-200"
+              style={{ backgroundColor: accentSecondary }}
+        />
+            <span
+              className="w-16 h-[1px] opacity-75 transition-colors duration-200"
+              style={{ backgroundColor: accentSecondary }}
+        />
+            <span
+              className="text-[22px] font-extrabold tracking-[0.14em] whitespace-nowrap transition-colors duration-200"
+              style={{ color: accentPrimary }}
+            >
+              {date}
+            </span>
+            <span
+              className="w-16 h-[1px] opacity-75 transition-colors duration-200"
+              style={{ backgroundColor: accentSecondary }}
+        />
+            <span
+              className="w-1.5 h-1.5 rotate-45 opacity-75 shrink-0 transition-colors duration-200"
+              style={{ backgroundColor: accentSecondary }}
+        />
+          </div>
 
-      {/* THIRD LINE — Two Horizontally Aligned Company Names (Single Line Guaranteed, Fully Visible) */}
-      <div className="grid grid-cols-2 gap-1 sm:gap-2 items-baseline text-center mt-1 sm:mt-1.5 px-0.5">
-        <div
-          className="font-extrabold text-[7px] sm:text-[10px] md:text-[11.5px] tracking-tight sm:tracking-[0.01em] uppercase leading-tight whitespace-nowrap overflow-visible transition-colors duration-200"
-          style={{ color: textCharcoal }}
-        >
-          {leftName}
-        </div>
-        <div
-          className="font-extrabold text-[7px] sm:text-[10px] md:text-[11.5px] tracking-tight sm:tracking-[0.01em] uppercase leading-tight whitespace-nowrap overflow-visible transition-colors duration-200"
-          style={{ color: textCharcoal }}
-        >
-          {rightName}
-        </div>
-      </div>
-    </div>
-  );
+            {/* THIRD LINE — Two Horizontally Aligned Company Names (Single Line Guaranteed) */}
+            <div className="grid grid-cols-2 gap-2 items-baseline text-center mt-1 px-0.5">
+              <div
+                className="font-extrabold text-[11px] tracking-[0.01em] uppercase leading-tight whitespace-nowrap overflow-visible transition-colors duration-200"
+                style={{ color: textCharcoal }}
+              >
+                {leftName}
+              </div>
+              <div
+                className="font-extrabold text-[11px] tracking-[0.01em] uppercase leading-tight whitespace-nowrap overflow-visible transition-colors duration-200"
+                style={{ color: textCharcoal }}
+              >
+                {rightName}
+              </div>
+            </div>
+          </div>
+          );
 };

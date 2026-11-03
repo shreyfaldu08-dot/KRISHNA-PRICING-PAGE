@@ -27,7 +27,7 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
   const [copiedImage, setCopiedImage] = useState(false);
   const [copiedText, setCopiedText] = useState(false);
 
-  // Directly captures the live element with guaranteed square corners, solid background, and exact 1080x1350 resolution
+  // Directly captures the canonical 540x675 poster with guaranteed square corners, solid background, and 1080x1350 resolution (100% identical on mobile and desktop)
   const capturePoster = async (
     action: "download" | "copy"
   ): Promise<string | Blob | null> => {
@@ -36,35 +36,39 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
 
     const palette = getEffectivePalette(data.theme, data.customColor);
 
-    // 1. Save original styles
+    // 1. Save original styles of element and wrapper
+    const origTransform = element.style.transform;
     const origBorderRadius = element.style.borderRadius;
     const origBoxShadow = element.style.boxShadow;
     const origMargin = element.style.margin;
-    const origMarginLeft = element.style.marginLeft;
-    const origMarginRight = element.style.marginRight;
 
-    // 2. Temporarily set square corners, zero margin, no shadow for clean export
+    const wrapper = element.parentElement;
+    const origWrapperWidth = wrapper?.style.width;
+    const origWrapperHeight = wrapper?.style.height;
+    const origWrapperOverflow = wrapper?.style.overflow;
+
+    // 2. Temporarily set canonical 540x675 at scale 1 with square corners
+    element.style.transform = "none";
     element.style.borderRadius = "0px";
     element.style.boxShadow = "none";
     element.style.margin = "0px";
-    element.style.marginLeft = "0px";
-    element.style.marginRight = "0px";
     element.classList.remove("mx-auto");
 
-    try {
-      // Allow browser to calculate layout with zero margin and square corners
-      await new Promise((res) => setTimeout(res, 60));
+    if (wrapper) {
+      wrapper.style.overflow = "visible";
+      wrapper.style.width = "540px";
+      wrapper.style.height = "675px";
+    }
 
-      const width = element.offsetWidth || 540;
-      const height = element.offsetHeight || Math.round(width * 1.25);
-      // Ensure the output PNG is always standard HD (1080px wide) across all mobile and desktop devices
-      const pixelRatio = Math.max(1, 1080 / width);
+    try {
+      // Allow browser to calculate layout at canonical 540x675
+      await new Promise((res) => setTimeout(res, 60));
 
       const captureOptions = {
         quality: 1,
-        pixelRatio,
-        width,
-        height,
+        pixelRatio: 2, // Exactly 1080px × 1350px (Standard HD 4:5 Retina)
+        width: 540,
+        height: 675,
         backgroundColor: palette.bgCanvas,
         cacheBust: true,
         style: {
@@ -76,6 +80,8 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
           transform: "none",
           left: "0px",
           top: "0px",
+          width: "540px",
+          height: "675px",
         },
       };
 
@@ -86,11 +92,16 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
       }
     } finally {
       // 3. Immediately restore original styles
+      element.style.transform = origTransform;
       element.style.borderRadius = origBorderRadius;
       element.style.boxShadow = origBoxShadow;
       element.style.margin = origMargin;
-      element.style.marginLeft = origMarginLeft;
-      element.style.marginRight = origMarginRight;
+
+      if (wrapper) {
+        wrapper.style.overflow = origWrapperOverflow || "visible";
+        if (origWrapperWidth) wrapper.style.width = origWrapperWidth;
+        if (origWrapperHeight) wrapper.style.height = origWrapperHeight;
+      }
     }
   };
 
@@ -234,83 +245,83 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
   };
 
   return (
-      <div className="py-2.5 px-3 sm:px-4 rounded-2xl sm:rounded-full bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
-        {/* Primary Capsule CTA — Full Width on Mobile */}
+    <div className="py-2.5 px-3 sm:px-4 rounded-2xl sm:rounded-full bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
+      {/* Primary Capsule CTA — Full Width on Mobile */}
+      <button
+        onClick={handleDownloadImage}
+        disabled={downloading}
+        type="button"
+        className="w-full sm:flex-1 py-3 px-4 sm:px-6 rounded-full bg-slate-900 hover:bg-slate-800 active:scale-[0.99] text-white font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2.5 transition-all cursor-pointer disabled:opacity-50 shadow-sm"
+      >
+        {downloading ? (
+          <>
+            <Loader2 className="w-4 h-4 animate-spin text-slate-300" />
+            <span>Rendering 3x Retina PNG...</span>
+          </>
+        ) : (
+          <>
+            <Download className="w-4 h-4 text-slate-300" />
+            <span>Download Poster (3x HD PNG)</span>
+          </>
+        )}
+      </button>
+
+      {/* Utility Actions — Balanced 3-Column Grid on Mobile */}
+      <div className="grid grid-cols-3 gap-1.5 w-full sm:w-auto sm:flex sm:items-center">
+        {/* Copy Image */}
         <button
-          onClick={handleDownloadImage}
-          disabled={downloading}
+          onClick={handleCopyImage}
+          disabled={copyingImage}
           type="button"
-          className="w-full sm:flex-1 py-3 px-4 sm:px-6 rounded-full bg-slate-900 hover:bg-slate-800 active:scale-[0.99] text-white font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2.5 transition-all cursor-pointer disabled:opacity-50 shadow-sm"
+          className="py-2.5 px-2 sm:px-3.5 rounded-full bg-slate-100 hover:bg-slate-200/80 text-slate-800 font-bold text-[11px] sm:text-xs flex items-center justify-center gap-1 sm:gap-1.5 transition cursor-pointer"
+          title="Copy image to clipboard"
         >
-          {downloading ? (
+          {copyingImage ? (
+            <Loader2 className="w-3.5 h-3.5 animate-spin text-slate-500" />
+          ) : copiedImage ? (
             <>
-              <Loader2 className="w-4 h-4 animate-spin text-slate-300" />
-              <span>Rendering 3x Retina PNG...</span>
+              <Check className="w-3.5 h-3.5 text-emerald-600" />
+              <span className="text-emerald-700">Copied</span>
             </>
           ) : (
             <>
-              <Download className="w-4 h-4 text-slate-300" />
-              <span>Download Poster (3x HD PNG)</span>
+              <Copy className="w-3.5 h-3.5 text-slate-500" />
+              <span className="truncate">Copy Img</span>
             </>
           )}
         </button>
 
-          {/* Utility Actions — Balanced 3-Column Grid on Mobile */}
-          <div className="grid grid-cols-3 gap-1.5 w-full sm:w-auto sm:flex sm:items-center">
-            {/* Copy Image */}
-            <button
-              onClick={handleCopyImage}
-              disabled={copyingImage}
-              type="button"
-              className="py-2.5 px-2 sm:px-3.5 rounded-full bg-slate-100 hover:bg-slate-200/80 text-slate-800 font-bold text-[11px] sm:text-xs flex items-center justify-center gap-1 sm:gap-1.5 transition cursor-pointer"
-              title="Copy image to clipboard"
-            >
-              {copyingImage ? (
-                <Loader2 className="w-3.5 h-3.5 animate-spin text-slate-500" />
-              ) : copiedImage ? (
-                <>
-                  <Check className="w-3.5 h-3.5 text-emerald-600" />
-                  <span className="text-emerald-700">Copied</span>
-                </>
-              ) : (
-                <>
-                  <Copy className="w-3.5 h-3.5 text-slate-500" />
-                  <span className="truncate">Copy Img</span>
-                </>
-              )}
-            </button>
+        {/* Copy Text */}
+        <button
+          onClick={handleCopyBroadcast}
+          type="button"
+          className="py-2.5 px-2 sm:px-3.5 rounded-full bg-slate-100 hover:bg-slate-200/80 text-slate-800 font-bold text-[11px] sm:text-xs flex items-center justify-center gap-1 sm:gap-1.5 transition cursor-pointer"
+          title="Copy broadcast formatted text"
+        >
+          {copiedText ? (
+            <>
+              <Check className="w-3.5 h-3.5 text-emerald-600" />
+              <span className="text-emerald-700">Copied</span>
+            </>
+          ) : (
+            <>
+              <FileText className="w-3.5 h-3.5 text-slate-500" />
+              <span className="truncate">Copy Text</span>
+            </>
+          )}
+        </button>
 
-            {/* Copy Text */}
-            <button
-              onClick={handleCopyBroadcast}
-              type="button"
-              className="py-2.5 px-2 sm:px-3.5 rounded-full bg-slate-100 hover:bg-slate-200/80 text-slate-800 font-bold text-[11px] sm:text-xs flex items-center justify-center gap-1 sm:gap-1.5 transition cursor-pointer"
-              title="Copy broadcast formatted text"
-            >
-              {copiedText ? (
-                <>
-                  <Check className="w-3.5 h-3.5 text-emerald-600" />
-                  <span className="text-emerald-700">Copied</span>
-                </>
-              ) : (
-                <>
-                  <FileText className="w-3.5 h-3.5 text-slate-500" />
-                  <span className="truncate">Copy Text</span>
-                </>
-              )}
-            </button>
-
-            {/* WhatsApp Share in Emerald */}
-            <button
-              onClick={handleShareWhatsApp}
-              type="button"
-              className="py-2.5 px-2 sm:px-4 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[11px] sm:text-xs flex items-center justify-center gap-1 sm:gap-1.5 transition cursor-pointer shadow-xs"
-              title="Share rates directly to WhatsApp"
-            >
-              <Share2 className="w-3.5 h-3.5 text-emerald-100" />
-              <span className="truncate">WhatsApp</span>
-            </button>
-          </div>
-        </div>
-        );
+        {/* WhatsApp Share in Emerald */}
+        <button
+          onClick={handleShareWhatsApp}
+          type="button"
+          className="py-2.5 px-2 sm:px-4 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[11px] sm:text-xs flex items-center justify-center gap-1 sm:gap-1.5 transition cursor-pointer shadow-xs"
+          title="Share rates directly to WhatsApp"
+        >
+          <Share2 className="w-3.5 h-3.5 text-emerald-100" />
+          <span className="truncate">WhatsApp</span>
+        </button>
+      </div>
+    </div>
+  );
 };
