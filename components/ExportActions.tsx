@@ -79,7 +79,8 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
         width: 540,
         height: 675,
         backgroundColor: palette.bgCanvas,
-        cacheBust: true,
+        skipFonts: true, // Prevents SecurityError on cross-origin CSS styleSheets (e.g. Google Fonts / extensions)
+        cacheBust: false,
         style: {
           margin: "0px",
           marginLeft: "0px",
@@ -164,6 +165,8 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
             quality: 0.98,
             pixelRatio: 2,
             backgroundColor: palette.bgCanvas,
+            skipFonts: true,
+            cacheBust: false,
             style: {
               borderRadius: "0px",
               boxShadow: "none",
