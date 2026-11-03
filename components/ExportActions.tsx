@@ -27,34 +27,104 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
   const [copiedImage, setCopiedImage] = useState(false);
   const [copiedText, setCopiedText] = useState(false);
 
+  const prepareCloneForExport = (source: HTMLElement): { clone: HTMLElement; cleanup: () => void } => {
+    const clone = source.cloneNode(true) as HTMLElement;
+
+    // Fixed desktop canvas width and 4:5 height with square corners and zero drop shadow
+    clone.style.position = "fixed";
+    clone.style.left = "-9999px";
+    clone.style.top = "0px";
+    clone.style.width = "540px";
+    clone.style.height = "675px";
+    clone.style.maxWidth = "540px";
+    clone.style.maxHeight = "675px";
+    clone.style.minWidth = "540px";
+    clone.style.minHeight = "675px";
+    clone.style.borderRadius = "0px";
+    clone.style.boxShadow = "none";
+    clone.style.margin = "0px";
+    clone.style.transform = "none";
+    clone.style.zIndex = "-9999";
+    clone.style.overflow = "hidden";
+
+    // Enforce square corners on all outer framing elements in the clone
+    clone.classList.remove("rounded-[28px]", "sm:rounded-[36px]", "rounded-3xl", "rounded-2xl");
+    clone.classList.add("rounded-none");
+
+    const roundedElements = clone.querySelectorAll<HTMLElement>("[class*='rounded']");
+    roundedElements.forEach((el) => {
+      // Remove rounded styling from the outer canvas and absolute frame border lines
+      if (el.classList.contains("border") && el.classList.contains("absolute")) {
+        el.style.borderRadius = "0px";
+      }
+    });
+
+    document.body.appendChild(clone);
+
+    return {
+      clone,
+      cleanup: () => {
+        if (clone.parentNode) {
+          clone.parentNode.removeChild(clone);
+        }
+      },
+    };
+  };
+
   const handleDownloadImage = async () => {
     if (!cardRef.current) return;
     try {
       setDownloading(true);
-      await new Promise((res) => setTimeout(res, 80));
 
-      const dataUrl = await toPng(cardRef.current, {
-        quality: 0.98,
-        pixelRatio: 3, // 3x retina clarity for crisp text and print/WhatsApp
-        cacheBust: true,
-      });
+      const { clone, cleanup } = prepareCloneForExport(cardRef.current);
 
-      const dateStr = (data.date || "rates").replace(/[^a-zA-Z0-9_-]/g, "_");
-      const fileName = `Krishna_Export_Rates_${dateStr}.png`;
+      try {
+        await new Promise((res) => setTimeout(res, 80));
 
-      const link = document.createElement("a");
-      link.download = fileName;
-      link.href = dataUrl;
-      link.click();
+        const dataUrl = await toPng(clone, {
+          quality: 1,
+          pixelRatio: 2, // Generates exact 1080 × 1350 px (HD WhatsApp / Instagram 4:5)
+          width: 540,
+          height: 675,
+          canvasWidth: 1080,
+          canvasHeight: 1350,
+          cacheBust: true,
+        });
 
-      confetti({
-        particleCount: 35,
-        spread: 60,
-        origin: { y: 0.8 },
-      });
+        const dateStr = (data.date || "rates").replace(/[^a-zA-Z0-9_-]/g, "_");
+        const fileName = `Krishna_Export_Rates_${dateStr}.png`;
+
+        const link = document.createElement("a");
+        link.download = fileName;
+        link.href = dataUrl;
+        link.click();
+
+        confetti({
+          particleCount: 45,
+          spread: 60,
+          origin: { y: 0.8 },
+        });
+      } finally {
+        cleanup();
+      }
     } catch (err) {
       console.error("Failed to generate image:", err);
-      alert("Error generating image. Please try again.");
+      // Fallback: direct capture if clone fails
+      try {
+        if (cardRef.current) {
+          const directUrl = await toPng(cardRef.current, {
+            quality: 0.98,
+            pixelRatio: 2,
+            style: { borderRadius: "0px", boxShadow: "none" },
+          });
+          const link = document.createElement("a");
+          link.download = `Krishna_Export_Rates.png`;
+          link.href = directUrl;
+          link.click();
+        }
+      } catch (fallbackErr) {
+        alert("Error generating image. Please try again.");
+      }
     } finally {
       setDownloading(false);
     }
@@ -65,24 +135,36 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
     try {
       setCopyingImage(true);
 
-      const blob = await toBlob(cardRef.current, {
-        quality: 0.98,
-        pixelRatio: 3,
-        cacheBust: true,
-      });
+      const { clone, cleanup } = prepareCloneForExport(cardRef.current);
 
-      if (!blob) throw new Error("Could not create image blob");
+      try {
+        await new Promise((res) => setTimeout(res, 80));
 
-      if (navigator.clipboard && window.ClipboardItem) {
-        await navigator.clipboard.write([
-          new ClipboardItem({
-            "image/png": blob,
-          }),
-        ]);
-        setCopiedImage(true);
-        setTimeout(() => setCopiedImage(false), 2500);
-      } else {
-        alert("Clipboard Image copy is not supported in this browser. Please use 'Download Poster PNG'.");
+        const blob = await toBlob(clone, {
+          quality: 1,
+          pixelRatio: 2,
+          width: 540,
+          height: 675,
+          canvasWidth: 1080,
+          canvasHeight: 1350,
+          cacheBust: true,
+        });
+
+        if (!blob) throw new Error("Could not create image blob");
+
+        if (navigator.clipboard && window.ClipboardItem) {
+          await navigator.clipboard.write([
+            new ClipboardItem({
+              "image/png": blob,
+            }),
+          ]);
+          setCopiedImage(true);
+          setTimeout(() => setCopiedImage(false), 2500);
+        } else {
+          alert("Clipboard Image copy is not supported in this browser. Please use 'Download Poster PNG'.");
+        }
+      } finally {
+        cleanup();
       }
     } catch (err) {
       console.error("Failed to copy image:", err);
@@ -135,84 +217,82 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
   };
 
   return (
-    <div className="bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl p-3 sm:p-5 shadow-xl shadow-blue-950/5 border border-blue-100/80">
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
-        {/* Main High-Resolution Download Button */}
+    <div className="py-2.5 px-3 sm:px-4 rounded-full bg-white/95 backdrop-blur-md border border-slate-200/90 shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
+      {/* Primary Capsule CTA */}
+      <button
+        onClick={handleDownloadImage}
+        disabled={downloading}
+        type="button"
+        className="flex-1 py-3 px-6 rounded-full bg-slate-900 hover:bg-slate-800 active:scale-[0.99] text-white font-extrabold text-xs uppercase tracking-wider flex items-center justify-center gap-2.5 transition-all cursor-pointer disabled:opacity-50 shadow-sm"
+      >
+        {downloading ? (
+          <>
+            <Loader2 className="w-4 h-4 animate-spin text-slate-300" />
+            <span>Rendering 3x Retina PNG...</span>
+          </>
+        ) : (
+          <>
+            <Download className="w-4 h-4 text-slate-300" />
+            <span>Download Poster (3x HD PNG)</span>
+          </>
+        )}
+      </button>
+
+      {/* Utility Actions */}
+      <div className="flex items-center gap-1.5 self-center sm:self-auto">
+        {/* Copy Image */}
         <button
-          onClick={handleDownloadImage}
-          disabled={downloading}
+          onClick={handleCopyImage}
+          disabled={copyingImage}
           type="button"
-          className="flex-1 py-3 px-4 rounded-xl sm:rounded-2xl bg-gradient-to-r from-blue-700 via-indigo-600 to-blue-800 hover:from-blue-600 hover:to-indigo-500 text-white font-black text-xs sm:text-sm uppercase tracking-wider shadow-md shadow-blue-700/25 flex items-center justify-center gap-2 transition cursor-pointer disabled:opacity-50"
+          className="py-2.5 px-3.5 rounded-full bg-slate-100 hover:bg-slate-200/80 text-slate-800 font-bold text-xs flex items-center gap-1.5 transition cursor-pointer"
+          title="Copy image to clipboard"
         >
-          {downloading ? (
+          {copyingImage ? (
+            <Loader2 className="w-3.5 h-3.5 animate-spin text-slate-500" />
+          ) : copiedImage ? (
             <>
-              <Loader2 className="w-4 h-4 animate-spin" />
-              <span>Rendering 3x HD PNG...</span>
+              <Check className="w-3.5 h-3.5 text-emerald-600" />
+              <span className="text-emerald-700">Copied</span>
             </>
           ) : (
             <>
-              <Download className="w-4 h-4" />
-              <span>Download Poster PNG (3x HD)</span>
+              <Copy className="w-3.5 h-3.5 text-slate-500" />
+              <span>Copy Image</span>
             </>
           )}
         </button>
 
-        {/* Secondary Utility Actions */}
-        <div className="flex items-center gap-2">
-          {/* Copy Image to Clipboard */}
-          <button
-            onClick={handleCopyImage}
-            disabled={copyingImage}
-            type="button"
-            className="flex-1 sm:flex-none py-3 px-3 rounded-xl sm:rounded-2xl bg-blue-50/80 hover:bg-blue-100 text-blue-900 border border-blue-100 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
-            title="Copy image directly to clipboard"
-          >
-            {copyingImage ? (
-              <Loader2 className="w-3.5 h-3.5 animate-spin text-blue-500" />
-            ) : copiedImage ? (
-              <>
-                <Check className="w-3.5 h-3.5 text-blue-600" />
-                <span className="text-blue-700">Copied Image</span>
-              </>
-            ) : (
-              <>
-                <Copy className="w-3.5 h-3.5 text-blue-700" />
-                <span className="hidden sm:inline">Copy Image</span>
-              </>
-            )}
-          </button>
+        {/* Copy Text */}
+        <button
+          onClick={handleCopyBroadcast}
+          type="button"
+          className="py-2.5 px-3.5 rounded-full bg-slate-100 hover:bg-slate-200/80 text-slate-800 font-bold text-xs flex items-center gap-1.5 transition cursor-pointer"
+          title="Copy broadcast formatted text"
+        >
+          {copiedText ? (
+            <>
+              <Check className="w-3.5 h-3.5 text-emerald-600" />
+              <span className="text-emerald-700">Copied</span>
+            </>
+          ) : (
+            <>
+              <FileText className="w-3.5 h-3.5 text-slate-500" />
+              <span>Copy Text</span>
+            </>
+          )}
+        </button>
 
-          {/* Copy WhatsApp Formatted Message Text */}
-          <button
-            onClick={handleCopyBroadcast}
-            type="button"
-            className="flex-1 sm:flex-none py-3 px-3 rounded-xl sm:rounded-2xl bg-blue-50/80 hover:bg-blue-100 text-blue-900 border border-blue-100 font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
-            title="Copy WhatsApp formatted message text"
-          >
-            {copiedText ? (
-              <>
-                <Check className="w-3.5 h-3.5 text-blue-600" />
-                <span className="text-blue-700">Copied Text</span>
-              </>
-            ) : (
-              <>
-                <FileText className="w-3.5 h-3.5 text-blue-700" />
-                <span className="hidden sm:inline">Copy Text</span>
-              </>
-            )}
-          </button>
-
-          {/* Share directly on WhatsApp */}
-          <button
-            onClick={handleShareWhatsApp}
-            type="button"
-            className="flex-1 sm:flex-none py-3 px-3.5 rounded-xl sm:rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition cursor-pointer shadow-xs"
-            title="Open WhatsApp with rates prefilled"
-          >
-            <Share2 className="w-3.5 h-3.5" />
-            <span className="hidden md:inline">WhatsApp</span>
-          </button>
-        </div>
+        {/* WhatsApp Share in Emerald */}
+        <button
+          onClick={handleShareWhatsApp}
+          type="button"
+          className="py-2.5 px-4 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5 transition cursor-pointer shadow-xs"
+          title="Share rates directly to WhatsApp"
+        >
+          <Share2 className="w-3.5 h-3.5 text-emerald-100" />
+          <span>WhatsApp</span>
+        </button>
       </div>
     </div>
   );

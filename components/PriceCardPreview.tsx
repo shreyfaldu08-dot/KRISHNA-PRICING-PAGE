@@ -2,6 +2,7 @@
 
 import React, { forwardRef } from "react";
 import { CatalogueData, getEffectivePalette } from "@/types/pricing";
+import { BotanicalDecoration } from "./krishna/BotanicalDecoration";
 import { ReligiousHeading } from "./krishna/ReligiousHeading";
 import { Header } from "./krishna/Header";
 import { ProductCard } from "./krishna/ProductCard";
@@ -19,7 +20,7 @@ export const PriceCardPreview = forwardRef<HTMLDivElement, PriceCardPreviewProps
       <div
         ref={ref}
         id="price-card-canvas"
-        className="relative w-full max-w-[540px] aspect-[4/5] mx-auto rounded-[28px] sm:rounded-[36px] border shadow-2xl overflow-hidden p-4 sm:p-6 md:p-7 flex flex-col justify-between select-text transition-colors duration-200"
+        className="relative w-full max-w-[540px] aspect-[4/5] mx-auto rounded-none border shadow-2xl overflow-hidden p-3.5 sm:p-5 md:p-6 flex flex-col justify-between select-text transition-colors duration-200"
         style={{
           backgroundColor: palette.bgCanvas,
           borderColor: palette.borderColor,
@@ -28,9 +29,12 @@ export const PriceCardPreview = forwardRef<HTMLDivElement, PriceCardPreviewProps
       >
         {/* Minimal Inner Framing Line for Architectural Balance */}
         <div
-          className="absolute inset-2.5 sm:inset-3.5 border rounded-[22px] sm:rounded-[28px] pointer-events-none z-0 transition-colors duration-200 opacity-60"
+          className="absolute inset-2 sm:inset-3 border rounded-none pointer-events-none z-0 transition-colors duration-200 opacity-60"
           style={{ borderColor: palette.frameColor }}
         ></div>
+
+        {/* Minimal Organic Botanical Line-Art Watermarks (Cotton on Left, Groundnut on Right) */}
+        <BotanicalDecoration palette={palette} />
 
         {/* Top Header Region (Religious Heading + Date + Two Company Names) */}
         <div className="relative z-10 space-y-1 sm:space-y-1.5 pt-0.5">

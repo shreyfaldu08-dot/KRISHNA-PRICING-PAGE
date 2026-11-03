@@ -3,11 +3,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import { CatalogueData, INITIAL_CATALOGUE_DATA } from "@/types/pricing";
 import { PricingForm } from "@/components/PricingForm";
+import { TemplateSelector } from "@/components/TemplateSelector";
 import { PriceCardPreview } from "@/components/PriceCardPreview";
 import { ExportActions } from "@/components/ExportActions";
-import { Sparkles, Eye, Edit3 } from "lucide-react";
+import { Eye, Edit3, SlidersHorizontal, Image as ImageIcon } from "lucide-react";
 
-export default function DailyPricingLandingPage() {
+export default function DailyPricingStudio() {
   const [data, setData] = useState<CatalogueData>(INITIAL_CATALOGUE_DATA);
   const [activeTab, setActiveTab] = useState<"form" | "preview">("form");
   const [mounted, setMounted] = useState(false);
@@ -26,7 +27,6 @@ export default function DailyPricingLandingPage() {
       const savedData = localStorage.getItem("krishna_catalogue_data");
       if (savedData) {
         const parsed = JSON.parse(savedData);
-        // Clean out any legacy or corrupted template properties
         delete parsed.customBgUrl;
         delete parsed.templateId;
         delete parsed.cottonSeedOil;
@@ -50,7 +50,7 @@ export default function DailyPricingLandingPage() {
             ...(parsed.trupti || {}),
             brandName: parsed.trupti?.brandName || INITIAL_CATALOGUE_DATA.trupti.brandName,
             subtitle: parsed.trupti?.subtitle || INITIAL_CATALOGUE_DATA.trupti.subtitle,
-            imageSrc: "/assets/trupti-product.png",
+            imageSrc: "/assets/trupti-oil-5l.jpg",
             imageAlt: INITIAL_CATALOGUE_DATA.trupti.imageAlt,
           },
           krishna: {
@@ -58,7 +58,7 @@ export default function DailyPricingLandingPage() {
             ...(parsed.krishna || {}),
             brandName: parsed.krishna?.brandName || INITIAL_CATALOGUE_DATA.krishna.brandName,
             subtitle: parsed.krishna?.subtitle || INITIAL_CATALOGUE_DATA.krishna.subtitle,
-            imageSrc: "/assets/krishna-product.png",
+            imageSrc: "/assets/krishna-groundnut-15kg.jpg",
             imageAlt: INITIAL_CATALOGUE_DATA.krishna.imageAlt,
           },
         });
@@ -103,85 +103,83 @@ export default function DailyPricingLandingPage() {
   };
 
   return (
-    <div className="min-h-screen text-slate-900 font-sans pb-16 selection:bg-blue-100 selection:text-blue-950 overflow-x-hidden">
-      {/* Top Navbar */}
-      <header className="sticky top-0 z-40 bg-white/85 backdrop-blur-md border-b border-blue-100 shadow-xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2.5 sm:gap-3">
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-gradient-to-tr from-blue-700 to-indigo-600 text-white flex items-center justify-center font-black text-sm shadow-md shadow-blue-700/20">
+    <div className="min-h-screen text-slate-900 font-sans selection:bg-slate-900 selection:text-white flex flex-col justify-between">
+      {/* 1. Ultra-Clean Studio Top Bar */}
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-2xs">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+          {/* Brand Identity */}
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center font-black text-xs shadow-xs tracking-wider">
               K
             </div>
             <div>
-              <div className="flex items-center gap-2">
-                <span className="font-black text-blue-950 text-sm sm:text-lg tracking-tight">
+              <div className="flex items-center gap-2 leading-none">
+                <span className="font-extrabold text-sm tracking-tight text-slate-900 uppercase">
                   KRISHNA EXPORT
                 </span>
-                <span className="px-2 py-0.5 text-[9px] sm:text-[10px] font-bold uppercase tracking-wider rounded-full bg-blue-100 text-blue-900 border border-blue-200">
-                  Daily Rates
+                <span className="w-1.5 h-1.5 rounded-full bg-slate-300" />
+                <span className="text-xs text-slate-500 font-medium hidden sm:inline">
+                  Daily Pricing Studio
                 </span>
               </div>
-              <p className="text-[10px] sm:text-[11px] text-slate-500 font-medium">
-                Wholesale Price Poster Generator
+              <p className="text-[10px] text-slate-400 font-medium tracking-wide mt-0.5">
+                Junagadh • Edible Oil Daily Wholesale Rates
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
-            <span className="text-[11px] sm:text-xs font-bold text-blue-900 bg-white/90 px-3 py-1.5 rounded-xl border border-blue-200 shadow-xs whitespace-nowrap">
-              📅 {data.date}
-            </span>
+          {/* Center Date Pill */}
+          <div className="hidden md:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-50 border border-slate-200 text-xs font-bold text-slate-700 shadow-2xs">
+            <span>📅</span>
+            <span>{data.date}</span>
+          </div>
+
+          {/* Right Live Sync Capsule */}
+          <div className="flex items-center gap-2.5">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-[11px] font-bold text-emerald-800">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span>Live Sync</span>
+            </div>
           </div>
         </div>
       </header>
 
-      {/* Hero Headline */}
-      <section className="py-4 sm:py-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto space-y-1.5">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold bg-white/90 text-blue-950 border border-blue-200/80 shadow-xs">
-            <Sparkles className="w-3 h-3 text-blue-600" />
-            Official Wholesale Poster Generator
-          </div>
-          <h1 className="text-xl sm:text-3xl font-black text-blue-950 tracking-tight">
-            Krishna Export Industries Price List
-          </h1>
-          <p className="text-xs sm:text-sm text-slate-600 font-medium">
-            Update today&apos;s rates for Trupti Cottonseed and Krishna Groundnut oil, review the poster, and download.
-          </p>
-        </div>
-
-        {/* Mobile Tab Switcher */}
-        <div className="mt-4 flex lg:hidden bg-white/90 backdrop-blur-md p-1 rounded-2xl border border-blue-200 max-w-xs mx-auto shadow-sm">
+      {/* 2. Mobile Responsive Segmented Switcher */}
+      <div className="lg:hidden px-4 pt-3 pb-1">
+        <div className="bg-slate-200/80 p-1 rounded-full flex items-center max-w-sm mx-auto border border-slate-300/80">
           <button
+            type="button"
             onClick={() => setActiveTab("form")}
-            className={`flex-1 py-2 text-xs font-black rounded-xl transition cursor-pointer flex items-center justify-center gap-1.5 ${
+            className={`flex-1 py-1.5 text-xs font-bold rounded-full transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
               activeTab === "form"
-                ? "bg-gradient-to-r from-blue-700 to-indigo-600 text-white shadow-xs"
+                ? "bg-white text-slate-900 shadow-xs"
                 : "text-slate-600 hover:text-slate-900"
             }`}
           >
-            <Edit3 className="w-3.5 h-3.5" />
-            <span>1. Update Rates</span>
+            <SlidersHorizontal className="w-3.5 h-3.5" />
+            <span>Rate Editor</span>
           </button>
           <button
+            type="button"
             onClick={() => setActiveTab("preview")}
-            className={`flex-1 py-2 text-xs font-black rounded-xl transition cursor-pointer flex items-center justify-center gap-1.5 ${
+            className={`flex-1 py-1.5 text-xs font-bold rounded-full transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
               activeTab === "preview"
-                ? "bg-gradient-to-r from-blue-700 to-indigo-600 text-white shadow-xs"
+                ? "bg-white text-slate-900 shadow-xs"
                 : "text-slate-600 hover:text-slate-900"
             }`}
           >
-            <Eye className="w-3.5 h-3.5" />
-            <span>2. Poster Preview</span>
+            <ImageIcon className="w-3.5 h-3.5" />
+            <span>Poster Preview</span>
           </button>
         </div>
-      </section>
+      </div>
 
-      {/* Main Form & Preview Workspace */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
-          {/* Left: Input Form */}
+      {/* 3. Main Workspace Grid */}
+      <main className="max-w-[1400px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-7 flex-1">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+          {/* LEFT COLUMN: Clean Price Entry Terminal (5 Cols) */}
           <div
-            className={`lg:col-span-6 space-y-4 sm:space-y-6 ${
+            className={`lg:col-span-5 ${
               activeTab === "preview" ? "hidden lg:block" : "block"
             }`}
           >
@@ -191,73 +189,80 @@ export default function DailyPricingLandingPage() {
               onReset={handleReset}
             />
 
-            {/* Quick button to jump to preview on mobile */}
-            <div className="block lg:hidden pt-2">
+            {/* Mobile quick action to view result */}
+            <div className="block lg:hidden pt-4">
               <button
                 type="button"
                 onClick={() => setActiveTab("preview")}
-                className="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-blue-700 to-indigo-600 text-white font-black text-xs uppercase tracking-wide shadow-md shadow-blue-700/20 flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full py-3.5 px-6 rounded-full bg-slate-900 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-xs cursor-pointer"
               >
                 <Eye className="w-4 h-4" />
-                <span>View Poster & Download &gt;</span>
+                <span>View Generated Poster &gt;</span>
               </button>
             </div>
           </div>
 
-          {/* Right: Export Actions & Live Preview */}
+          {/* RIGHT COLUMN: Style Selector (Above) + Artboard Canvas + CTA Actions (Below) (7 Cols) */}
           <div
-            className={`lg:col-span-6 space-y-4 sm:space-y-5 ${
+            className={`lg:col-span-7 space-y-4 ${
               activeTab === "form" ? "hidden lg:block" : "block"
             }`}
           >
-            {/* Top Action Bar */}
-            <ExportActions
-              cardRef={cardRef}
-              data={data}
-            />
+            {/* 1. ABOVE TEMPLATE: Template Style & Color Options */}
+            <TemplateSelector data={data} onChange={handleDataChange} />
 
-            {/* Live Card Preview Box */}
-            <div className="bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl p-3 sm:p-6 border border-white shadow-xl shadow-blue-950/5">
-              <div className="flex items-center justify-between mb-3 sm:mb-4 px-1">
+            {/* 2. CENTER: 4:5 Poster Artboard Frame */}
+            <div className="rounded-3xl p-3 sm:p-6 bg-white border border-slate-200/90 shadow-md flex flex-col items-center">
+              {/* Artboard Status Meta Header */}
+              <div className="w-full flex items-center justify-between pb-3 mb-3 border-b border-slate-100 px-2">
                 <div className="flex items-center gap-2">
-                  <div className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse" />
-                  <span className="text-[11px] sm:text-xs font-black uppercase tracking-wider text-blue-950">
-                    Live Official Poster Preview
+                  <span className="w-2 h-2 rounded-full bg-slate-900" />
+                  <span className="text-[11px] font-extrabold text-slate-900 uppercase tracking-wider">
+                    4:5 Portrait Poster Artboard
                   </span>
                 </div>
-                <span className="text-[10px] sm:text-[11px] text-blue-800 font-semibold bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-100">
-                  Full HD Quality
+                <span className="text-[10px] font-bold text-slate-600 bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-200">
+                  1080 × 1350 px (3x Retina)
                 </span>
               </div>
 
-              {/* Responsive Container — Zero horizontal shift or scrollbar */}
-              <div className="w-full flex justify-center overflow-x-hidden">
+              {/* Centered Canvas Container */}
+              <div className="w-full flex justify-center py-1 overflow-x-hidden">
                 <PriceCardPreview ref={cardRef} data={data} />
               </div>
 
-              <p className="text-center text-[10px] sm:text-[11px] text-slate-500 mt-3 font-medium">
-                💡 High-resolution image rendered at 3x retina clarity for crisp viewing on mobile & WhatsApp.
+              {/* Sub-Canvas Note */}
+              <p className="text-center text-[11px] text-slate-400 mt-3 font-medium">
+                Rendered at 3x retina clarity for crisp viewing on mobile & WhatsApp broadcast.
               </p>
             </div>
 
-            {/* Mobile button to return to editing */}
-            <div className="block lg:hidden pt-1">
+            {/* 3. BELOW TEMPLATE: Capsule CTA Export Actions */}
+            <ExportActions cardRef={cardRef} data={data} />
+
+            {/* Mobile return button */}
+            <div className="block lg:hidden pt-2">
               <button
                 type="button"
                 onClick={() => setActiveTab("form")}
-                className="w-full py-3 px-4 rounded-xl bg-white border border-blue-200 text-slate-700 font-bold text-xs flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+                className="w-full py-3 px-5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs flex items-center justify-center gap-2 cursor-pointer transition"
               >
                 <Edit3 className="w-3.5 h-3.5" />
-                <span>&lt; Back to Edit Prices</span>
+                <span>&lt; Back to Price Terminal</span>
               </button>
             </div>
           </div>
         </div>
       </main>
 
-      {/* Clean Light Footer */}
-      <footer className="mt-12 sm:mt-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-blue-900/60 font-medium">
-        © 2026 {data.leftCompanyName || data.brandName || "KRISHNA EXPORT. INDUSTRIES"} • All Rates Plus GST • Ex-Factory | Junagadh
+      {/* 4. Minimalist Studio Footer */}
+      <footer className="mt-10 border-t border-slate-200 py-5 text-center text-[11px] text-slate-400 font-medium">
+        <div className="max-w-[1400px] mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+          <span>
+            {data.leftCompanyName || "KRISHNA EXPORT. INDUSTRIES"} • {data.rightCompanyName || "SHREE KRISHNA OIL MILL"}
+          </span>
+          <span>{data.footerLocation || "JUNAGADH, GUJARAT"} • ALL RATES PLUS GST</span>
+        </div>
       </footer>
     </div>
   );
