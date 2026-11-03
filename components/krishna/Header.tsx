@@ -29,12 +29,12 @@ export const Header: React.FC<HeaderProps> = ({
         <span className="w-10 sm:w-16 md:w-20 h-[1px] bg-[#BD8665] opacity-80"></span>
       </div>
 
-      {/* THIRD LINE — Two Horizontally Aligned Company Names */}
-      <div className="grid grid-cols-2 gap-3 sm:gap-5 items-baseline text-center mt-1">
-        <div className="font-bold text-[13px] sm:text-lg md:text-[21px] tracking-[0.12em] uppercase text-[#171717] leading-tight">
+      {/* THIRD LINE — Two Horizontally Aligned Company Names (Single Line Guaranteed) */}
+      <div className="grid grid-cols-2 gap-2 sm:gap-4 items-baseline text-center mt-1">
+        <div className="font-bold text-[9.5px] sm:text-[13px] md:text-[14.5px] tracking-[0.03em] sm:tracking-[0.05em] uppercase text-[#171717] leading-none whitespace-nowrap overflow-hidden text-ellipsis">
           {leftName}
         </div>
-        <div className="font-bold text-[13px] sm:text-lg md:text-[21px] tracking-[0.12em] uppercase text-[#171717] leading-tight">
+        <div className="font-bold text-[9.5px] sm:text-[13px] md:text-[14.5px] tracking-[0.03em] sm:tracking-[0.05em] uppercase text-[#171717] leading-none whitespace-nowrap overflow-hidden text-ellipsis">
           {rightName}
         </div>
       </div>
