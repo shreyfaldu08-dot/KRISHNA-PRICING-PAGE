@@ -18,12 +18,20 @@ export const PriceCardPreview = forwardRef<HTMLDivElement, PriceCardPreviewProps
       <div
         ref={ref}
         id="price-card-canvas"
-        className="relative w-full max-w-[540px] aspect-[4/5] mx-auto rounded-3xl poster-canvas border border-[#BFDBFE] shadow-2xl overflow-hidden p-3.5 sm:p-5 md:p-6 flex flex-col justify-between select-text"
+        className="relative w-full max-w-[540px] aspect-[4/5] mx-auto rounded-3xl poster-canvas border-2 border-[#BFDBFE] shadow-2xl overflow-hidden p-3.5 sm:p-5 md:p-6 flex flex-col justify-between select-text"
         style={{
-          boxShadow: "0 25px 50px -12px rgba(15, 41, 74, 0.16)",
+          boxShadow: "0 25px 50px -12px rgba(15, 41, 74, 0.18)",
         }}
       >
-        {/* SECTION 05 — Decorative Botanical Illustrations in Blue Shade */}
+        {/* Architectural Inner Frame with Diamond Corner Accents */}
+        <div className="absolute inset-2 sm:inset-2.5 border border-[#BFDBFE]/60 rounded-2xl pointer-events-none z-0">
+          <span className="absolute -top-1.5 -left-1.5 text-[9px] text-[#2563EB] leading-none">◈</span>
+          <span className="absolute -top-1.5 -right-1.5 text-[9px] text-[#2563EB] leading-none">◈</span>
+          <span className="absolute -bottom-1.5 -left-1.5 text-[9px] text-[#2563EB] leading-none">◈</span>
+          <span className="absolute -bottom-1.5 -right-1.5 text-[9px] text-[#2563EB] leading-none">◈</span>
+        </div>
+
+        {/* Decorative Botanical Illustrations in Soft Blue Ink */}
         <BotanicalDecoration />
 
         {/* Top Header Region (Religious Heading + Brand Heading + Date) */}
@@ -39,8 +47,8 @@ export const PriceCardPreview = forwardRef<HTMLDivElement, PriceCardPreviewProps
           />
         </div>
 
-        {/* SECTION 06 — Main Product Showcase (Two-Column Symmetrical Layout) */}
-        <div className="relative z-10 grid grid-cols-2 gap-3 sm:gap-5 my-auto items-stretch">
+        {/* SECTION 06 — Main Product Showcase (Symmetrical Architectural Layout) */}
+        <div className="relative z-10 grid grid-cols-2 gap-4 sm:gap-6 my-auto items-stretch">
           {/* LEFT PRODUCT CARD — TRUPTI COTTON SEED REFINED OIL */}
           <ProductCard product={data.trupti} />
 
