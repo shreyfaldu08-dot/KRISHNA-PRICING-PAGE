@@ -9,16 +9,19 @@ export const PriceBox: React.FC<PriceBoxProps> = ({ unit, price }) => {
   const cleanPrice = (price || "").replace(/^₹\s*/, "").trim();
 
   return (
-    <div className="text-center flex-1 px-1 py-0.5">
-      {/* Product Unit Label in Slate Blue */}
-      <span className="text-[7.5px] sm:text-[9px] font-bold text-[#475569] tracking-widest uppercase block">
+    <div className="flex-1 bg-[#FDF9F3] border border-[#E5D5C2] rounded-xl sm:rounded-2xl p-1 sm:p-2 text-center shadow-xs flex flex-col justify-between">
+      {/* Product Quantity */}
+      <div className="text-[8px] sm:text-[10px] font-bold text-[#57534E] tracking-[0.14em] uppercase">
         {unit}
-      </span>
+      </div>
 
-      {/* Large Dark Navy Price in Bahnschrift */}
-      <span className="font-bold text-sm sm:text-lg md:text-[21px] text-[#0F294A] tracking-tight leading-tight block mt-0.5">
+      {/* Thin Horizontal Separator */}
+      <div className="w-full h-[1px] bg-[#E8DAC8] my-0.5 sm:my-1"></div>
+
+      {/* Large Dark Charcoal Price in Bahnschrift */}
+      <div className="font-bold text-base sm:text-xl md:text-[23px] text-[#292725] tracking-tight leading-none pb-0.5">
         ₹{cleanPrice}
-      </span>
+      </div>
     </div>
   );
 };
