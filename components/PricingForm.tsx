@@ -1,7 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import { CatalogueData } from "@/types/pricing";
+import {
+  CatalogueData,
+  COLOR_THEMES,
+  TemplateColorTheme,
+} from "@/types/pricing";
 import {
   Calendar,
   RotateCcw,
@@ -10,6 +14,7 @@ import {
   ChevronUp,
   Tag,
   Package,
+  Palette,
 } from "lucide-react";
 
 interface PricingFormProps {
@@ -95,6 +100,91 @@ export const PricingForm: React.FC<PricingFormProps> = ({
           <RotateCcw className="w-3.5 h-3.5" />
           <span>Reset</span>
         </button>
+      </div>
+
+      {/* Template Color Palette Options */}
+      <div className="bg-gradient-to-r from-blue-50/70 via-indigo-50/50 to-blue-50/70 p-3.5 sm:p-4 rounded-2xl border border-blue-200/80 space-y-2.5">
+        <div className="flex items-center justify-between">
+          <label className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
+            <Palette className="w-3.5 h-3.5 text-blue-600" />
+            <span>Template Color Theme</span>
+          </label>
+          <span className="text-[10px] font-bold uppercase text-blue-800 bg-blue-100/80 px-2 py-0.5 rounded-md">
+            Same Design • New Shade
+          </span>
+        </div>
+
+        {/* Preset Theme Buttons */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+          {Object.entries(COLOR_THEMES)
+            .filter(([key]) => key !== "custom")
+            .map(([key, theme]) => {
+              const isSelected = (data.theme || "terracotta") === key;
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  onClick={() =>
+                    updateField("theme", key as TemplateColorTheme)
+                  }
+                  className={`py-2 px-2.5 rounded-xl border text-left flex items-center gap-2 transition cursor-pointer ${
+                    isSelected
+                      ? "bg-white border-blue-600 ring-2 ring-blue-500/20 shadow-xs"
+                      : "bg-white/80 border-slate-200 hover:bg-white hover:border-slate-300"
+                  }`}
+                >
+                  <span
+                    className="w-3.5 h-3.5 rounded-full shrink-0 shadow-2xs border border-black/10"
+                    style={{ backgroundColor: theme.accentPrimary }}
+                  />
+                  <span
+                    className={`text-[11px] font-bold truncate ${
+                      isSelected
+                        ? "text-blue-950 font-black"
+                        : "text-slate-700"
+                    }`}
+                  >
+                    {theme.name}
+                  </span>
+                </button>
+              );
+            })}
+
+          {/* Custom Color Selector */}
+          <div
+            className={`py-1.5 px-2.5 rounded-xl border flex items-center justify-between gap-1.5 transition cursor-pointer ${
+              data.theme === "custom"
+                ? "bg-white border-blue-600 ring-2 ring-blue-500/20 shadow-xs"
+                : "bg-white/80 border-slate-200 hover:bg-white"
+            }`}
+            onClick={() => updateField("theme", "custom")}
+          >
+            <div className="flex items-center gap-2 min-w-0">
+              <input
+                type="color"
+                value={data.customColor || "#B83B20"}
+                onChange={(e) => {
+                  updateField("theme", "custom");
+                  updateField("customColor", e.target.value);
+                }}
+                className="w-4 h-4 rounded-full border-0 cursor-pointer p-0 bg-transparent shrink-0"
+                title="Choose custom color"
+              />
+              <span
+                className={`text-[11px] font-bold truncate ${
+                  data.theme === "custom"
+                    ? "text-blue-950 font-black"
+                    : "text-slate-700"
+                }`}
+              >
+                Custom
+              </span>
+            </div>
+            <span className="text-[10px] text-slate-400 font-mono">
+              {data.customColor || "#B83B20"}
+            </span>
+          </div>
+        </div>
       </div>
 
       {/* Date Field */}

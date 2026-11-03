@@ -40,6 +40,8 @@ export default function DailyPricingLandingPage() {
           rightCompanyName: parsed.rightCompanyName || INITIAL_CATALOGUE_DATA.rightCompanyName,
           brandName: parsed.brandName || parsed.leftCompanyName || INITIAL_CATALOGUE_DATA.brandName,
           subtitle: "",
+          theme: parsed.theme || INITIAL_CATALOGUE_DATA.theme,
+          customColor: parsed.customColor || INITIAL_CATALOGUE_DATA.customColor,
           footerNotice: parsed.footerNotice || INITIAL_CATALOGUE_DATA.footerNotice,
           footerLocation: parsed.footerLocation || INITIAL_CATALOGUE_DATA.footerLocation,
           date: parsed.date || formattedDate,
