@@ -18,22 +18,24 @@ export const PriceCardPreview = forwardRef<HTMLDivElement, PriceCardPreviewProps
       <div
         ref={ref}
         id="price-card-canvas"
-        className="relative w-full max-w-[560px] aspect-[1122/1402] mx-auto rounded-3xl bg-[#FAF5EF] border border-[#E5DACD] shadow-2xl overflow-hidden p-4 sm:p-6 md:p-7 flex flex-col justify-between select-text"
+        className="relative w-full max-w-[560px] aspect-[1122/1402] mx-auto rounded-3xl bg-[#F7F3EB] border border-[#E8DEC8] shadow-2xl overflow-hidden p-4 sm:p-6 md:p-7 flex flex-col justify-between select-text"
         style={{
-          background: "radial-gradient(circle at 50% 25%, #FDFBF7 0%, #FAF5EF 65%, #F5EDE1 100%)",
+          background: "radial-gradient(circle at 50% 25%, #FAF7F0 0%, #F7F3EB 65%, #EFE5D5 100%)",
           boxShadow: "0 25px 50px -12px rgba(120, 80, 40, 0.15)",
         }}
       >
-        {/* SECTION 05 — Decorative Botanical Illustrations */}
+        {/* SECTION 04 — Decorative Botanical Illustrations */}
         <BotanicalDecoration />
 
-        {/* Top Header Region (Religious Heading + Brand Heading + Date) */}
-        <div className="relative z-10 space-y-1">
-          {/* SECTION 02 — Top Religious Heading */}
+        {/* Top Header Region (Religious Heading + Date + Two Company Names) */}
+        <div className="relative z-10 space-y-0.5 sm:space-y-1">
+          {/* First line — Religious Heading */}
           <ReligiousHeading heading={data.religiousHeading} />
 
-          {/* SECTION 03 & 04 — Main Brand Heading, Subtitle & Date */}
+          {/* Second & Third line — Date, Two Company Names & Subtitle */}
           <Header
+            leftCompanyName={data.leftCompanyName || data.brandName}
+            rightCompanyName={data.rightCompanyName}
             brandName={data.brandName}
             subtitle={data.subtitle}
             date={data.date}

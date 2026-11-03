@@ -15,11 +15,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       <ProductImage src={product.imageSrc} alt={product.imageAlt} />
 
       {/* 2. Product Name & Subtitle */}
-      <div className="text-center mt-2 sm:mt-3">
-        <h2 className="font-bold text-lg sm:text-2xl md:text-[26px] text-[#292725] tracking-[0.1em] uppercase leading-none">
+      <div className="text-center mt-2 sm:mt-2.5">
+        <h2 className="font-bold text-lg sm:text-2xl md:text-[25px] text-[#171717] tracking-[0.1em] uppercase leading-none">
           {product.brandName}
         </h2>
-        <p className="text-[8.5px] sm:text-[10.5px] md:text-[11.5px] font-bold text-[#57534E] tracking-[0.16em] uppercase mt-0.5 sm:mt-1">
+        <p className="text-[8.5px] sm:text-[10.5px] md:text-[11.5px] font-bold text-[#39332F] tracking-[0.16em] uppercase mt-0.5 sm:mt-1">
           {product.subtitle}
         </p>
       </div>

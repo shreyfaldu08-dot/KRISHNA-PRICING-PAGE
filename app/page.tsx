@@ -36,7 +36,9 @@ export default function DailyPricingLandingPage() {
           ...INITIAL_CATALOGUE_DATA,
           ...parsed,
           religiousHeading: parsed.religiousHeading || INITIAL_CATALOGUE_DATA.religiousHeading,
-          brandName: parsed.brandName || INITIAL_CATALOGUE_DATA.brandName,
+          leftCompanyName: parsed.leftCompanyName || parsed.brandName || INITIAL_CATALOGUE_DATA.leftCompanyName,
+          rightCompanyName: parsed.rightCompanyName || INITIAL_CATALOGUE_DATA.rightCompanyName,
+          brandName: parsed.brandName || parsed.leftCompanyName || INITIAL_CATALOGUE_DATA.brandName,
           subtitle: parsed.subtitle || INITIAL_CATALOGUE_DATA.subtitle,
           footerNotice: parsed.footerNotice || INITIAL_CATALOGUE_DATA.footerNotice,
           footerLocation: parsed.footerLocation || INITIAL_CATALOGUE_DATA.footerLocation,
@@ -253,7 +255,7 @@ export default function DailyPricingLandingPage() {
 
       {/* Clean Light Footer */}
       <footer className="mt-12 sm:mt-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-blue-900/60 font-medium">
-        © 2026 {data.brandName || "KRISHNA EXPORT. INDUSTRIES"} • All Rates Plus GST • Ex-Factory | Junagadh
+        © 2026 {data.leftCompanyName || data.brandName || "KRISHNA EXPORT. INDUSTRIES"} • All Rates Plus GST • Ex-Factory | Junagadh
       </footer>
     </div>
   );

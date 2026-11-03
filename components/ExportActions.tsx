@@ -94,8 +94,8 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
 
   const generateBroadcastText = () => {
     let text = `🙏 *${data.religiousHeading || "जय श्री कृष्णा"}*\n`;
-    text += `🏢 *${data.brandName || "KRISHNA EXPORT. INDUSTRIES"}*\n`;
-    text += `📋 *${data.subtitle || "PRODUCT COLLECTION & WHOLESALE PRICE LIST"}*\n`;
+    text += `🏢 *${data.leftCompanyName || data.brandName || "KRISHNA EXPORT. INDUSTRIES"}* | *${data.rightCompanyName || "SHREE KRISHNA OIL MILL"}*\n`;
+    if (data.subtitle) text += `📋 *${data.subtitle}*\n`;
     text += `📅 *Date:* ${data.date}\n\n`;
 
     text += `━━━━━━━━━━━━━━━━━━━━━\n`;

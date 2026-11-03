@@ -16,8 +16,10 @@ export interface ProductItem {
 
 export interface CatalogueData {
   religiousHeading: string;
-  brandName: string;
-  subtitle: string;
+  leftCompanyName: string;
+  rightCompanyName: string;
+  brandName?: string;
+  subtitle?: string;
   date: string;
   trupti: ProductItem;
   krishna: ProductItem;
@@ -30,6 +32,8 @@ export type PricingData = CatalogueData;
 
 export const INITIAL_CATALOGUE_DATA: CatalogueData = {
   religiousHeading: "जय श्री कृष्णा",
+  leftCompanyName: "KRISHNA EXPORT. INDUSTRIES",
+  rightCompanyName: "SHREE KRISHNA OIL MILL",
   brandName: "KRISHNA EXPORT. INDUSTRIES",
   subtitle: "PRODUCT COLLECTION & WHOLESALE PRICE LIST",
   date: "30-10-2026",

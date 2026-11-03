@@ -13,14 +13,15 @@
 
 :root {
   --font-bahnschrift: 'Bahnschrift', 'DIN Alternate', 'Franklin Gothic Medium', 'Segoe UI', -apple-system, sans-serif;
-  --bg-primary: #FAF5EF;
-  --bg-secondary: #F3E8D9;
-  --color-terracotta: #A1462B;
-  --color-charcoal: #292725;
-  --color-supporting: #57534E;
-  --color-pill-bg: #F3E6D6;
-  --color-box-bg: #FDF9F3;
-  --color-border: #E5D5C2;
+  --bg-primary: #F7F3EB;
+  --bg-secondary: #F4EADD;
+  --bg-product-card: #F0DDC9;
+  --color-pill-bg: #F3DCC9;
+  --color-terracotta: #B83B20;
+  --color-copper: #BD8665;
+  --color-line-art: #D6B18F;
+  --color-charcoal: #171717;
+  --color-supporting: #39332F;
 }
 
 * {

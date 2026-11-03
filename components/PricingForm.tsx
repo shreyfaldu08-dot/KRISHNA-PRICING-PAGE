@@ -313,16 +313,32 @@ export const PricingForm: React.FC<PricingFormProps> = ({
               />
             </div>
 
-            <div>
-              <label className="block text-[10px] font-bold text-slate-600 uppercase mb-1">
-                Main Firm Heading
-              </label>
-              <input
-                type="text"
-                value={data.brandName}
-                onChange={(e) => updateField("brandName", e.target.value)}
-                className="w-full px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs font-semibold"
-              />
+            <div className="grid grid-cols-2 gap-2">
+              <div>
+                <label className="block text-[10px] font-bold text-slate-600 uppercase mb-1">
+                  Left Company Name
+                </label>
+                <input
+                  type="text"
+                  value={data.leftCompanyName || data.brandName || ""}
+                  onChange={(e) => {
+                    updateField("leftCompanyName", e.target.value);
+                    updateField("brandName", e.target.value);
+                  }}
+                  className="w-full px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs font-semibold"
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] font-bold text-slate-600 uppercase mb-1">
+                  Right Company Name
+                </label>
+                <input
+                  type="text"
+                  value={data.rightCompanyName || ""}
+                  onChange={(e) => updateField("rightCompanyName", e.target.value)}
+                  className="w-full px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs font-semibold"
+                />
+              </div>
             </div>
 
             <div>
