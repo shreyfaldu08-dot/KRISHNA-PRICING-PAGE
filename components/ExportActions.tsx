@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { toPng, toBlob } from "html-to-image";
 import confetti from "canvas-confetti";
-import { CatalogueData } from "@/types/pricing";
+import { CatalogueData, getEffectivePalette } from "@/types/pricing";
 import {
   Download,
   Copy,
@@ -27,48 +27,90 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
   const [copiedImage, setCopiedImage] = useState(false);
   const [copiedText, setCopiedText] = useState(false);
 
-  const prepareCloneForExport = (source: HTMLElement): { clone: HTMLElement; cleanup: () => void } => {
-    const clone = source.cloneNode(true) as HTMLElement;
+  // Directly captures the live element with guaranteed square corners and solid theme background
+  const capturePoster = async (
+    action: "download" | "copy"
+  ): Promise<string | Blob | null> => {
+    const element = cardRef.current;
+    if (!element) return null;
 
-    // Fixed desktop canvas width and 4:5 height with square corners and zero drop shadow
-    clone.style.position = "fixed";
-    clone.style.left = "-9999px";
-    clone.style.top = "0px";
-    clone.style.width = "540px";
-    clone.style.height = "675px";
-    clone.style.maxWidth = "540px";
-    clone.style.maxHeight = "675px";
-    clone.style.minWidth = "540px";
-    clone.style.minHeight = "675px";
-    clone.style.borderRadius = "0px";
-    clone.style.boxShadow = "none";
-    clone.style.margin = "0px";
-    clone.style.transform = "none";
-    clone.style.zIndex = "-9999";
-    clone.style.overflow = "hidden";
+    const palette = getEffectivePalette(data.theme, data.customColor);
 
-    // Enforce square corners on all outer framing elements in the clone
-    clone.classList.remove("rounded-[28px]", "sm:rounded-[36px]", "rounded-3xl", "rounded-2xl");
-    clone.classList.add("rounded-none");
+    // 1. Save original styles
+    const origWidth = element.style.width;
+    const origHeight = element.style.height;
+    const origMaxWidth = element.style.maxWidth;
+    const origMaxHeight = element.style.maxHeight;
+    const origMargin = element.style.margin;
+    const origMarginLeft = element.style.marginLeft;
+    const origMarginRight = element.style.marginRight;
+    const origBorderRadius = element.style.borderRadius;
+    const origBoxShadow = element.style.boxShadow;
+    const origTransform = element.style.transform;
+    const origPosition = element.style.position;
+    const origLeft = element.style.left;
 
-    const roundedElements = clone.querySelectorAll<HTMLElement>("[class*='rounded']");
-    roundedElements.forEach((el) => {
-      // Remove rounded styling from the outer canvas and absolute frame border lines
-      if (el.classList.contains("border") && el.classList.contains("absolute")) {
-        el.style.borderRadius = "0px";
+    // 2. Temporarily set canonical 540x675 dimensions, zero margin, square corners & solid background
+    element.style.width = "540px";
+    element.style.height = "675px";
+    element.style.maxWidth = "540px";
+    element.style.maxHeight = "675px";
+    element.style.margin = "0px";
+    element.style.marginLeft = "0px";
+    element.style.marginRight = "0px";
+    element.style.borderRadius = "0px";
+    element.style.boxShadow = "none";
+    element.style.transform = "none";
+    element.style.position = "relative";
+    element.style.left = "0px";
+
+    element.classList.remove("mx-auto");
+
+    try {
+      // Allow browser to calculate layout at 540x675 with zero margin
+      await new Promise((res) => setTimeout(res, 80));
+
+      const captureOptions = {
+        quality: 1,
+        pixelRatio: 2, // 540 * 2 = 1080 px, 675 * 2 = 1350 px
+        width: 540,
+        height: 675,
+        backgroundColor: palette.bgCanvas,
+        cacheBust: true,
+        style: {
+          margin: "0px",
+          marginLeft: "0px",
+          marginRight: "0px",
+          borderRadius: "0px",
+          transform: "none",
+          left: "0px",
+          top: "0px",
+          position: "relative",
+          width: "540px",
+          height: "675px",
+        },
+      };
+
+      if (action === "download") {
+        return await toPng(element, captureOptions);
+      } else {
+        return await toBlob(element, captureOptions);
       }
-    });
-
-    document.body.appendChild(clone);
-
-    return {
-      clone,
-      cleanup: () => {
-        if (clone.parentNode) {
-          clone.parentNode.removeChild(clone);
-        }
-      },
-    };
+    } finally {
+      // 3. Immediately restore original styles
+      element.style.width = origWidth;
+      element.style.height = origHeight;
+      element.style.maxWidth = origMaxWidth;
+      element.style.maxHeight = origMaxHeight;
+      element.style.margin = origMargin;
+      element.style.marginLeft = origMarginLeft;
+      element.style.marginRight = origMarginRight;
+      element.style.borderRadius = origBorderRadius;
+      element.style.boxShadow = origBoxShadow;
+      element.style.transform = origTransform;
+      element.style.position = origPosition;
+      element.style.left = origLeft;
+    }
   };
 
   const handleDownloadImage = async () => {
@@ -76,46 +118,39 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
     try {
       setDownloading(true);
 
-      const { clone, cleanup } = prepareCloneForExport(cardRef.current);
+      const dataUrl = (await capturePoster("download")) as string | null;
+      if (!dataUrl) throw new Error("Capture failed");
 
-      try {
-        await new Promise((res) => setTimeout(res, 80));
+      const dateStr = (data.date || "rates").replace(/[^a-zA-Z0-9_-]/g, "_");
+      const fileName = `Krishna_Export_Rates_${dateStr}.png`;
 
-        const dataUrl = await toPng(clone, {
-          quality: 1,
-          pixelRatio: 2, // Generates exact 1080 × 1350 px (HD WhatsApp / Instagram 4:5)
-          width: 540,
-          height: 675,
-          canvasWidth: 1080,
-          canvasHeight: 1350,
-          cacheBust: true,
-        });
+      const link = document.createElement("a");
+      link.download = fileName;
+      link.href = dataUrl;
+      link.click();
 
-        const dateStr = (data.date || "rates").replace(/[^a-zA-Z0-9_-]/g, "_");
-        const fileName = `Krishna_Export_Rates_${dateStr}.png`;
-
-        const link = document.createElement("a");
-        link.download = fileName;
-        link.href = dataUrl;
-        link.click();
-
-        confetti({
-          particleCount: 45,
-          spread: 60,
-          origin: { y: 0.8 },
-        });
-      } finally {
-        cleanup();
-      }
+      confetti({
+        particleCount: 45,
+        spread: 60,
+        origin: { y: 0.8 },
+      });
     } catch (err) {
       console.error("Failed to generate image:", err);
-      // Fallback: direct capture if clone fails
+      // Fallback: direct capture without resize
       try {
         if (cardRef.current) {
+          const palette = getEffectivePalette(data.theme, data.customColor);
           const directUrl = await toPng(cardRef.current, {
             quality: 0.98,
             pixelRatio: 2,
-            style: { borderRadius: "0px", boxShadow: "none" },
+            backgroundColor: palette.bgCanvas,
+            style: {
+              borderRadius: "0px",
+              boxShadow: "none",
+              margin: "0px",
+              marginLeft: "0px",
+              marginRight: "0px",
+            },
           });
           const link = document.createElement("a");
           link.download = `Krishna_Export_Rates.png`;
@@ -135,36 +170,19 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
     try {
       setCopyingImage(true);
 
-      const { clone, cleanup } = prepareCloneForExport(cardRef.current);
+      const blob = (await capturePoster("copy")) as Blob | null;
+      if (!blob) throw new Error("Could not create image blob");
 
-      try {
-        await new Promise((res) => setTimeout(res, 80));
-
-        const blob = await toBlob(clone, {
-          quality: 1,
-          pixelRatio: 2,
-          width: 540,
-          height: 675,
-          canvasWidth: 1080,
-          canvasHeight: 1350,
-          cacheBust: true,
-        });
-
-        if (!blob) throw new Error("Could not create image blob");
-
-        if (navigator.clipboard && window.ClipboardItem) {
-          await navigator.clipboard.write([
-            new ClipboardItem({
-              "image/png": blob,
-            }),
-          ]);
-          setCopiedImage(true);
-          setTimeout(() => setCopiedImage(false), 2500);
-        } else {
-          alert("Clipboard Image copy is not supported in this browser. Please use 'Download Poster PNG'.");
-        }
-      } finally {
-        cleanup();
+      if (navigator.clipboard && window.ClipboardItem) {
+        await navigator.clipboard.write([
+          new ClipboardItem({
+            "image/png": blob,
+          }),
+        ]);
+        setCopiedImage(true);
+        setTimeout(() => setCopiedImage(false), 2500);
+      } else {
+        alert("Clipboard Image copy is not supported in this browser. Please use 'Download Poster PNG'.");
       }
     } catch (err) {
       console.error("Failed to copy image:", err);

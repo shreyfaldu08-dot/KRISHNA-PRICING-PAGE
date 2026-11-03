@@ -20,7 +20,7 @@ export const PriceCardPreview = forwardRef<HTMLDivElement, PriceCardPreviewProps
       <div
         ref={ref}
         id="price-card-canvas"
-        className="relative w-full max-w-[540px] aspect-[4/5] mx-auto rounded-none border shadow-2xl overflow-hidden p-3.5 sm:p-5 md:p-6 flex flex-col justify-between select-text transition-colors duration-200"
+        className="relative w-full max-w-[540px] aspect-[4/5] rounded-none border shadow-2xl overflow-hidden p-3.5 sm:p-5 md:p-6 flex flex-col justify-between select-text transition-colors duration-200"
         style={{
           backgroundColor: palette.bgCanvas,
           borderColor: palette.borderColor,
