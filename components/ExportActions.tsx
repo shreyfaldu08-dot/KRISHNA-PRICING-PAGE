@@ -126,8 +126,15 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
       const blob = (await capturePoster("download")) as Blob | null;
       if (!blob) throw new Error("Capture failed");
 
+      const mode = data.productMode || "both";
+      const modePrefix =
+        mode === "cotton"
+          ? "Cottonseed_"
+          : mode === "groundnut"
+          ? "Groundnut_"
+          : "";
       const dateStr = (data.date || "rates").replace(/[^a-zA-Z0-9_-]/g, "_");
-      const fileName = `Krishna_Export_Rates_${dateStr}.png`;
+      const fileName = `Krishna_Export_Rates_${modePrefix}${dateStr}.png`;
 
       // Reliable object URL download (works flawlessly on iOS Safari, Android Chrome, and Desktop)
       const objectUrl = URL.createObjectURL(blob);
@@ -213,18 +220,26 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
     if (data.subtitle) text += `📋 *${data.subtitle}*\n`;
     text += `📅 *Date:* ${data.date}\n\n`;
 
-    text += `━━━━━━━━━━━━━━━━━━━━━\n`;
-    text += `🌿 *${data.trupti.brandName}* (${data.trupti.subtitle})\n`;
-    text += `• Wholesale Tin: ₹ ${data.trupti.tinPrice} + NEW TIN\n`;
-    text += `• 5 LTR Can: ₹ ${data.trupti.canPrice}\n`;
-    text += `• 1 LTR Bottle: ₹ ${data.trupti.bottlePrice}\n\n`;
+    const mode = data.productMode || "both";
 
-    text += `🥜 *${data.krishna.brandName}* (${data.krishna.subtitle})\n`;
-    text += `• Wholesale Tin: ₹ ${data.krishna.tinPrice} + NEW TIN\n`;
-    text += `• 5 LTR Can: ₹ ${data.krishna.canPrice}\n`;
-    text += `• 1 LTR Bottle: ₹ ${data.krishna.bottlePrice}\n`;
+    if (mode === "both" || mode === "cotton") {
+      text += `━━━━━━━━━━━━━━━━━━━━━\n`;
+      text += `🌿 *${data.trupti.brandName}* (${data.trupti.subtitle})\n`;
+      text += `• Wholesale Tin: ₹ ${data.trupti.tinPrice} + NEW TIN\n`;
+      text += `• 5 LTR Can: ₹ ${data.trupti.canPrice}\n`;
+      text += `• 1 LTR Bottle: ₹ ${data.trupti.bottlePrice}\n`;
+      if (mode === "both") text += `\n`;
+    }
+
+    if (mode === "both" || mode === "groundnut") {
+      if (mode === "groundnut") text += `━━━━━━━━━━━━━━━━━━━━━\n`;
+      text += `🥜 *${data.krishna.brandName}* (${data.krishna.subtitle})\n`;
+      text += `• Wholesale Tin: ₹ ${data.krishna.tinPrice} + NEW TIN\n`;
+      text += `• 5 LTR Can: ₹ ${data.krishna.canPrice}\n`;
+      text += `• 1 LTR Bottle: ₹ ${data.krishna.bottlePrice}\n`;
+    }
+
     text += `━━━━━━━━━━━━━━━━━━━━━\n\n`;
-
     text += `⚠️ *${data.footerNotice}*\n`;
     text += `📍 *${data.footerLocation}*\n`;
 
@@ -286,8 +301,15 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
     try {
       setSharingWhatsApp(true);
       const broadcastText = generateBroadcastText();
+      const mode = data.productMode || "both";
+      const modePrefix =
+        mode === "cotton"
+          ? "Cottonseed_"
+          : mode === "groundnut"
+          ? "Groundnut_"
+          : "";
       const dateStr = (data.date || "rates").replace(/[^a-zA-Z0-9_-]/g, "_");
-      const fileName = `Krishna_Export_Rates_${dateStr}.png`;
+      const fileName = `Krishna_Export_Rates_${modePrefix}${dateStr}.png`;
 
       // 1. Capture HD poster image blob
       const blob = (await capturePoster("copy")) as Blob | null;

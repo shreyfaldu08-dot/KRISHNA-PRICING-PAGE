@@ -35,6 +35,7 @@ export default function DailyPricingStudio() {
         setData({
           ...INITIAL_CATALOGUE_DATA,
           ...parsed,
+          productMode: parsed.productMode || INITIAL_CATALOGUE_DATA.productMode || "both",
           religiousHeading: parsed.religiousHeading || INITIAL_CATALOGUE_DATA.religiousHeading,
           leftCompanyName: parsed.leftCompanyName || parsed.brandName || INITIAL_CATALOGUE_DATA.leftCompanyName,
           rightCompanyName: parsed.rightCompanyName || INITIAL_CATALOGUE_DATA.rightCompanyName,

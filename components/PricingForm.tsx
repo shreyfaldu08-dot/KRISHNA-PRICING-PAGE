@@ -69,6 +69,8 @@ export const PricingForm: React.FC<PricingFormProps> = ({
     updateField("date", formatted);
   };
 
+  const currentMode = data.productMode || "both";
+
   return (
     <div className="bg-white rounded-3xl p-4 sm:p-6 border border-slate-200/90 shadow-sm space-y-5">
       {/* 1. Terminal Header */}
@@ -98,7 +100,54 @@ export const PricingForm: React.FC<PricingFormProps> = ({
         </button>
       </div>
 
-      {/* 2. Floating Date Capsule Pill */}
+      {/* 2. Product Mode Selector (Both, Cottonseed, Groundnut) */}
+      <div className="space-y-1.5">
+        <div className="flex items-center justify-between px-1">
+          <label className="text-[11px] font-extrabold uppercase tracking-wider text-slate-600">
+            Product Mode
+          </label>
+          <span className="text-[10px] font-bold text-slate-400 capitalize">
+            {currentMode === "both" ? "Dual Product Template" : "Single Product Template"}
+          </span>
+        </div>
+        <div className="grid grid-cols-3 gap-1 p-1 bg-slate-100 rounded-full border border-slate-200/80">
+          <button
+            type="button"
+            onClick={() => updateField("productMode", "both")}
+            className={`py-1.5 px-2 rounded-full text-xs font-bold transition flex items-center justify-center gap-1 cursor-pointer ${
+              currentMode === "both"
+                ? "bg-slate-900 text-white shadow-xs"
+                : "text-slate-600 hover:text-slate-900"
+            }`}
+          >
+            <span>Both</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => updateField("productMode", "cotton")}
+            className={`py-1.5 px-2 rounded-full text-xs font-bold transition flex items-center justify-center gap-1 cursor-pointer ${
+              currentMode === "cotton"
+                ? "bg-blue-600 text-white shadow-xs"
+                : "text-slate-600 hover:text-slate-900"
+            }`}
+          >
+            <span>Cotton (Trupti)</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => updateField("productMode", "groundnut")}
+            className={`py-1.5 px-2 rounded-full text-xs font-bold transition flex items-center justify-center gap-1 cursor-pointer ${
+              currentMode === "groundnut"
+                ? "bg-amber-600 text-white shadow-xs"
+                : "text-slate-600 hover:text-slate-900"
+            }`}
+          >
+            <span>Groundnut (Krishna)</span>
+          </button>
+        </div>
+      </div>
+
+      {/* 3. Floating Date Capsule Pill */}
       <div className="py-2 px-3.5 rounded-full bg-slate-50 border border-slate-200 flex items-center justify-between gap-3 shadow-2xs">
         <label className="text-xs font-bold text-slate-700 flex items-center gap-2 shrink-0">
           <Calendar className="w-3.5 h-3.5 text-slate-500" />
@@ -122,7 +171,8 @@ export const PricingForm: React.FC<PricingFormProps> = ({
         </div>
       </div>
 
-      {/* 3. Commodity 1: TRUPTI COTTON SEED REFINED OIL */}
+      {/* 4. Commodity 1: TRUPTI COTTON SEED REFINED OIL */}
+      {(currentMode === "both" || currentMode === "cotton") && (
       <div className="space-y-3 p-4 rounded-2xl bg-slate-50/70 border border-slate-200/80">
         {/* Commodity Header */}
         <div className="flex items-center justify-between border-b border-slate-200/60 pb-2.5">
@@ -205,8 +255,10 @@ export const PricingForm: React.FC<PricingFormProps> = ({
           </div>
         </div>
       </div>
+      )}
 
-      {/* 4. Commodity 2: KRISHNA GROUNDNUT OIL */}
+      {/* 5. Commodity 2: KRISHNA GROUNDNUT OIL */}
+      {(currentMode === "both" || currentMode === "groundnut") && (
       <div className="space-y-3 p-4 rounded-2xl bg-slate-50/70 border border-slate-200/80">
         {/* Commodity Header */}
         <div className="flex items-center justify-between border-b border-slate-200/60 pb-2.5">
@@ -289,8 +341,9 @@ export const PricingForm: React.FC<PricingFormProps> = ({
           </div>
         </div>
       </div>
+      )}
 
-      {/* 5. Collapsible Advanced Settings (Firm Names & Terms) */}
+      {/* 6. Collapsible Advanced Settings (Firm Names & Terms) */}
       <div className="pt-1">
         <button
           type="button"

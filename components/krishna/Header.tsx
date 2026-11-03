@@ -1,5 +1,5 @@
 import React from "react";
-import { ColorPalette } from "@/types/pricing";
+import { ColorPalette, ProductSelectionMode } from "@/types/pricing";
 
 interface HeaderProps {
   leftCompanyName?: string;
@@ -8,6 +8,7 @@ interface HeaderProps {
   subtitle?: string;
   date?: string;
   palette?: ColorPalette;
+  productMode?: ProductSelectionMode;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -16,6 +17,7 @@ export const Header: React.FC<HeaderProps> = ({
   brandName,
   date = "03-11-2026",
   palette,
+  productMode = "both",
 }) => {
   const leftName = leftCompanyName || brandName || "KRISHNA EXPORT. INDUSTRIES";
   const rightName = rightCompanyName || "SHREE KRISHNA OIL MILL";
@@ -51,21 +53,37 @@ export const Header: React.FC<HeaderProps> = ({
         />
           </div>
 
-            {/* THIRD LINE — Two Horizontally Aligned Company Names (Single Line Guaranteed) */}
-            <div className="grid grid-cols-2 gap-2 items-baseline text-center mt-1 px-0.5">
+            {/* THIRD LINE — Company Name(s): Single centered for single product, dual columns for both */}
+            {productMode === "cotton" ? (
               <div
-                className="font-extrabold text-[11px] tracking-[0.01em] uppercase leading-tight whitespace-nowrap overflow-visible transition-colors duration-200"
+                className="font-extrabold text-[12.5px] tracking-[0.05em] uppercase leading-tight text-center mt-1 whitespace-nowrap overflow-visible transition-colors duration-200"
                 style={{ color: textCharcoal }}
               >
                 {leftName}
               </div>
+            ) : productMode === "groundnut" ? (
               <div
-                className="font-extrabold text-[11px] tracking-[0.01em] uppercase leading-tight whitespace-nowrap overflow-visible transition-colors duration-200"
+                className="font-extrabold text-[12.5px] tracking-[0.05em] uppercase leading-tight text-center mt-1 whitespace-nowrap overflow-visible transition-colors duration-200"
                 style={{ color: textCharcoal }}
               >
                 {rightName}
               </div>
-            </div>
+            ) : (
+              <div className="grid grid-cols-2 gap-2 items-baseline text-center mt-1 px-0.5">
+                <div
+                  className="font-extrabold text-[11px] tracking-[0.01em] uppercase leading-tight whitespace-nowrap overflow-visible transition-colors duration-200"
+                  style={{ color: textCharcoal }}
+                >
+                  {leftName}
+                </div>
+                <div
+                  className="font-extrabold text-[11px] tracking-[0.01em] uppercase leading-tight whitespace-nowrap overflow-visible transition-colors duration-200"
+                  style={{ color: textCharcoal }}
+                >
+                  {rightName}
+                </div>
+              </div>
+            )}
           </div>
           );
 };

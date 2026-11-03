@@ -6,6 +6,7 @@ import { BotanicalDecoration } from "./krishna/BotanicalDecoration";
 import { ReligiousHeading } from "./krishna/ReligiousHeading";
 import { Header } from "./krishna/Header";
 import { ProductCard } from "./krishna/ProductCard";
+import { SingleProductHero } from "./krishna/SingleProductHero";
 import { Footer } from "./krishna/Footer";
 
 interface PriceCardPreviewProps {
@@ -97,33 +98,40 @@ export const PriceCardPreview = forwardRef<HTMLDivElement, PriceCardPreviewProps
                   style={{ borderColor: palette.frameColor }}
                 />
 
-                {/* Botanical Decoration Watermarks */}
-                <BotanicalDecoration palette={palette} />
+          {/* Botanical Decoration Watermarks */}
+          <BotanicalDecoration palette={palette} productMode={data.productMode} />
 
-                {/* Top Header Region (Religious Heading + Date + Two Company Names) */}
-                <div className="relative z-10 space-y-1.5 pt-0.5">
-                  <ReligiousHeading
-                    heading={data.religiousHeading}
-                    palette={palette}
-                  />
-                  <Header
-                    leftCompanyName={data.leftCompanyName || data.brandName}
-                    rightCompanyName={data.rightCompanyName}
-                    brandName={data.brandName}
-                    subtitle={data.subtitle}
-                    date={data.date}
-                    palette={palette}
-                  />
-                </div>
+          {/* Top Header Region (Religious Heading + Date + Two Company Names) */}
+          <div className="relative z-10 space-y-1.5 pt-0.5">
+            <ReligiousHeading
+              heading={data.religiousHeading}
+              palette={palette}
+            />
+            <Header
+              leftCompanyName={data.leftCompanyName || data.brandName}
+              rightCompanyName={data.rightCompanyName}
+              brandName={data.brandName}
+              subtitle={data.subtitle}
+              date={data.date}
+              palette={palette}
+              productMode={data.productMode}
+            />
+          </div>
 
-                {/* SECTION 06 — Main Product Showcase (Spacious Two-Column Layout) */}
-                <div className="relative z-10 grid grid-cols-2 gap-6 my-auto items-stretch px-1">
-                  {/* LEFT PRODUCT CARD — TRUPTI COTTON SEED REFINED OIL */}
-                  <ProductCard product={data.trupti} palette={palette} />
+          {/* SECTION 06 — Main Product Showcase (Adaptive Single or Dual Layout) */}
+          {data.productMode === "cotton" ? (
+            <SingleProductHero product={data.trupti} palette={palette} />
+          ) : data.productMode === "groundnut" ? (
+            <SingleProductHero product={data.krishna} palette={palette} />
+          ) : (
+            <div className="relative z-10 grid grid-cols-2 gap-6 my-auto items-stretch px-1">
+              {/* LEFT PRODUCT CARD — TRUPTI COTTON SEED REFINED OIL */}
+              <ProductCard product={data.trupti} palette={palette} />
 
-                  {/* RIGHT PRODUCT CARD — KRISHNA GROUNDNUT OIL */}
-                  <ProductCard product={data.krishna} palette={palette} />
-                </div>
+              {/* RIGHT PRODUCT CARD — KRISHNA GROUNDNUT OIL */}
+              <ProductCard product={data.krishna} palette={palette} />
+            </div>
+          )}
 
                 {/* SECTION 05 (Bottom) & SECTION 07 — Bottom Footer */}
                 <div className="relative z-10 pb-0.5">

@@ -89,7 +89,52 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({
 
   return (
     <div className="bg-white rounded-2xl border border-slate-200/90 shadow-2xs p-3 space-y-2.5 transition-all">
-      {/* Top Header Row with Meta Details */}
+      {/* 1. Product Layout Selector */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1.5 pb-2 border-b border-slate-100 px-1">
+        <div className="flex items-center gap-1.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-slate-700" />
+          <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-700">
+            Product Mode
+          </span>
+        </div>
+        <div className="grid grid-cols-3 gap-1 bg-slate-100/90 p-0.5 rounded-full border border-slate-200 w-full sm:w-auto">
+          <button
+            type="button"
+            onClick={() => onChange({ ...data, productMode: "both" })}
+            className={`py-1 px-2 sm:px-3 rounded-full text-[10.5px] font-bold transition cursor-pointer text-center ${
+              (data.productMode || "both") === "both"
+                ? "bg-slate-900 text-white shadow-2xs font-black"
+                : "text-slate-600 hover:text-slate-900"
+            }`}
+          >
+            Both Products
+          </button>
+          <button
+            type="button"
+            onClick={() => onChange({ ...data, productMode: "cotton" })}
+            className={`py-1 px-2 sm:px-3 rounded-full text-[10.5px] font-bold transition cursor-pointer text-center ${
+              data.productMode === "cotton"
+                ? "bg-blue-600 text-white shadow-2xs font-black"
+                : "text-slate-600 hover:text-slate-900"
+            }`}
+          >
+            Cotton (Trupti)
+          </button>
+          <button
+            type="button"
+            onClick={() => onChange({ ...data, productMode: "groundnut" })}
+            className={`py-1 px-2 sm:px-3 rounded-full text-[10.5px] font-bold transition cursor-pointer text-center ${
+              data.productMode === "groundnut"
+                ? "bg-amber-600 text-white shadow-2xs font-black"
+                : "text-slate-600 hover:text-slate-900"
+            }`}
+          >
+            Groundnut (Krishna)
+          </button>
+        </div>
+      </div>
+
+      {/* 2. Top Header Row with Meta Details */}
       <div className="flex items-center justify-between px-1">
         <div className="flex items-center gap-2">
           <span className="w-5 h-5 rounded-md bg-slate-900 text-white flex items-center justify-center shadow-2xs">

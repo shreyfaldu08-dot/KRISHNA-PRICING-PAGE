@@ -15,19 +15,20 @@ export const ProductPriceBanner: React.FC<ProductPriceBannerProps> = ({
     .replace(/\s*\+\s*NEW\s*TIN/i, "")
     .trim();
 
-  const priceColor = palette?.pillTextColor || palette?.accentPrimary || "#1D4ED8";
-  const borderColor = palette?.pillBorder || palette?.borderColor || "#BFDBFE";
-  const bgColor = palette?.pillBg || "#DBEAFE";
+  // Same elevated color combination as 5L and 1L price cards (Pure white + accent text + matching border & shadow)
+  const priceColor = palette?.accentPrimary || "#1D4ED8";
+  const borderColor = palette?.priceBoxBorder || palette?.borderColor || "#C5D9F2";
+  const bgColor = palette?.priceBoxBg || "#FFFFFF";
 
   const displayText = cleanPrice ? `₹ ${cleanPrice} + NEW TIN` : "+ NEW TIN";
 
   return (
     <div
-      className="w-full mt-2.5 py-1.5 px-3 rounded-full border text-center shadow-xs transition-all duration-200 flex items-center justify-center"
+      className="w-full mt-2.5 py-1.5 px-3 rounded-full border text-center transition-all duration-200 flex items-center justify-center bg-white"
       style={{
         backgroundColor: bgColor,
         borderColor,
-        boxShadow: "0 2px 6px rgba(0, 0, 0, 0.04)",
+        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.04)",
       }}
     >
       {/* Combined Single Line Text: Price + NEW TIN (No inner capsule) */}
