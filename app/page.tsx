@@ -151,8 +151,8 @@ export default function DailyPricingStudio() {
             type="button"
             onClick={() => setActiveTab("form")}
             className={`flex-1 py-1.5 text-xs font-bold rounded-full transition-all flex items-center justify-center gap-1.5 cursor-pointer ${activeTab === "form"
-                ? "bg-white text-slate-900 shadow-xs"
-                : "text-slate-600 hover:text-slate-900"
+              ? "bg-white text-slate-900 shadow-xs"
+              : "text-slate-600 hover:text-slate-900"
               }`}
           >
             <SlidersHorizontal className="w-3.5 h-3.5" />
@@ -162,8 +162,8 @@ export default function DailyPricingStudio() {
             type="button"
             onClick={() => setActiveTab("preview")}
             className={`flex-1 py-1.5 text-xs font-bold rounded-full transition-all flex items-center justify-center gap-1.5 cursor-pointer ${activeTab === "preview"
-                ? "bg-white text-slate-900 shadow-xs"
-                : "text-slate-600 hover:text-slate-900"
+              ? "bg-white text-slate-900 shadow-xs"
+              : "text-slate-600 hover:text-slate-900"
               }`}
           >
             <ImageIcon className="w-3.5 h-3.5" />
@@ -208,58 +208,58 @@ export default function DailyPricingStudio() {
             <TemplateSelector data={data} onChange={handleDataChange} />
 
             {/* 2. CENTER: 4:5 Poster Artboard Frame */}
-              <div className="rounded-2xl sm:rounded-3xl p-2.5 sm:p-6 bg-white border border-slate-200/90 shadow-md flex flex-col items-center">
-                {/* Artboard Status Meta Header */}
-                    <div className="w-full flex items-center justify-between pb-2.5 mb-2.5 sm:pb-3 sm:mb-3 border-b border-slate-100 px-1 sm:px-2">
-                      <div className="flex items-center gap-1.5 sm:gap-2">
-                        <span className="w-2 h-2 rounded-full bg-slate-900" />
-                          <span className="text-[10px] sm:text-[11px] font-extrabold text-slate-900 uppercase tracking-wider">
-                            4:5 Portrait Poster Artboard
-                          </span>
-                      </div>
-                        <span className="text-[9px] sm:text-[10px] font-bold text-slate-600 bg-slate-100 px-2 sm:px-2.5 py-0.5 rounded-full border border-slate-200">
-                          1080 × 1350 px (3x Retina)
-                        </span>
-                    </div>
-
-                    {/* Centered Canvas Container */}
-                      <div className="w-full flex justify-center py-0.5 sm:py-1">
-                        <PriceCardPreview ref={cardRef} data={data} />
-                      </div>
-
-                      {/* Sub-Canvas Note */}
-                        <p className="text-center text-[10px] sm:text-[11px] text-slate-400 mt-2 sm:mt-3 font-medium">
-                          Rendered at 3x retina clarity for crisp viewing on mobile & WhatsApp broadcast.
-                        </p>
-                    </div>
-
-                    {/* 3. BELOW TEMPLATE: Capsule CTA Export Actions */}
-                    <ExportActions cardRef={cardRef} data={data} />
-
-                    {/* Mobile return button */}
-                    <div className="block lg:hidden pt-2">
-                      <button
-                        type="button"
-                        onClick={() => setActiveTab("form")}
-                        className="w-full py-3 px-5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs flex items-center justify-center gap-2 cursor-pointer transition"
-                      >
-                        <Edit3 className="w-3.5 h-3.5" />
-                        <span>&lt; Back to Price Terminal</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </main>
-
-              {/* 4. Minimalist Studio Footer */}
-              <footer className="mt-10 border-t border-slate-200 py-5 text-center text-[11px] text-slate-400 font-medium">
-                <div className="max-w-[1400px] mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-                  <span>
-                    {data.leftCompanyName || "KRISHNA EXPORT. INDUSTRIES"} • {data.rightCompanyName || "SHREE KRISHNA OIL MILL"}
+            <div className="rounded-2xl sm:rounded-3xl p-2.5 sm:p-6 bg-white border border-slate-200/90 shadow-md flex flex-col items-center">
+              {/* Artboard Status Meta Header */}
+              <div className="w-full flex items-center justify-between pb-2.5 mb-2.5 sm:pb-3 sm:mb-3 border-b border-slate-100 px-1 sm:px-2">
+                <div className="flex items-center gap-1.5 sm:gap-2">
+                  <span className="w-2 h-2 rounded-full bg-slate-900" />
+                  <span className="text-[10px] sm:text-[11px] font-extrabold text-slate-900 uppercase tracking-wider">
+                    4:5 Portrait Poster Artboard
                   </span>
-                  <span>{data.footerLocation || "JUNAGADH, GUJARAT"} • ALL RATES PLUS GST</span>
                 </div>
-              </footer>
+                <span className="text-[9px] sm:text-[10px] font-bold text-slate-600 bg-slate-100 px-2 sm:px-2.5 py-0.5 rounded-full border border-slate-200">
+                  1080 × 1350 px (3x Retina)
+                </span>
+              </div>
+
+              {/* Centered Canvas Container */}
+              <div className="w-full flex justify-center py-0.5 sm:py-1">
+                <PriceCardPreview ref={cardRef} data={data} activeTab={activeTab} />
+              </div>
+
+              {/* Sub-Canvas Note */}
+              <p className="text-center text-[10px] sm:text-[11px] text-slate-400 mt-2 sm:mt-3 font-medium">
+                Rendered at 3x retina clarity for crisp viewing on mobile & WhatsApp broadcast.
+              </p>
             </div>
-            );
+
+            {/* 3. BELOW TEMPLATE: Capsule CTA Export Actions */}
+            <ExportActions cardRef={cardRef} data={data} />
+
+            {/* Mobile return button */}
+            <div className="block lg:hidden pt-2">
+              <button
+                type="button"
+                onClick={() => setActiveTab("form")}
+                className="w-full py-3 px-5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs flex items-center justify-center gap-2 cursor-pointer transition"
+              >
+                <Edit3 className="w-3.5 h-3.5" />
+                <span>&lt; Back to Price Terminal</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      {/* 4. Minimalist Studio Footer */}
+      <footer className="mt-10 border-t border-slate-200 py-5 text-center text-[11px] text-slate-400 font-medium">
+        <div className="max-w-[1400px] mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+          <span>
+            {data.leftCompanyName || "KRISHNA EXPORT. INDUSTRIES"} • {data.rightCompanyName || "SHREE KRISHNA OIL MILL"}
+          </span>
+          <span>{data.footerLocation || "JUNAGADH, GUJARAT"} • ALL RATES PLUS GST</span>
+        </div>
+      </footer>
+    </div>
+  );
 }

@@ -52,8 +52,8 @@ export const COLOR_THEMES: Record<string, ColorPalette> = {
     frameColor: "#D6E5F7",    // Subtle inner framing line
     accentPrimary: "#1D4ED8", // Royal sapphire for sacred heading, date, pills & prices
     accentSecondary: "#3B82F6", // Vibrant sapphire accent lines & botanical sketch SVG
-    pillBg: "#FFFFFF",        // Pure White Pill (matches 5L & 1L elevated cards)
-    pillBorder: "#C5D9F2",
+    pillBg: "#DBEAFE",        // Soft ice-blue pill (contrasts beautifully with white 5L/1L cards)
+    pillBorder: "#BFDBFE",
     pillTextColor: "#1D4ED8", // Bold Royal Sapphire Blue Price
     priceBoxBg: "#FFFFFF",    // Pure elevated white price card for ultra-high contrast
     priceBoxBorder: "#C5D9F2",
@@ -69,8 +69,8 @@ export const COLOR_THEMES: Record<string, ColorPalette> = {
     frameColor: "#EFE3D3",    // Subtle inner framing line
     accentPrimary: "#B83B20", // Deep burnt terracotta for headings, date, pills & prices
     accentSecondary: "#BD8665", // Copper accent for divider hairlines & botanical sketch
-    pillBg: "#FFFFFF",        // Pure White Pill
-    pillBorder: "#E8D8C5",
+    pillBg: "#FCECE0",        // Soft warm peach-sand pill background
+    pillBorder: "#F4CEBA",
     pillTextColor: "#B83B20", // Bold Burnt Terracotta Price
     priceBoxBg: "#FFFFFF",    // Pure elevated white price card for ultra-high contrast
     priceBoxBorder: "#E8D8C5", // Delicate warm sand border
@@ -86,8 +86,8 @@ export const COLOR_THEMES: Record<string, ColorPalette> = {
     frameColor: "#D7EFE0",
     accentPrimary: "#15803D", // Rich forest emerald
     accentSecondary: "#22C55E", // Vibrant emerald accent
-    pillBg: "#FFFFFF",        // Pure White Pill
-    pillBorder: "#C1E5CB",
+    pillBg: "#DCFCE7",
+    pillBorder: "#BBF7D0",
     pillTextColor: "#15803D", // Bold Forest Emerald Price
     priceBoxBg: "#FFFFFF",    // Pure elevated white price card
     priceBoxBorder: "#C1E5CB",
@@ -103,8 +103,8 @@ export const COLOR_THEMES: Record<string, ColorPalette> = {
     frameColor: "#F4EBD2",
     accentPrimary: "#B45309", // Rich amber bronze
     accentSecondary: "#D97706",
-    pillBg: "#FFFFFF",        // Pure White Pill
-    pillBorder: "#EDE0BF",
+    pillBg: "#FEF3C7",
+    pillBorder: "#FDE68A",
     pillTextColor: "#B45309", // Bold Amber Bronze Price
     priceBoxBg: "#FFFFFF",    // Pure elevated white price card
     priceBoxBorder: "#EDE0BF",
@@ -120,7 +120,7 @@ export const COLOR_THEMES: Record<string, ColorPalette> = {
     frameColor: "#E2E8F0",
     accentPrimary: "#0F172A", // Deep obsidian
     accentSecondary: "#475569",
-    pillBg: "#FFFFFF",        // Pure White Pill
+    pillBg: "#E2E8F0",
     pillBorder: "#CBD5E1",
     pillTextColor: "#0F172A", // Bold Obsidian Price
     priceBoxBg: "#FFFFFF",    // Pure elevated white price card
@@ -137,8 +137,8 @@ export const COLOR_THEMES: Record<string, ColorPalette> = {
     frameColor: "#D6E5F7",
     accentPrimary: "#1D4ED8",
     accentSecondary: "#3B82F6",
-    pillBg: "#FFFFFF",
-    pillBorder: "#C5D9F2",
+    pillBg: "#DBEAFE",
+    pillBorder: "#BFDBFE",
     pillTextColor: "#1D4ED8",
     priceBoxBg: "#FFFFFF",
     priceBoxBorder: "#C5D9F2",
@@ -194,8 +194,8 @@ export function getEffectivePalette(
       frameColor: blendWithWhite(rgb, 0.18),   // Inner framing line
       accentPrimary: customHex,                // Rich custom hex for headings, date, prices
       accentSecondary: customHex,              // Accent lines & botanical sketch SVG
-      pillBg: "#FFFFFF",                       // Pure white pill
-      pillBorder: blendWithWhite(rgb, 0.28),
+      pillBg: blendWithWhite(rgb, 0.16),       // Harmonious soft tint pill
+      pillBorder: blendWithWhite(rgb, 0.35),
       pillTextColor: customHex,
       priceBoxBg: "#FFFFFF",                   // Pure elevated white price card for contrast
       priceBoxBorder: blendWithWhite(rgb, 0.28),

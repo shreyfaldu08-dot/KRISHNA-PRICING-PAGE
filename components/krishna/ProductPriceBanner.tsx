@@ -15,31 +15,27 @@ export const ProductPriceBanner: React.FC<ProductPriceBannerProps> = ({
     .replace(/\s*\+\s*NEW\s*TIN/i, "")
     .trim();
 
-  const priceColor = palette?.accentPrimary || "#1D4ED8";
-  const borderColor = palette?.priceBoxBorder || palette?.borderColor || "#C5D9F2";
+  const priceColor = palette?.pillTextColor || palette?.accentPrimary || "#1D4ED8";
+  const borderColor = palette?.pillBorder || palette?.borderColor || "#BFDBFE";
+  const bgColor = palette?.pillBg || "#DBEAFE";
+
+  const displayText = cleanPrice ? `₹ ${cleanPrice} + NEW TIN` : "+ NEW TIN";
 
   return (
     <div
-      className="w-full mt-2.5 py-1.5 px-3 rounded-full border text-center shadow-xs transition-all duration-200 flex items-center justify-center gap-1.5 bg-white"
+      className="w-full mt-2.5 py-1.5 px-3 rounded-full border text-center shadow-xs transition-all duration-200 flex items-center justify-center"
       style={{
+        backgroundColor: bgColor,
         borderColor,
         boxShadow: "0 2px 6px rgba(0, 0, 0, 0.04)",
       }}
     >
-      {/* Bold Canonical Theme Price */}
+      {/* Combined Single Line Text: Price + NEW TIN (No inner capsule) */}
       <span
-        className="font-black text-sm tracking-wide whitespace-nowrap transition-colors duration-200"
+        className="font-bold text-[13.5px] tracking-wide whitespace-nowrap transition-colors duration-200 leading-normal"
         style={{ color: priceColor }}
       >
-        ₹ {cleanPrice}
-      </span>
-
-      {/* Clean Direct Text for '+ NEW TIN' without any inner capsule */}
-      <span
-        className="font-bold text-[11px] tracking-wider uppercase whitespace-nowrap transition-colors duration-200"
-        style={{ color: priceColor }}
-      >
-        + NEW TIN
+        {displayText}
       </span>
     </div>
   );

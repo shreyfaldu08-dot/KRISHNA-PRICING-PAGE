@@ -36,7 +36,7 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
 
     const palette = getEffectivePalette(data.theme, data.customColor);
 
-    // 1. Save original styles of element and wrapper
+    // 1. Save original styles of element, wrapper, and document body
     const origTransform = element.style.transform;
     const origBorderRadius = element.style.borderRadius;
     const origBoxShadow = element.style.boxShadow;
@@ -46,6 +46,9 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
     const origWrapperWidth = wrapper?.style.width;
     const origWrapperHeight = wrapper?.style.height;
     const origWrapperOverflow = wrapper?.style.overflow;
+
+    const origBodyOverflow = document.body.style.overflow;
+    const origHtmlOverflow = document.documentElement.style.overflow;
 
     // 2. Temporarily set canonical 540x675 at scale 1 with square corners
     element.style.transform = "none";
@@ -59,6 +62,10 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
       wrapper.style.width = "540px";
       wrapper.style.height = "675px";
     }
+
+    // Ensure document does not clip 540px canvas on narrow mobile screens during capture
+    document.body.style.overflow = "visible";
+    document.documentElement.style.overflow = "visible";
 
     try {
       // Allow browser to calculate layout at canonical 540x675
@@ -86,7 +93,8 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
       };
 
       if (action === "download") {
-        return await toPng(element, captureOptions);
+        // Use toBlob for highest reliability on iOS Safari & mobile Chrome
+        return await toBlob(element, captureOptions);
       } else {
         return await toBlob(element, captureOptions);
       }
@@ -102,6 +110,9 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
         if (origWrapperWidth) wrapper.style.width = origWrapperWidth;
         if (origWrapperHeight) wrapper.style.height = origWrapperHeight;
       }
+
+      document.body.style.overflow = origBodyOverflow;
+      document.documentElement.style.overflow = origHtmlOverflow;
     }
   };
 
@@ -110,19 +121,24 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
     try {
       setDownloading(true);
 
-      const dataUrl = (await capturePoster("download")) as string | null;
-      if (!dataUrl) throw new Error("Capture failed");
+      const blob = (await capturePoster("download")) as Blob | null;
+      if (!blob) throw new Error("Capture failed");
 
       const dateStr = (data.date || "rates").replace(/[^a-zA-Z0-9_-]/g, "_");
       const fileName = `Krishna_Export_Rates_${dateStr}.png`;
 
-      // Reliable cross-platform download (works on iOS Safari, Android Chrome, and Desktop)
+      // Reliable object URL download (works flawlessly on iOS Safari, Android Chrome, and Desktop)
+      const objectUrl = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.download = fileName;
-      link.href = dataUrl;
+      link.href = objectUrl;
       document.body.appendChild(link);
       link.click();
-      document.body.removeChild(link);
+
+      setTimeout(() => {
+        document.body.removeChild(link);
+        URL.revokeObjectURL(objectUrl);
+      }, 1500);
 
       confetti({
         particleCount: 45,
@@ -131,7 +147,7 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
       });
     } catch (err) {
       console.error("Failed to generate image:", err);
-      // Fallback: direct capture
+      // Fallback: direct capture toPng
       try {
         if (cardRef.current) {
           const palette = getEffectivePalette(data.theme, data.customColor);
