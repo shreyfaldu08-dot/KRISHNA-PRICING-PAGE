@@ -1,4 +1,4 @@
-# KOM Daily Edible Oil Pricing Portal & Image Generator
+  # KOM Daily Edible Oil Pricing Portal & Image Generator
 
 A clean, fast, and user-friendly **Next.js** web application designed for edible oil mill owners, traders, and brokers to generate, preview, and export daily wholesale price cards for WhatsApp dealers and buyers.
 

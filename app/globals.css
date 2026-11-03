@@ -1,6 +1,18 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Bahnschrift';
+  src: local('Bahnschrift'),
+       local('Bahnschrift SemiBold'),
+       local('Bahnschrift Regular'),
+       url('/fonts/bahnschrift.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
+  --font-bahnschrift: 'Bahnschrift', 'DIN Alternate', 'Franklin Gothic Medium', 'Segoe UI', -apple-system, sans-serif;
   --bg-primary: #FAF5EF;
   --bg-secondary: #F3E8D9;
   --color-terracotta: #A1462B;
@@ -11,25 +23,32 @@
   --color-border: #E5D5C2;
 }
 
+* {
+  font-family: 'Bahnschrift', 'DIN Alternate', 'Franklin Gothic Medium', 'Segoe UI', -apple-system, sans-serif;
+}
+
 html, body {
   overflow-x: hidden;
   max-width: 100vw;
   background: linear-gradient(180deg, #F0F6FF 0%, #E3EEFC 50%, #D4E6FA 100%);
   color: #292725;
   min-height: 100vh;
-  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  font-family: 'Bahnschrift', 'DIN Alternate', 'Franklin Gothic Medium', 'Segoe UI', -apple-system, sans-serif;
+}
+
+.font-bahnschrift {
+  font-family: 'Bahnschrift', 'DIN Alternate', 'Franklin Gothic Medium', 'Segoe UI', -apple-system, sans-serif !important;
+}
+
+.font-serif-title,
+.font-serif,
+.font-serif-body,
+.font-sans {
+  font-family: 'Bahnschrift', 'DIN Alternate', 'Franklin Gothic Medium', 'Segoe UI', -apple-system, sans-serif !important;
 }
 
 .font-devanagari {
-  font-family: 'Noto Serif Devanagari', 'Noto Sans Devanagari', serif;
-}
-
-.font-serif-title {
-  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
-}
-
-.font-serif-body {
-  font-family: 'Lora', Georgia, serif;
+  font-family: 'Bahnschrift', 'Noto Serif Devanagari', 'Noto Sans Devanagari', sans-serif;
 }
 
 /* Subtle catalogue paper texture effect */
