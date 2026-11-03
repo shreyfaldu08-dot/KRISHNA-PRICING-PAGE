@@ -7,7 +7,7 @@ interface ProductImageProps {
 
 export const ProductImage: React.FC<ProductImageProps> = ({ src, alt }) => {
   return (
-    <div className="w-full aspect-[376/418] rounded-2xl sm:rounded-[28px] overflow-hidden select-none block bg-[#F7F3EB]">
+    <div className="w-full aspect-[376/408] rounded-2xl sm:rounded-[28px] overflow-hidden select-none block bg-[#F0DDC9]">
       <img
         src={src}
         alt={alt}

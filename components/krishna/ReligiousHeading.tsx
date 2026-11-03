@@ -19,13 +19,33 @@ export const ReligiousHeading: React.FC<ReligiousHeadingProps> = ({
         {/* Left Thin Copper Divider */}
         <span className="w-10 sm:w-16 h-[1px] bg-[#BD8665] opacity-80"></span>
 
-        {/* Traditional Floral Motif from Reference */}
-        <img
-          src="/assets/ornament.png"
-          alt=""
+        {/* Traditional Symmetrical Floral Motif (Pure Vector SVG) */}
+        <svg
+          viewBox="0 0 40 18"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-3 sm:h-3.5 md:h-4 w-auto select-none shrink-0"
           aria-hidden="true"
-          className="h-3 sm:h-3.5 md:h-4 w-auto object-contain select-none opacity-90"
-        />
+        >
+          {/* Central Flame/Lotus Petal */}
+          <path
+            d="M 20,2 C 17,7 18,13 20,16 C 22,13 23,7 20,2 Z"
+            fill="#B83B20"
+          />
+          {/* Left Curving Petal */}
+          <path
+            d="M 19,8 C 14,7 10,10 8,14 C 12,15 16,13 19,10 Z"
+            fill="#B83B20"
+          />
+          {/* Right Curving Petal */}
+          <path
+            d="M 21,8 C 26,7 30,10 32,14 C 28,15 24,13 21,10 Z"
+            fill="#B83B20"
+          />
+          {/* Outer Accents */}
+          <circle cx="4" cy="13" r="1.4" fill="#B83B20" />
+          <circle cx="36" cy="13" r="1.4" fill="#B83B20" />
+        </svg>
 
         {/* Right Thin Copper Divider */}
         <span className="w-10 sm:w-16 h-[1px] bg-[#BD8665] opacity-80"></span>
