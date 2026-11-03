@@ -12,12 +12,14 @@ export const Footer: React.FC<FooterProps> = ({
   return (
     <div className="mt-2 sm:mt-4 pt-1 sm:pt-2 text-center px-4 sm:px-6">
       {/* Horizontal Divider with Centered Notice */}
-      <div className="flex items-center justify-center gap-2 sm:gap-4 mb-0.5 sm:mb-1">
+      <div className="flex items-center justify-center gap-1.5 sm:gap-2.5 mb-0.5 sm:mb-1">
+        <span className="w-1 h-1 rotate-45 bg-[#BD8665] opacity-70 shrink-0"></span>
         <span className="flex-1 h-[1px] bg-[#BD8665] opacity-75"></span>
-        <span className="font-bold text-[9px] sm:text-xs md:text-[13px] text-[#171717] tracking-[0.18em] uppercase whitespace-nowrap">
+        <span className="font-bold text-[9px] sm:text-xs md:text-[13px] text-[#171717] tracking-[0.18em] uppercase whitespace-nowrap px-1">
           {notice}
         </span>
         <span className="flex-1 h-[1px] bg-[#BD8665] opacity-75"></span>
+        <span className="w-1 h-1 rotate-45 bg-[#BD8665] opacity-70 shrink-0"></span>
       </div>
 
       {/* Location / Terms */}

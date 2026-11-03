@@ -21,20 +21,22 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <div className="px-2 sm:px-4">
       {/* SECOND LINE — Date with Thin Horizontal Copper Lines */}
-      <div className="flex items-center justify-center gap-3 sm:gap-4 my-1 sm:my-1.5">
+      <div className="flex items-center justify-center gap-1.5 sm:gap-2 my-1 sm:my-1.5">
+        <span className="w-1 h-1 rotate-45 bg-[#BD8665] opacity-70 shrink-0"></span>
         <span className="w-10 sm:w-16 md:w-20 h-[1px] bg-[#BD8665] opacity-80"></span>
         <span className="text-xs sm:text-sm md:text-base font-bold text-[#B83B20] tracking-[0.14em] whitespace-nowrap">
           {date}
         </span>
         <span className="w-10 sm:w-16 md:w-20 h-[1px] bg-[#BD8665] opacity-80"></span>
+        <span className="w-1 h-1 rotate-45 bg-[#BD8665] opacity-70 shrink-0"></span>
       </div>
 
       {/* THIRD LINE — Two Horizontally Aligned Company Names (Single Line Guaranteed) */}
-      <div className="grid grid-cols-2 gap-2 sm:gap-4 items-baseline text-center mt-1">
-        <div className="font-bold text-[9.5px] sm:text-[13px] md:text-[14.5px] tracking-[0.03em] sm:tracking-[0.05em] uppercase text-[#171717] leading-none whitespace-nowrap overflow-hidden text-ellipsis">
+      <div className="grid grid-cols-2 gap-2 sm:gap-4 items-baseline text-center mt-1.5">
+        <div className="font-bold text-[9.5px] sm:text-[13px] md:text-[14.5px] tracking-[0.04em] sm:tracking-[0.06em] uppercase text-[#171717] leading-none whitespace-nowrap overflow-hidden text-ellipsis px-1">
           {leftName}
         </div>
-        <div className="font-bold text-[9.5px] sm:text-[13px] md:text-[14.5px] tracking-[0.03em] sm:tracking-[0.05em] uppercase text-[#171717] leading-none whitespace-nowrap overflow-hidden text-ellipsis">
+        <div className="font-bold text-[9.5px] sm:text-[13px] md:text-[14.5px] tracking-[0.04em] sm:tracking-[0.06em] uppercase text-[#171717] leading-none whitespace-nowrap overflow-hidden text-ellipsis px-1">
           {rightName}
         </div>
       </div>

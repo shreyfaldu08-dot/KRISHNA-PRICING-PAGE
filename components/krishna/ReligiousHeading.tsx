@@ -14,10 +14,10 @@ export const ReligiousHeading: React.FC<ReligiousHeadingProps> = ({
         {heading}
       </h2>
 
-      {/* Decorative Floral Ornament with Copper Lines */}
-      <div className="flex items-center justify-center gap-2 sm:gap-3 mt-1 mb-1.5">
-        {/* Left Thin Copper Divider */}
-        <span className="w-10 sm:w-16 h-[1px] bg-[#BD8665] opacity-80"></span>
+      {/* Decorative Floral Ornament with Copper Lines & Diamond Accents */}
+      <div className="flex items-center justify-center gap-1.5 sm:gap-2 mt-1 mb-1.5">
+        <span className="w-1 h-1 rotate-45 bg-[#BD8665] opacity-70 shrink-0"></span>
+        <span className="w-10 sm:w-16 md:w-20 h-[1px] bg-[#BD8665] opacity-80"></span>
 
         {/* Traditional Symmetrical Floral Motif (Pure Vector SVG) */}
         <svg
@@ -47,8 +47,8 @@ export const ReligiousHeading: React.FC<ReligiousHeadingProps> = ({
           <circle cx="36" cy="13" r="1.4" fill="#B83B20" />
         </svg>
 
-        {/* Right Thin Copper Divider */}
-        <span className="w-10 sm:w-16 h-[1px] bg-[#BD8665] opacity-80"></span>
+        <span className="w-10 sm:w-16 md:w-20 h-[1px] bg-[#BD8665] opacity-80"></span>
+        <span className="w-1 h-1 rotate-45 bg-[#BD8665] opacity-70 shrink-0"></span>
       </div>
     </div>
   );

@@ -23,6 +23,9 @@ export const PriceCardPreview = forwardRef<HTMLDivElement, PriceCardPreviewProps
           boxShadow: "0 25px 50px -12px rgba(120, 80, 40, 0.15)",
         }}
       >
+        {/* Subtle Architectural Inner Framing */}
+        <div className="absolute inset-2 sm:inset-3 border border-[#E5DACD]/80 rounded-2xl sm:rounded-[22px] pointer-events-none z-0"></div>
+
         {/* Top Header Region (Religious Heading + Date + Two Company Names) */}
         <div className="relative z-10 space-y-0.5 sm:space-y-1">
           {/* First line — Religious Heading */}
