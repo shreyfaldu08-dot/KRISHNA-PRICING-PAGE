@@ -9,17 +9,17 @@ export const PriceBox: React.FC<PriceBoxProps> = ({ unit, price }) => {
   const cleanPrice = (price || "").replace(/^₹\s*/, "").trim();
 
   return (
-    <div className="flex-1 bg-[#FDF9F3] border border-[#E5D5C2] rounded-xl sm:rounded-2xl p-1.5 sm:p-2.5 text-center shadow-xs flex flex-col justify-between">
+    <div className="bg-[#FFFDF9] border border-[#E5D6C4] rounded-xl p-1 sm:p-1.5 text-center shadow-2xs flex flex-col justify-between">
       {/* Product Quantity */}
-      <div className="font-serif-title text-[9px] sm:text-[11px] font-bold text-[#57534E] tracking-[0.14em] uppercase">
+      <div className="text-[8px] sm:text-[9.5px] font-bold text-[#574F46] tracking-[0.14em] uppercase">
         {unit}
       </div>
 
       {/* Thin Horizontal Separator */}
-      <div className="w-full h-[1px] bg-[#E8DAC8] my-1 sm:my-1.5"></div>
+      <div className="w-full h-[1px] bg-[#E8DAC8] my-0.5 sm:my-1"></div>
 
-      {/* Large Dark Charcoal Price */}
-      <div className="font-serif-title font-bold text-lg sm:text-2xl md:text-[26px] text-[#292725] tracking-tight leading-none pb-0.5">
+      {/* Large Dark Charcoal Price in Bahnschrift */}
+      <div className="font-bold text-sm sm:text-lg md:text-[20px] text-[#1E1B18] tracking-tight leading-none pb-0.5">
         ₹{cleanPrice}
       </div>
     </div>

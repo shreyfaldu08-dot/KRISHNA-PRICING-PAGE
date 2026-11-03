@@ -18,16 +18,16 @@ export const PriceCardPreview = forwardRef<HTMLDivElement, PriceCardPreviewProps
       <div
         ref={ref}
         id="price-card-canvas"
-        className="relative w-full max-w-[560px] aspect-[1122/1402] mx-auto rounded-3xl bg-[#FAF5EF] border border-[#E5DACD] shadow-2xl overflow-hidden p-5 sm:p-7 md:p-8 flex flex-col justify-between select-text paper-texture"
+        className="relative w-full max-w-[540px] aspect-[4/5] mx-auto rounded-3xl poster-canvas border border-[#E6D7C5] shadow-2xl overflow-hidden p-3.5 sm:p-5 md:p-6 flex flex-col justify-between select-text"
         style={{
-          boxShadow: "0 25px 50px -12px rgba(120, 80, 40, 0.15)",
+          boxShadow: "0 25px 50px -12px rgba(100, 70, 40, 0.16)",
         }}
       >
         {/* SECTION 05 — Decorative Botanical Illustrations */}
         <BotanicalDecoration />
 
         {/* Top Header Region (Religious Heading + Brand Heading + Date) */}
-        <div className="relative z-10 space-y-1">
+        <div className="relative z-10 space-y-0.5 sm:space-y-1">
           {/* SECTION 02 — Top Religious Heading */}
           <ReligiousHeading heading={data.religiousHeading} />
 
@@ -40,7 +40,7 @@ export const PriceCardPreview = forwardRef<HTMLDivElement, PriceCardPreviewProps
         </div>
 
         {/* SECTION 06 — Main Product Showcase (Two-Column Symmetrical Layout) */}
-        <div className="relative z-10 grid grid-cols-2 gap-4 sm:gap-6 my-auto items-stretch">
+        <div className="relative z-10 grid grid-cols-2 gap-3 sm:gap-5 my-auto items-stretch">
           {/* LEFT PRODUCT CARD — TRUPTI COTTON SEED REFINED OIL */}
           <ProductCard product={data.trupti} />
 
