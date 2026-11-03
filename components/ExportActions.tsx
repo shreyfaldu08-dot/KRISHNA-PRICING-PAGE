@@ -25,7 +25,9 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
   const [downloading, setDownloading] = useState(false);
   const [copyingImage, setCopyingImage] = useState(false);
   const [copiedImage, setCopiedImage] = useState(false);
-  const [copiedText, setCopiedText] = useState(false);
+  const [sharingWhatsApp, setSharingWhatsApp] = useState(false);
+  const [copyingMsg, setCopyingMsg] = useState(false);
+  const [copiedMsg, setCopiedMsg] = useState(false);
 
   // Directly captures the canonical 540x675 poster with guaranteed square corners, solid background, and 1080x1350 resolution (100% identical on mobile and desktop)
   const capturePoster = async (
@@ -230,33 +232,123 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
   };
 
   const handleCopyBroadcast = async () => {
+    if (!cardRef.current) return;
     try {
-      const text = generateBroadcastText();
-      await navigator.clipboard.writeText(text);
-      setCopiedText(true);
-      setTimeout(() => setCopiedText(false), 2500);
+      setCopyingMsg(true);
+      const broadcastText = generateBroadcastText();
+
+      // Capture HD poster image blob
+      const blob = (await capturePoster("copy")) as Blob | null;
+
+      if (blob && navigator.clipboard && window.ClipboardItem) {
+        try {
+          // Write both image and text simultaneously to clipboard
+          const item = new ClipboardItem({
+            "image/png": blob,
+            "text/plain": new Blob([broadcastText], { type: "text/plain" }),
+          });
+          await navigator.clipboard.write([item]);
+          setCopiedMsg(true);
+          setTimeout(() => setCopiedMsg(false), 2500);
+          return;
+        } catch (errCombined) {
+          console.warn("Combined clipboard not supported, copying image:", errCombined);
+          // Fallback: write image blob to clipboard
+          await navigator.clipboard.write([
+            new ClipboardItem({ "image/png": blob }),
+          ]);
+          setCopiedMsg(true);
+          setTimeout(() => setCopiedMsg(false), 2500);
+          return;
+        }
+      }
+
+      // Fallback if ClipboardItem not supported
+      await navigator.clipboard.writeText(broadcastText);
+      setCopiedMsg(true);
+      setTimeout(() => setCopiedMsg(false), 2500);
     } catch (err) {
-      console.error("Failed to copy text:", err);
-      alert("Failed to copy message text.");
+      console.error("Failed to copy message:", err);
+      try {
+        await navigator.clipboard.writeText(generateBroadcastText());
+        setCopiedMsg(true);
+        setTimeout(() => setCopiedMsg(false), 2500);
+      } catch (e) {
+        alert("Failed to copy to clipboard.");
+      }
+    } finally {
+      setCopyingMsg(false);
     }
   };
 
-  const handleShareWhatsApp = () => {
-    const text = generateBroadcastText();
-    const encoded = encodeURIComponent(text);
-    const isMobile =
-      typeof navigator !== "undefined" &&
-      /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-        navigator.userAgent
-      );
+  const handleShareWhatsApp = async () => {
+    if (!cardRef.current) return;
+    try {
+      setSharingWhatsApp(true);
+      const broadcastText = generateBroadcastText();
+      const dateStr = (data.date || "rates").replace(/[^a-zA-Z0-9_-]/g, "_");
+      const fileName = `Krishna_Export_Rates_${dateStr}.png`;
 
-    if (isMobile) {
-      window.location.href = `whatsapp://send?text=${encoded}`;
-      setTimeout(() => {
-        window.open(`https://api.whatsapp.com/send?text=${encoded}`, "_blank");
-      }, 600);
-    } else {
-      window.open(`https://web.whatsapp.com/send?text=${encoded}`, "_blank");
+      // 1. Capture HD poster image blob
+      const blob = (await capturePoster("copy")) as Blob | null;
+
+      // 2. Check if native Web Share API with files is supported (mobile iOS/Android)
+      if (blob && typeof navigator !== "undefined" && navigator.canShare) {
+        const file = new File([blob], fileName, { type: "image/png" });
+        if (navigator.canShare({ files: [file] })) {
+          await navigator.share({
+            files: [file],
+            title: `KRISHNA EXPORT RATES - ${data.date}`,
+            text: broadcastText,
+          });
+          return;
+        }
+      }
+
+      // 3. Desktop / non-file fallback:
+      // Auto-copy both image and text to clipboard so user can press Ctrl+V in WhatsApp Web
+      if (blob && navigator.clipboard && window.ClipboardItem) {
+        try {
+          await navigator.clipboard.write([
+            new ClipboardItem({
+              "image/png": blob,
+              "text/plain": new Blob([broadcastText], { type: "text/plain" }),
+            }),
+          ]);
+        } catch (e) {
+          try {
+            await navigator.clipboard.write([
+              new ClipboardItem({ "image/png": blob }),
+            ]);
+          } catch {}
+        }
+      }
+
+      const encoded = encodeURIComponent(broadcastText);
+      const isMobile =
+        typeof navigator !== "undefined" &&
+        /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent
+        );
+
+      if (isMobile) {
+        window.location.href = `whatsapp://send?text=${encoded}`;
+        setTimeout(() => {
+          window.open(`https://api.whatsapp.com/send?text=${encoded}`, "_blank");
+        }, 600);
+      } else {
+        window.open(`https://web.whatsapp.com/send?text=${encoded}`, "_blank");
+      }
+    } catch (err: any) {
+      if (err?.name === "AbortError") {
+        // User cancelled native share sheet
+        return;
+      }
+      console.error("Failed to share via WhatsApp:", err);
+      const encoded = encodeURIComponent(generateBroadcastText());
+      window.open(`https://api.whatsapp.com/send?text=${encoded}`, "_blank");
+    } finally {
+      setSharingWhatsApp(false);
     }
   };
 
@@ -282,60 +374,73 @@ export const ExportActions: React.FC<ExportActionsProps> = ({
         )}
       </button>
 
-      {/* Utility Actions — Balanced 3-Column Grid on Mobile */}
-      <div className="grid grid-cols-3 gap-1.5 w-full sm:w-auto sm:flex sm:items-center">
-        {/* Copy Image */}
+      {/* Utility Actions — Balanced Grid */}
+      <div className="grid grid-cols-3 sm:flex sm:items-center gap-1.5 w-full sm:w-auto">
+        {/* WhatsApp Share with Poster Image */}
+        <button
+          onClick={handleShareWhatsApp}
+          disabled={sharingWhatsApp}
+          type="button"
+          className="py-2.5 px-2.5 sm:px-4 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[11px] sm:text-xs flex items-center justify-center gap-1 sm:gap-1.5 transition cursor-pointer shadow-xs disabled:opacity-60"
+          title="Share poster image and rates directly to WhatsApp"
+        >
+          {sharingWhatsApp ? (
+            <>
+              <Loader2 className="w-3.5 h-3.5 animate-spin text-white" />
+              <span className="truncate">Sharing...</span>
+            </>
+          ) : (
+            <>
+              <Share2 className="w-3.5 h-3.5 text-emerald-100" />
+              <span className="truncate">WhatsApp</span>
+            </>
+          )}
+        </button>
+
+        {/* Copy Image & Message */}
+        <button
+          onClick={handleCopyBroadcast}
+          disabled={copyingMsg}
+          type="button"
+          className="py-2.5 px-2 sm:px-3.5 rounded-full bg-slate-100 hover:bg-slate-200/80 text-slate-800 font-bold text-[11px] sm:text-xs flex items-center justify-center gap-1 sm:gap-1.5 transition cursor-pointer disabled:opacity-60"
+          title="Copy poster image and rates to clipboard"
+        >
+          {copyingMsg ? (
+            <Loader2 className="w-3.5 h-3.5 animate-spin text-slate-500" />
+          ) : copiedMsg ? (
+            <>
+              <Check className="w-3.5 h-3.5 text-emerald-600" />
+              <span className="text-emerald-700 font-extrabold truncate">Copied!</span>
+            </>
+          ) : (
+            <>
+              <Copy className="w-3.5 h-3.5 text-slate-500" />
+              <span className="truncate">Copy Msg</span>
+            </>
+          )}
+        </button>
+
+        {/* Copy Image Only */}
         <button
           onClick={handleCopyImage}
           disabled={copyingImage}
           type="button"
-          className="py-2.5 px-2 sm:px-3.5 rounded-full bg-slate-100 hover:bg-slate-200/80 text-slate-800 font-bold text-[11px] sm:text-xs flex items-center justify-center gap-1 sm:gap-1.5 transition cursor-pointer"
-          title="Copy image to clipboard"
+          className="py-2.5 px-2 sm:px-3.5 rounded-full bg-slate-100 hover:bg-slate-200/80 text-slate-800 font-bold text-[11px] sm:text-xs flex items-center justify-center gap-1 sm:gap-1.5 transition cursor-pointer disabled:opacity-60"
+          title="Copy HD poster image only to clipboard"
         >
           {copyingImage ? (
             <Loader2 className="w-3.5 h-3.5 animate-spin text-slate-500" />
           ) : copiedImage ? (
             <>
               <Check className="w-3.5 h-3.5 text-emerald-600" />
-              <span className="text-emerald-700">Copied</span>
-            </>
-          ) : (
-            <>
-              <Copy className="w-3.5 h-3.5 text-slate-500" />
-              <span className="truncate">Copy Img</span>
-            </>
-          )}
-        </button>
-
-        {/* Copy Text */}
-        <button
-          onClick={handleCopyBroadcast}
-          type="button"
-          className="py-2.5 px-2 sm:px-3.5 rounded-full bg-slate-100 hover:bg-slate-200/80 text-slate-800 font-bold text-[11px] sm:text-xs flex items-center justify-center gap-1 sm:gap-1.5 transition cursor-pointer"
-          title="Copy broadcast formatted text"
-        >
-          {copiedText ? (
-            <>
-              <Check className="w-3.5 h-3.5 text-emerald-600" />
-              <span className="text-emerald-700">Copied</span>
+              <span className="text-emerald-700 font-extrabold truncate">Copied</span>
             </>
           ) : (
             <>
               <FileText className="w-3.5 h-3.5 text-slate-500" />
-              <span className="truncate">Copy Text</span>
+              <span className="truncate">Copy Img</span>
             </>
           )}
-        </button>
-
-        {/* WhatsApp Share in Emerald */}
-        <button
-          onClick={handleShareWhatsApp}
-          type="button"
-          className="py-2.5 px-2 sm:px-4 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[11px] sm:text-xs flex items-center justify-center gap-1 sm:gap-1.5 transition cursor-pointer shadow-xs"
-          title="Share rates directly to WhatsApp"
-        >
-          <Share2 className="w-3.5 h-3.5 text-emerald-100" />
-          <span className="truncate">WhatsApp</span>
         </button>
       </div>
     </div>
