@@ -35,7 +35,7 @@ export const INITIAL_CATALOGUE_DATA: CatalogueData = {
   leftCompanyName: "KRISHNA EXPORT. INDUSTRIES",
   rightCompanyName: "SHREE KRISHNA OIL MILL",
   brandName: "KRISHNA EXPORT. INDUSTRIES",
-  subtitle: "PRODUCT COLLECTION & WHOLESALE PRICE LIST",
+  subtitle: "",
   date: "30-10-2026",
   trupti: {
     id: "trupti",

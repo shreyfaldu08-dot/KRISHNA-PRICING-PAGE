@@ -341,18 +341,6 @@ export const PricingForm: React.FC<PricingFormProps> = ({
               </div>
             </div>
 
-            <div>
-              <label className="block text-[10px] font-bold text-slate-600 uppercase mb-1">
-                Catalog Subtitle
-              </label>
-              <input
-                type="text"
-                value={data.subtitle}
-                onChange={(e) => updateField("subtitle", e.target.value)}
-                className="w-full px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs font-semibold"
-              />
-            </div>
-
             <div className="grid grid-cols-2 gap-2">
               <div>
                 <label className="block text-[10px] font-bold text-slate-600 uppercase mb-1">

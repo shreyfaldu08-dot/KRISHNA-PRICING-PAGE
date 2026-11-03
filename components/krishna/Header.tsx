@@ -38,13 +38,6 @@ export const Header: React.FC<HeaderProps> = ({
           {rightName}
         </div>
       </div>
-
-      {/* Product Collection Subtitle */}
-      {subtitle && (
-        <p className="text-center text-[8.5px] sm:text-[10.5px] md:text-[11.5px] tracking-[0.16em] uppercase text-[#39332F] font-semibold mt-1">
-          {subtitle}
-        </p>
-      )}
     </div>
   );
 };
