@@ -14,23 +14,23 @@ export const ReligiousHeading: React.FC<ReligiousHeadingProps> = ({
   const accentSecondary = palette?.accentSecondary || "#BD8665";
 
   return (
-    <div className="text-center pt-1 sm:pt-1.5">
-      {/* Exact Hindi Typography in Accent Primary */}
+    <div className="text-center">
+      {/* Auspicious Hindi Typography */}
       <h2
-        className="font-devanagari font-medium text-2xl sm:text-3xl md:text-[32px] tracking-wide leading-tight transition-colors duration-200"
+        className="font-devanagari font-semibold text-lg sm:text-2xl md:text-[26px] tracking-wide leading-tight transition-colors duration-200"
         style={{ color: accentPrimary }}
       >
         {heading}
       </h2>
 
-      {/* Decorative Floral Ornament with Accent Lines & Diamond Accents */}
-      <div className="flex items-center justify-center gap-1.5 sm:gap-2 mt-1 mb-1.5">
+      {/* Decorative Floral Ornament with Minimal Fine Lines */}
+      <div className="flex items-center justify-center gap-1.5 sm:gap-2 mt-0.5 sm:mt-1 mb-1">
         <span
-          className="w-1 h-1 rotate-45 opacity-70 shrink-0 transition-colors duration-200"
+          className="w-1 h-1 rotate-45 opacity-60 shrink-0 transition-colors duration-200"
           style={{ backgroundColor: accentSecondary }}
         ></span>
         <span
-          className="w-10 sm:w-16 md:w-20 h-[1px] opacity-80 transition-colors duration-200"
+          className="w-8 sm:w-14 md:w-16 h-[1px] opacity-60 transition-colors duration-200"
           style={{ backgroundColor: accentSecondary }}
         ></span>
 
@@ -39,7 +39,7 @@ export const ReligiousHeading: React.FC<ReligiousHeadingProps> = ({
           viewBox="0 0 40 18"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="h-3 sm:h-3.5 md:h-4 w-auto select-none shrink-0"
+          className="h-2.5 sm:h-3 w-auto select-none shrink-0"
           aria-hidden="true"
         >
           {/* Central Flame/Lotus Petal */}
@@ -63,11 +63,11 @@ export const ReligiousHeading: React.FC<ReligiousHeadingProps> = ({
         </svg>
 
         <span
-          className="w-10 sm:w-16 md:w-20 h-[1px] opacity-80 transition-colors duration-200"
+          className="w-8 sm:w-14 md:w-16 h-[1px] opacity-60 transition-colors duration-200"
           style={{ backgroundColor: accentSecondary }}
         ></span>
         <span
-          className="w-1 h-1 rotate-45 opacity-70 shrink-0 transition-colors duration-200"
+          className="w-1 h-1 rotate-45 opacity-60 shrink-0 transition-colors duration-200"
           style={{ backgroundColor: accentSecondary }}
         ></span>
       </div>
