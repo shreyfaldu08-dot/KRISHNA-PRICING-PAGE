@@ -55,13 +55,13 @@ export const Header: React.FC<HeaderProps> = ({
       {/* THIRD LINE — Two Horizontally Aligned Company Names (Single Line Guaranteed, Fully Visible) */}
       <div className="grid grid-cols-2 gap-1 sm:gap-2 items-baseline text-center mt-1 sm:mt-1.5 px-0.5">
         <div
-          className="font-extrabold text-[8px] sm:text-[10px] md:text-[11.5px] tracking-[0.01em] uppercase leading-tight whitespace-nowrap overflow-visible transition-colors duration-200"
+          className="font-extrabold text-[7px] sm:text-[10px] md:text-[11.5px] tracking-tight sm:tracking-[0.01em] uppercase leading-tight whitespace-nowrap overflow-visible transition-colors duration-200"
           style={{ color: textCharcoal }}
         >
           {leftName}
         </div>
         <div
-          className="font-extrabold text-[8px] sm:text-[10px] md:text-[11.5px] tracking-[0.01em] uppercase leading-tight whitespace-nowrap overflow-visible transition-colors duration-200"
+          className="font-extrabold text-[7px] sm:text-[10px] md:text-[11.5px] tracking-tight sm:tracking-[0.01em] uppercase leading-tight whitespace-nowrap overflow-visible transition-colors duration-200"
           style={{ color: textCharcoal }}
         >
           {rightName}
