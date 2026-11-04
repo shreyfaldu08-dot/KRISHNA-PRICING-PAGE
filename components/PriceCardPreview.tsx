@@ -124,7 +124,7 @@ export const PriceCardPreview = forwardRef<HTMLDivElement, PriceCardPreviewProps
           ) : data.productMode === "groundnut" ? (
             <SingleProductHero product={data.krishna} palette={palette} />
           ) : (
-            <div className="relative z-10 grid grid-cols-2 gap-6 my-auto items-stretch px-1">
+            <div className="relative z-10 grid grid-cols-2 gap-6 my-auto -mt-2 mb-1 items-stretch px-1">
               {/* LEFT PRODUCT CARD — TRUPTI COTTON SEED REFINED OIL */}
               <ProductCard product={data.trupti} palette={palette} />
 

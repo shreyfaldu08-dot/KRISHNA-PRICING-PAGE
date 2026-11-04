@@ -19,7 +19,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, palette }) =>
       <ProductImage src={product.imageSrc} alt={product.imageAlt} />
 
       {/* 2. Product Name & Subtitle */}
-      <div className="text-center mt-2">
+      <div className="text-center mt-3.5">
         <h2
           className="font-black text-[26px] tracking-[0.06em] uppercase leading-none transition-colors duration-200"
           style={{ color: brandNameColor }}

@@ -28,7 +28,7 @@ export const SingleProductHero: React.FC<SingleProductHeroProps> = ({
       : "/assets/krishna-groundnut-horizontal.jpg");
 
   return (
-    <div className="relative z-10 flex flex-col items-center justify-between my-auto w-full max-w-[390px] mx-auto px-1 py-1">
+    <div className="relative z-10 flex flex-col items-center justify-between my-auto -mt-2 mb-1 w-full max-w-[390px] mx-auto px-1 py-0.5">
       {/* 1. Large Hero Product Photography */}
       <div className="w-full max-w-[340px] aspect-[16/9] rounded-2xl overflow-hidden shadow-md select-none bg-[#F7F4EF] border border-black/5">
         <img
@@ -40,7 +40,7 @@ export const SingleProductHero: React.FC<SingleProductHeroProps> = ({
       </div>
 
       {/* 2. Hero Brand Name & Subtitle */}
-      <div className="text-center mt-2">
+      <div className="text-center mt-4.5">
         <h2
           className="font-black text-[30px] tracking-[0.08em] uppercase leading-none transition-colors duration-200"
           style={{ color: brandNameColor }}

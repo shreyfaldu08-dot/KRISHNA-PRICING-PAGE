@@ -51,7 +51,7 @@ const CommercialProductCard: React.FC<CommercialProductCardProps> = ({
       </div>
 
       {/* 2. Commercial Brand Typography & Badge */}
-      <div className="text-center mt-2.5 w-full">
+      <div className="text-center mt-3.5 w-full">
         <h2
           className="font-black text-[25px] tracking-tight uppercase leading-none transition-colors duration-200"
           style={{ color: palette.brandNameColor || palette.accentPrimary }}
@@ -201,7 +201,7 @@ export const CommercialFlyerLayout: React.FC<LayoutProps> = ({ data, palette }) 
       {/* 2. Main Product Showcase */}
       {singleProduct ? (
         /* Single Product Hero Flyer */
-        <div className="flex flex-col items-center my-auto w-full max-w-[380px] mx-auto px-2">
+        <div className="flex flex-col items-center my-auto -mt-3 mb-1 w-full max-w-[380px] mx-auto px-2">
           {/* Spotlight & Large 3D Pedestal */}
           <div className="relative flex flex-col items-center">
             <div
@@ -225,7 +225,7 @@ export const CommercialFlyerLayout: React.FC<LayoutProps> = ({ data, palette }) 
           </div>
 
           {/* Brand Heading */}
-          <div className="text-center mt-3">
+          <div className="text-center mt-4">
             <h2
               className="font-black text-[32px] tracking-tight uppercase leading-none"
               style={{ color: palette.brandNameColor || palette.accentPrimary }}
@@ -295,7 +295,7 @@ export const CommercialFlyerLayout: React.FC<LayoutProps> = ({ data, palette }) 
         </div>
       ) : (
         /* Dual Product Showcase Side-by-Side */
-        <div className="grid grid-cols-2 gap-5 my-auto px-1 items-stretch">
+        <div className="grid grid-cols-2 gap-5 my-auto -mt-3 mb-1 px-1 items-stretch">
           <CommercialProductCard
             product={data.trupti}
             palette={palette}
