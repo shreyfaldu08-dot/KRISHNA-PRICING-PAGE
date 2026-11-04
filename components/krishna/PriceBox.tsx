@@ -17,7 +17,7 @@ export const PriceBox: React.FC<PriceBoxProps> = ({ unit, price, palette }) => {
 
   return (
     <div
-      className="flex-1 rounded-2xl py-2.5 px-2 text-center border shadow-[0_2px_8px_rgba(0,0,0,0.04)] flex flex-col justify-between transition-colors duration-200"
+      className="flex-1 rounded-2xl py-2 px-2 text-center border shadow-[0_2px_8px_rgba(0,0,0,0.04)] flex flex-col justify-between transition-colors duration-200"
       style={{ backgroundColor: priceBoxBg, borderColor: priceBoxBorder }}
     >
       {/* Product Quantity */}
@@ -29,7 +29,7 @@ export const PriceBox: React.FC<PriceBoxProps> = ({ unit, price, palette }) => {
       </div>
 
       {/* Refined Architectural Separator Line */}
-      <div className="w-full flex items-center justify-center my-2">
+      <div className="w-full flex items-center justify-center my-1">
         <span
           className="w-4/5 h-[1px] opacity-65 transition-colors duration-200"
           style={{ backgroundColor: accentSecondary }}

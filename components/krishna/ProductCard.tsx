@@ -19,7 +19,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, palette }) =>
       <ProductImage src={product.imageSrc} alt={product.imageAlt} />
 
       {/* 2. Product Name & Subtitle */}
-      <div className="text-center mt-3">
+      <div className="text-center mt-2">
         <h2
           className="font-black text-[26px] tracking-[0.06em] uppercase leading-none transition-colors duration-200"
           style={{ color: brandNameColor }}
@@ -35,10 +35,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, palette }) =>
       </div>
 
       {/* 3. Wholesale Price Banner */}
-      <ProductPriceBanner priceText={product.tinPrice} palette={palette} />
+      <ProductPriceBanner product={product} priceText={product.tinPrice} price15L={product.tin15LPrice} price15kg={product.tin15kgPrice} palette={palette} />
 
       {/* 4. Individual Product Prices (5 LTR & 1 LTR Side by Side) */}
-      <div className="flex gap-2.5 mt-2.5">
+      <div className="flex gap-2.5 mt-2">
         <PriceBox unit="5 LTR" price={product.canPrice} palette={palette} />
         <PriceBox unit="1 LTR" price={product.bottlePrice} palette={palette} />
       </div>

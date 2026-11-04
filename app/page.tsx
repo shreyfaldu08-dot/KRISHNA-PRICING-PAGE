@@ -52,6 +52,7 @@ export default function DailyPricingStudio() {
             brandName: parsed.trupti?.brandName || INITIAL_CATALOGUE_DATA.trupti.brandName,
             subtitle: parsed.trupti?.subtitle || INITIAL_CATALOGUE_DATA.trupti.subtitle,
             imageSrc: "/assets/trupti-oil-5l.jpg",
+            horizontalImageSrc: "/assets/trupti-oil-horizontal.jpg",
             imageAlt: INITIAL_CATALOGUE_DATA.trupti.imageAlt,
           },
           krishna: {
@@ -60,6 +61,7 @@ export default function DailyPricingStudio() {
             brandName: parsed.krishna?.brandName || INITIAL_CATALOGUE_DATA.krishna.brandName,
             subtitle: parsed.krishna?.subtitle || INITIAL_CATALOGUE_DATA.krishna.subtitle,
             imageSrc: "/assets/krishna-groundnut-15kg.jpg",
+            horizontalImageSrc: "/assets/krishna-groundnut-horizontal.jpg",
             imageAlt: INITIAL_CATALOGUE_DATA.krishna.imageAlt,
           },
         });

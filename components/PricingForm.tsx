@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { CatalogueData } from "@/types/pricing";
+import { CatalogueData, getWholesaleRates } from "@/types/pricing";
 import {
   Calendar,
   RotateCcw,
@@ -9,6 +9,8 @@ import {
   ChevronUp,
   Tag,
   Coins,
+  Eye,
+  EyeOff,
 } from "lucide-react";
 
 interface PricingFormProps {
@@ -67,6 +69,31 @@ export const PricingForm: React.FC<PricingFormProps> = ({
     const yyyy = today.getFullYear();
     const formatted = `${dd}-${mm}-${yyyy}`;
     updateField("date", formatted);
+  };
+
+  const truptiRates = getWholesaleRates(data.trupti);
+  const krishnaRates = getWholesaleRates(data.krishna);
+
+  const toggleTruptiVisibility = (key: "show15L" | "show15kg") => {
+    const currentVal = truptiRates[key];
+    onChange({
+      ...data,
+      trupti: {
+        ...data.trupti,
+        [key]: !currentVal,
+      },
+    });
+  };
+
+  const toggleKrishnaVisibility = (key: "show15L" | "show15kg") => {
+    const currentVal = krishnaRates[key];
+    onChange({
+      ...data,
+      krishna: {
+        ...data.krishna,
+        [key]: !currentVal,
+      },
+    });
   };
 
   const currentMode = data.productMode || "both";
@@ -194,25 +221,116 @@ export const PricingForm: React.FC<PricingFormProps> = ({
           </span>
         </div>
 
-        {/* Wholesale Tin Rate */}
+        {/* Main Wholesale Tin Rates (15L & 15KG) */}
         <div>
-          <label className="block text-[11px] font-bold text-slate-600 mb-1 pl-1">
-            Wholesale Tin Rate (₹ + NEW TIN)
-          </label>
-          <div className="relative flex items-center">
-            <span className="absolute left-3.5 text-slate-400 font-bold text-sm">
-              ₹
+          <div className="flex items-center justify-between mb-1 pl-1">
+            <label className="text-[11px] font-extrabold uppercase tracking-wider text-slate-700">
+              Main Wholesale Tin Rate
+            </label>
+            <span className="text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-200/80 px-2 py-0.5 rounded-full uppercase tracking-wider">
+              (new tin)
             </span>
-            <input
-              type="text"
-              value={data.trupti.tinPrice}
-              onChange={(e) => updateTruptiPrice("tinPrice", e.target.value)}
-              placeholder="2445–2455"
-              className="w-full pl-8 pr-24 py-2.5 rounded-full bg-white border border-slate-200 focus:border-blue-600 text-slate-900 font-bold text-sm focus:outline-none transition shadow-2xs"
-            />
-            <span className="absolute right-2.5 py-1 px-2.5 rounded-full text-[10px] font-extrabold text-slate-500 uppercase tracking-wider bg-slate-100">
-              + NEW TIN
-            </span>
+          </div>
+          <div className="grid grid-cols-2 gap-2.5">
+            <div>
+              <div className="flex items-center justify-between mb-1 pl-1 pr-0.5">
+                <label className="text-[10px] font-bold text-slate-500">
+                  15 LTR Rate
+                </label>
+                <button
+                  type="button"
+                  onClick={() => toggleTruptiVisibility("show15L")}
+                  title={truptiRates.show15L ? "Click to hide 15 LTR from poster" : "Click to show 15 LTR on poster"}
+                  className={`flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9.5px] font-bold cursor-pointer transition ${
+                    truptiRates.show15L
+                      ? "bg-blue-50 text-blue-700 border border-blue-200/80 hover:bg-blue-100"
+                      : "bg-slate-100 text-slate-400 border border-slate-200 hover:bg-slate-200"
+                  }`}
+                >
+                  {truptiRates.show15L ? (
+                    <Eye className="w-3 h-3 text-blue-600" />
+                  ) : (
+                    <EyeOff className="w-3 h-3 text-slate-400" />
+                  )}
+                  <span>{truptiRates.show15L ? "Show" : "Hide"}</span>
+                </button>
+              </div>
+              <div className="relative flex items-center">
+                <span className={`absolute left-3 font-bold text-xs ${truptiRates.show15L ? "text-slate-400" : "text-slate-300"}`}>₹</span>
+                <input
+                  type="text"
+                  value={truptiRates.price15L}
+                  onChange={(e) => {
+                    const nextVal = e.target.value;
+                    const nextKg = truptiRates.price15kg;
+                    onChange({
+                      ...data,
+                      trupti: {
+                        ...data.trupti,
+                        tin15LPrice: nextVal,
+                        tinPrice: `${nextVal}–${nextKg}`,
+                      },
+                    });
+                  }}
+                  placeholder="2445"
+                  className={`w-full pl-7 pr-3 py-2 rounded-full border text-xs focus:outline-none transition shadow-2xs ${
+                    truptiRates.show15L
+                      ? "bg-white border-slate-200 focus:border-blue-600 text-slate-900 font-bold"
+                      : "bg-slate-100/70 border-slate-200 text-slate-400 font-medium"
+                  }`}
+                />
+              </div>
+            </div>
+
+            <div>
+              <div className="flex items-center justify-between mb-1 pl-1 pr-0.5">
+                <label className="text-[10px] font-bold text-slate-500">
+                  15 KG Rate
+                </label>
+                <button
+                  type="button"
+                  onClick={() => toggleTruptiVisibility("show15kg")}
+                  title={truptiRates.show15kg ? "Click to hide 15 KG from poster" : "Click to show 15 KG on poster"}
+                  className={`flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9.5px] font-bold cursor-pointer transition ${
+                    truptiRates.show15kg
+                      ? "bg-blue-50 text-blue-700 border border-blue-200/80 hover:bg-blue-100"
+                      : "bg-slate-100 text-slate-400 border border-slate-200 hover:bg-slate-200"
+                  }`}
+                >
+                  {truptiRates.show15kg ? (
+                    <Eye className="w-3 h-3 text-blue-600" />
+                  ) : (
+                    <EyeOff className="w-3 h-3 text-slate-400" />
+                  )}
+                  <span>{truptiRates.show15kg ? "Show" : "Hide"}</span>
+                </button>
+              </div>
+              <div className="relative flex items-center">
+                <span className={`absolute left-3 font-bold text-xs ${truptiRates.show15kg ? "text-slate-400" : "text-slate-300"}`}>₹</span>
+                <input
+                  type="text"
+                  value={truptiRates.price15kg}
+                  onChange={(e) => {
+                    const nextVal = e.target.value;
+                    const nextL = truptiRates.price15L;
+                    onChange({
+                      ...data,
+                      trupti: {
+                        ...data.trupti,
+                        tin15kgPrice: nextVal,
+                        tinPrice: `${nextL}–${nextVal}`,
+                      },
+                    });
+                  }}
+                  placeholder="2700"
+                  className={`w-full pl-7 pr-3 py-2 rounded-full border text-xs focus:outline-none transition shadow-2xs ${
+                    truptiRates.show15kg
+                      ? "bg-white border-slate-200 focus:border-blue-600 text-slate-900 font-bold"
+                      : "bg-slate-100/70 border-slate-200 text-slate-400 font-medium"
+                  }`}
+                />
+              </div>
+            </div>
           </div>
         </div>
 
@@ -280,25 +398,116 @@ export const PricingForm: React.FC<PricingFormProps> = ({
           </span>
         </div>
 
-        {/* Wholesale Tin Rate */}
+        {/* Main Wholesale Tin Rates (15L & 15KG) */}
         <div>
-          <label className="block text-[11px] font-bold text-slate-600 mb-1 pl-1">
-            Wholesale Tin Rate (₹ + NEW TIN)
-          </label>
-          <div className="relative flex items-center">
-            <span className="absolute left-3.5 text-slate-400 font-bold text-sm">
-              ₹
+          <div className="flex items-center justify-between mb-1 pl-1">
+            <label className="text-[11px] font-extrabold uppercase tracking-wider text-slate-700">
+              Main Wholesale Tin Rate
+            </label>
+            <span className="text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200/80 px-2 py-0.5 rounded-full uppercase tracking-wider">
+              (new tin)
             </span>
-            <input
-              type="text"
-              value={data.krishna.tinPrice}
-              onChange={(e) => updateKrishnaPrice("tinPrice", e.target.value)}
-              placeholder="2850"
-              className="w-full pl-8 pr-24 py-2.5 rounded-full bg-white border border-slate-200 focus:border-amber-600 text-slate-900 font-bold text-sm focus:outline-none transition shadow-2xs"
-            />
-            <span className="absolute right-2.5 py-1 px-2.5 rounded-full text-[10px] font-extrabold text-slate-500 uppercase tracking-wider bg-slate-100">
-              + NEW TIN
-            </span>
+          </div>
+          <div className="grid grid-cols-2 gap-2.5">
+            <div>
+              <div className="flex items-center justify-between mb-1 pl-1 pr-0.5">
+                <label className="text-[10px] font-bold text-slate-500">
+                  15 LTR Rate
+                </label>
+                <button
+                  type="button"
+                  onClick={() => toggleKrishnaVisibility("show15L")}
+                  title={krishnaRates.show15L ? "Click to hide 15 LTR from poster" : "Click to show 15 LTR on poster"}
+                  className={`flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9.5px] font-bold cursor-pointer transition ${
+                    krishnaRates.show15L
+                      ? "bg-amber-50 text-amber-700 border border-amber-200/80 hover:bg-amber-100"
+                      : "bg-slate-100 text-slate-400 border border-slate-200 hover:bg-slate-200"
+                  }`}
+                >
+                  {krishnaRates.show15L ? (
+                    <Eye className="w-3 h-3 text-amber-600" />
+                  ) : (
+                    <EyeOff className="w-3 h-3 text-slate-400" />
+                  )}
+                  <span>{krishnaRates.show15L ? "Show" : "Hide"}</span>
+                </button>
+              </div>
+              <div className="relative flex items-center">
+                <span className={`absolute left-3 font-bold text-xs ${krishnaRates.show15L ? "text-slate-400" : "text-slate-300"}`}>₹</span>
+                <input
+                  type="text"
+                  value={krishnaRates.price15L}
+                  onChange={(e) => {
+                    const nextVal = e.target.value;
+                    const nextKg = krishnaRates.price15kg;
+                    onChange({
+                      ...data,
+                      krishna: {
+                        ...data.krishna,
+                        tin15LPrice: nextVal,
+                        tinPrice: `${nextVal}–${nextKg}`,
+                      },
+                    });
+                  }}
+                  placeholder="2650"
+                  className={`w-full pl-7 pr-3 py-2 rounded-full border text-xs focus:outline-none transition shadow-2xs ${
+                    krishnaRates.show15L
+                      ? "bg-white border-slate-200 focus:border-amber-600 text-slate-900 font-bold"
+                      : "bg-slate-100/70 border-slate-200 text-slate-400 font-medium"
+                  }`}
+                />
+              </div>
+            </div>
+
+            <div>
+              <div className="flex items-center justify-between mb-1 pl-1 pr-0.5">
+                <label className="text-[10px] font-bold text-slate-500">
+                  15 KG Rate
+                </label>
+                <button
+                  type="button"
+                  onClick={() => toggleKrishnaVisibility("show15kg")}
+                  title={krishnaRates.show15kg ? "Click to hide 15 KG from poster" : "Click to show 15 KG on poster"}
+                  className={`flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9.5px] font-bold cursor-pointer transition ${
+                    krishnaRates.show15kg
+                      ? "bg-amber-50 text-amber-700 border border-amber-200/80 hover:bg-amber-100"
+                      : "bg-slate-100 text-slate-400 border border-slate-200 hover:bg-slate-200"
+                  }`}
+                >
+                  {krishnaRates.show15kg ? (
+                    <Eye className="w-3 h-3 text-amber-600" />
+                  ) : (
+                    <EyeOff className="w-3 h-3 text-slate-400" />
+                  )}
+                  <span>{krishnaRates.show15kg ? "Show" : "Hide"}</span>
+                </button>
+              </div>
+              <div className="relative flex items-center">
+                <span className={`absolute left-3 font-bold text-xs ${krishnaRates.show15kg ? "text-slate-400" : "text-slate-300"}`}>₹</span>
+                <input
+                  type="text"
+                  value={krishnaRates.price15kg}
+                  onChange={(e) => {
+                    const nextVal = e.target.value;
+                    const nextL = krishnaRates.price15L;
+                    onChange({
+                      ...data,
+                      krishna: {
+                        ...data.krishna,
+                        tin15kgPrice: nextVal,
+                        tinPrice: `${nextL}–${nextVal}`,
+                      },
+                    });
+                  }}
+                  placeholder="2850"
+                  className={`w-full pl-7 pr-3 py-2 rounded-full border text-xs focus:outline-none transition shadow-2xs ${
+                    krishnaRates.show15kg
+                      ? "bg-white border-slate-200 focus:border-amber-600 text-slate-900 font-bold"
+                      : "bg-slate-100/70 border-slate-200 text-slate-400 font-medium"
+                  }`}
+                />
+              </div>
+            </div>
           </div>
         </div>
 

@@ -83,7 +83,7 @@ export const PriceCardPreview = forwardRef<HTMLDivElement, PriceCardPreviewProps
               <div
                 ref={ref}
                 id="price-card-canvas"
-                className="absolute top-0 left-0 w-[540px] h-[675px] max-w-[540px] max-h-[675px] shrink-0 rounded-none border shadow-2xl p-6 flex flex-col justify-between select-text transition-colors duration-200"
+                className="absolute top-0 left-0 w-[540px] h-[675px] max-w-[540px] max-h-[675px] shrink-0 rounded-none border shadow-2xl px-6 pt-5 pb-3.5 flex flex-col justify-between select-text transition-colors duration-200"
                 style={{
                   transform: `scale(${scale})`,
                   transformOrigin: "top left",

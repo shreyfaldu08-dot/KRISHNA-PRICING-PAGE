@@ -17,7 +17,7 @@ export const Footer: React.FC<FooterProps> = ({
   const textSupporting = palette?.textSupporting || "#2563EB";
 
   return (
-      <div className="mt-4 pt-2 text-center px-6">
+      <div className="mt-1 text-center px-6">
         {/* Horizontal Divider with Centered Notice */}
           <div className="flex items-center justify-center gap-2.5 mb-1">
             <span

@@ -1,5 +1,6 @@
 import React from "react";
-import { CatalogueData, ColorPalette, ProductItem } from "@/types/pricing";
+import { CatalogueData, ColorPalette, ProductItem, getWholesaleRates } from "@/types/pricing";
+import { ProductPriceBanner } from "../ProductPriceBanner";
 import { Sparkles, ShieldCheck, Award } from "lucide-react";
 
 interface LayoutProps {
@@ -18,10 +19,7 @@ const CommercialProductCard: React.FC<CommercialProductCardProps> = ({
   palette,
   badgeText,
 }) => {
-  const cleanTinPrice = (product.tinPrice || "")
-    .replace(/^₹\s*/, "")
-    .replace(/\s*\+\s*NEW\s*TIN/i, "")
-    .trim();
+  const { price15L: val15L, price15kg: val15kg } = getWholesaleRates(product);
   const cleanCanPrice = (product.canPrice || "").replace(/^₹\s*/, "").trim();
   const cleanBottlePrice = (product.bottlePrice || "").replace(/^₹\s*/, "").trim();
 
@@ -75,28 +73,12 @@ const CommercialProductCard: React.FC<CommercialProductCardProps> = ({
         </div>
       </div>
 
-      {/* 3. High-Impact Wholesale Promotional Rate Banner */}
-      <div className="w-full mt-2.5">
-        <div
-          className="w-full rounded-2xl border-2 py-1.5 px-2 text-center shadow-[0_4px_12px_rgba(0,0,0,0.06)] bg-white transition-all flex flex-col items-center justify-center"
-          style={{ borderColor: palette.accentPrimary }}
-        >
-          <div className="flex items-center justify-center gap-1 leading-none">
-            <span
-              className="font-black text-[18px] tracking-tight"
-              style={{ color: palette.accentPrimary }}
-            >
-              ₹ {cleanTinPrice}
-            </span>
-            <span
-              className="text-[10px] font-extrabold uppercase py-0.5 px-1.5 rounded-md text-white tracking-wider"
-              style={{ backgroundColor: palette.accentPrimary }}
-            >
-              + NEW TIN
-            </span>
-          </div>
-        </div>
-      </div>
+      {/* 3. Main Wholesale Card with 15L / 15KG Eye Visibility & Fixed Size */}
+      <ProductPriceBanner
+        product={product}
+        palette={palette}
+        isHero={false}
+      />
 
       {/* 4. Retail Pack Prices (5L Can & 1L Bottle 3D Cards) */}
       <div className="grid grid-cols-2 gap-2 w-full mt-2">
@@ -227,11 +209,11 @@ export const CommercialFlyerLayout: React.FC<LayoutProps> = ({ data, palette }) 
               style={{ backgroundColor: palette.accentSecondary }}
             />
 
-            <div className="relative z-10 w-[210px] aspect-[776/1024] max-h-[235px] rounded-2xl overflow-hidden shadow-[0_16px_32px_-8px_rgba(0,0,0,0.22)] border-2 border-white bg-white">
+            <div className="relative z-10 w-full max-w-[340px] aspect-[16/9] rounded-2xl overflow-hidden shadow-[0_18px_36px_-8px_rgba(0,0,0,0.22)] border-2 border-white bg-white">
               <img
-                src={singleProduct.imageSrc}
+                src={singleProduct.horizontalImageSrc || singleProduct.imageSrc}
                 alt={singleProduct.imageAlt}
-                className="w-full h-full object-cover object-center block"
+                className="w-full h-full object-contain object-center block"
                 loading="eager"
               />
             </div>
@@ -263,31 +245,13 @@ export const CommercialFlyerLayout: React.FC<LayoutProps> = ({ data, palette }) 
             </div>
           </div>
 
-          {/* Wholesale Rate 3D Banner */}
+          {/* Main Wholesale Card with 15L / 15KG Eye Visibility & Fixed Size */}
           <div className="w-full mt-3">
-            <div
-              className="w-full rounded-2xl border-2 py-2 px-3 text-center shadow-md bg-white flex items-center justify-center gap-2"
-              style={{ borderColor: palette.accentPrimary }}
-            >
-              <span
-                className="text-[11px] font-extrabold uppercase tracking-wider opacity-80"
-                style={{ color: palette.textCharcoal }}
-              >
-                15 KG WHOLESALE:
-              </span>
-              <span
-                className="font-black text-[22px] tracking-tight leading-none"
-                style={{ color: palette.accentPrimary }}
-              >
-                ₹ {singleProduct.tinPrice.replace(/^₹\s*/, "").replace(/\s*\+\s*NEW\s*TIN/i, "").trim()}
-              </span>
-              <span
-                className="text-[10.5px] font-extrabold uppercase py-0.5 px-2 rounded-md text-white tracking-wider"
-                style={{ backgroundColor: palette.accentPrimary }}
-              >
-                + NEW TIN
-              </span>
-            </div>
+            <ProductPriceBanner
+              product={singleProduct}
+              palette={palette}
+              isHero={true}
+            />
           </div>
 
           {/* Retail 3D Boxes */}

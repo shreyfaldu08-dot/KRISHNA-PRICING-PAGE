@@ -77,6 +77,42 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({
       fullLabel: "Editorial Slate",
       color: "#0F172A",
     },
+    {
+      key: "kesarGold",
+      shortLabel: "Kesar",
+      fullLabel: "Imperial Kesar Gold",
+      color: "#D97706",
+    },
+    {
+      key: "royalBurgundy",
+      shortLabel: "Burgundy",
+      fullLabel: "Royal Bordeaux Wine",
+      color: "#881337",
+    },
+    {
+      key: "oliveSage",
+      shortLabel: "Olive",
+      fullLabel: "Mediterranean Olive Sage",
+      color: "#365314",
+    },
+    {
+      key: "desertCopper",
+      shortLabel: "Copper",
+      fullLabel: "Burnished Desert Copper",
+      color: "#9A3412",
+    },
+    {
+      key: "imperialPlum",
+      shortLabel: "Plum",
+      fullLabel: "Imperial Royal Plum",
+      color: "#6B21A8",
+    },
+    {
+      key: "warmEspresso",
+      shortLabel: "Espresso",
+      fullLabel: "Warm Toasted Espresso",
+      color: "#573D29",
+    },
   ];
 
   const activeThemeMeta =
@@ -159,7 +195,7 @@ export const TemplateSelector: React.FC<TemplateSelectorProps> = ({
       </div>
 
       {/* Balanced 6-Column Preset Selector */}
-      <div className="grid grid-cols-3 sm:grid-cols-6 gap-1.5 sm:gap-2">
+      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-1.5 sm:gap-2">
         {PRESET_THEMES.map(({ key, shortLabel, fullLabel, color }) => {
           const isSelected = currentTheme === key;
           return (
