@@ -20,9 +20,9 @@ export const PriceBox: React.FC<PriceBoxProps> = ({ unit, price, palette }) => {
       className="flex-1 rounded-2xl py-2 px-2 text-center border shadow-[0_2px_8px_rgba(0,0,0,0.04)] flex flex-col justify-between transition-colors duration-200"
       style={{ backgroundColor: priceBoxBg, borderColor: priceBoxBorder }}
     >
-      {/* Product Quantity */}
+      {/* Product Quantity (Light version of theme color with gentle opacity) */}
       <div
-        className="text-[10.5px] font-bold tracking-[0.16em] uppercase transition-colors duration-200 leading-none pt-0.5"
+        className="text-[12px] font-extrabold tracking-[0.14em] uppercase opacity-75 transition-colors duration-200 leading-none pt-0.5"
         style={{ color: textSupporting }}
       >
         {unit}
@@ -31,7 +31,7 @@ export const PriceBox: React.FC<PriceBoxProps> = ({ unit, price, palette }) => {
       {/* Refined Architectural Separator Line */}
       <div className="w-full flex items-center justify-center my-1">
         <span
-          className="w-4/5 h-[1px] opacity-65 transition-colors duration-200"
+          className="w-4/5 h-[1.5px] opacity-65 transition-colors duration-200"
           style={{ backgroundColor: accentSecondary }}
         />
       </div>
